@@ -1,0 +1,396 @@
+<div id="msname" class="page-layout carded left-sidenav" fusePerfectScrollbar>
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg mat-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <mat-sidenav-container>
+    <!-- SIDENAV -->
+    <mat-sidenav
+      class="sidenav"
+      align="start"
+      mode="side"
+      opened="true"
+      fuseMatSidenavHelper="carded-left-sidenav"
+      mat-is-locked-open="gt-md"
+    >
+      <!-- SIDENAV HEADER -->
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        class="header p-24 pb-4"
+        ngClass="mat-accent-bg"
+        ngClass.gt-md="white-fg"
+      >
+        <div class="logo" fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon
+            class="logo-icon s-32"
+            *fuseIfOnDom
+            [@animate]="{ value: '*', params: { delay: '50ms', scale: '0.2' } }"
+            >create</mat-icon
+          >
+          <span
+            class="logo-text"
+            *fuseIfOnDom
+            [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
+            >{{ "msnameuppercase.TITLE" | translate }}</span
+          >
+        </div>
+
+        <div
+          class="account"
+          fxFlex
+          fxFill
+          fxLayout="row"
+          fxLayoutAlign="space-between end"
+        >
+          <span
+            class="mat-title"
+            *fuseIfOnDom
+            [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
+            >{{ "msnameuppercase.FILTER" | translate }}
+          </span>
+
+          <button
+            mat-mini-fab
+            class="mb-8"
+            *ngIf="false"
+            [ngClass]="{ 'blink-button': outdatedData }"
+            (click)="resetFilter()"
+            matTooltip="{{ 'msnameuppercase.msnameuppercase_REFRESH' | translate }}"
+          >
+            <mat-icon aria-label="Icon with a refresh icon">refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+      <!-- / SIDENAV HEADER -->
+
+      <!-- SIDENAV CONTENT -->
+      <div
+        class="content"
+        fusePerfectScrollbar
+        *fuseIfOnDom
+        [@animate]="{ value: '*', params: { y: '50px' } }"
+      >
+        <div class="nav mt-20" fxLayout="column">
+          <form
+            fxLayout="column"
+            fxLayoutAlign="start"
+            fxFlex="100"
+            name="form"
+            [formGroup]="filterForm"
+          >
+            <div
+              fxLayout="column"
+              fxLayoutAlign="space-between center"
+              fxFlex="100"
+            >
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="pickerInitDate"
+                  placeholder="{{'msnameuppercase.INIT_DATE' | translate}}"
+                  formControlName="initDate"
+                  (dateChange)="onInitDateChange()"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerInitDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  [twelveHour]="false"
+                  type="datetime"
+                  #pickerInitDate
+                ></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  [min]="minEndDate"
+                  [max]="maxEndDate"
+                  matInput
+                  [matDatepicker]="pickerEndDate"
+                  placeholder="{{'msnameuppercase.END_DATE' | translate}}"
+                  formControlName="endDate"
+                  (dateChange)="onEndDateChange()"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerEndDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  [twelveHour]="false"
+                  type="datetime"
+                  #pickerEndDate
+                ></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="{{'msnameuppercase.TERMINAL_ID' | translate}}"
+                  formControlName="terminalId"
+                  id="terminalId"
+                  maxlength="20"
+                />
+              </mat-form-field>
+
+              <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="{{'msnameuppercase.TERMINAL_POS_ID' | translate}}"
+                    formControlName="terminalPosId"
+                    id="terminalPosId"
+                    maxlength="20"
+                  />
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="{{'msnameuppercase.TERMINAL_USER_ID' | translate}}"
+                  formControlName="terminalUserId"
+                  id="terminalUserId"
+                  maxlength="20"
+                />
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="{{'msnameuppercase.TERMINAL_USERNAME' | translate}}"
+                  formControlName="terminalUsername"
+                  id="terminalUsername"
+                  maxlength="20"
+                />
+              </mat-form-field>
+
+              <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="{{'msnameuppercase.USER' | translate}}"
+                    formControlName="user"
+                    id="user"
+                    maxlength="20"
+                    [readonly]="isPOS"
+                  />
+                </mat-form-field>
+
+              <button
+                fxFlex
+                mat-raised-button
+                mat-button
+                class="mat-accent compose-dialog-button"
+                aria-label="Filter"
+                (click)="resetFilter()"
+              >
+                {{ "msnameuppercase.RESET_FILTER" | translate }}
+              </button>
+            </div>
+          </form>
+
+          <div class="p-24">
+            <button
+              fxFlex
+              mat-raised-button
+              mat-button
+              class="mat-accent compose-dialog-button"
+              aria-label="Filter"
+              (click)="resetFilter()"
+            >
+              {{ "msnameuppercase.RESET_FILTER" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- / SIDENAV CONTENT -->
+    </mat-sidenav>
+    <!-- / SIDENAV -->
+
+    <!-- CENTER -->
+    <div class="center">
+      <!-- CONTENT HEADER -->
+      <div class="header" fxLayout="row" fxLayoutAlign="start center">
+        <div
+          class="search-wrapper"
+          fxFlex
+          fxLayout="row"
+          fxLayoutAlign="start center"
+        >
+          <button
+            mat-button
+            class="mat-icon-button sidenav-toggle"
+            fuseMatSidenavToggler="carded-left-sidenav"
+            fxHide.gt-md
+            aria-label="Toggle Sidenav"
+          >
+            <mat-icon>menu</mat-icon>
+          </button>
+
+          <div
+            class="search mat-white-bg"
+            flex
+            fxLayout="row"
+            fxLayoutAlign="start center"
+          >
+            <mat-icon *ngIf="isAdmin">search</mat-icon>
+
+            <input
+              [placeholder]="'msnameuppercase.SELECT_BUSINESS' | translate"
+              aria-label="Business"
+              *ngIf="!isAdmin"
+              [formControl]="businessFilterCtrl"
+              [(value)]="selectedBusinessName"
+              fxFlex
+              readonly="true"
+            />
+
+            <input
+              [placeholder]="'msnameuppercase.SELECT_BUSINESS' | translate"
+              aria-label="Business"
+              [matAutocomplete]="auto"
+              *ngIf="isAdmin"
+              [(value)]="selectedBusinessData"
+              [formControl]="businessFilterCtrl"
+              fxFlex
+            />
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              (optionSelected)="onSelectBusinessEvent($event.option.value)"
+              [displayWith]="displayFn"
+            >
+              <mat-option
+                *ngFor="let business of (businessQueryFiltered$ | async)"
+                [value]="business"
+              >
+                {{ business.generalInfo.name }} (ID: {{ business._id }})
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+      <!-- / CONTENT HEADER -->
+
+      <!-- CONTENT CARD -->
+      <div class="content-card mat-white-bg">
+        <mat-table
+          id="transaction-history-table"
+          class="item-table"
+          #table
+          [dataSource]="dataSource"
+          fusePerfectScrollbar
+        >
+          <!-- Timestamp Column -->
+          <ng-container cdkColumnDef="timestamp">
+            <mat-header-cell *cdkHeaderCellDef>{{
+              "msnameuppercase.TIMESTAMP" | translate
+            }}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">
+                {{ civicaCardReload.timestamp | date: "dd/MM/y HH:mm:ss" }}
+              </p>
+            </mat-cell>
+          </ng-container>
+
+
+          <!-- Value Column -->
+          <ng-container cdkColumnDef="value">
+            <mat-header-cell *cdkHeaderCellDef>{{
+              "msnameuppercase.VALUE" | translate
+            }}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">
+                {{ civicaCardReload.value | currency}}
+              </p>
+            </mat-cell>
+          </ng-container>
+
+          <!-- ConsolidatedBalance Column -->
+          <ng-container cdkColumnDef="consolidatedBalance">
+            <mat-header-cell *cdkHeaderCellDef>{{"msnameuppercase.CONSOLIDATED_BALANCE" | translate}}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">
+                {{ civicaCardReload.finalCard._saldoConsolidado | currency }}
+              </p>
+            </mat-cell>
+          </ng-container>
+
+
+          <!-- Terminal Column -->
+          <ng-container cdkColumnDef="posTerminal">
+            <mat-header-cell *cdkHeaderCellDef>{{
+              "msnameuppercase.POS_TERMINAL" | translate
+            }}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">{{  civicaCardReload.receipt.posTerminal }}</p>
+            </mat-cell>
+          </ng-container>
+
+
+          <!-- POS ID Column -->
+          <ng-container cdkColumnDef="posId">
+            <mat-header-cell *cdkHeaderCellDef>{{
+              "msnameuppercase.POS_ID" | translate
+            }}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">{{  civicaCardReload.receipt.posId }}</p>
+            </mat-cell>
+          </ng-container>
+
+          <!-- POS user id Column -->
+          <ng-container cdkColumnDef="posUserId">
+            <mat-header-cell *cdkHeaderCellDef>{{
+              "msnameuppercase.POS_USER_ID" | translate
+            }}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">{{  civicaCardReload.receipt.posUserId }}</p>
+            </mat-cell>
+          </ng-container>
+
+          <!-- POS username Column -->
+          <ng-container cdkColumnDef="posUsername">
+            <mat-header-cell *cdkHeaderCellDef>
+              {{"msnameuppercase.POS_USERNAME" | translate}}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">{{  civicaCardReload.receipt.posUserName }}</p>
+            </mat-cell>
+          </ng-container>
+
+          <!-- user Column -->
+          <ng-container cdkColumnDef="user">
+            <mat-header-cell *cdkHeaderCellDef>
+              {{"msnameuppercase.USER" | translate}}</mat-header-cell>
+            <mat-cell *cdkCellDef="let civicaCardReload">
+              <p class="text-truncate">{{  civicaCardReload.user }}</p>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+
+          <mat-row
+            *cdkRowDef="let civicaCardReload; columns: displayedColumns"
+            class="civicaCardReloads"
+            (click)="selectSaleHistoryRow(civicaCardReload)"
+            [ngClass]="{
+              highlight:
+              selectedSaleHistory &&
+              selectedSaleHistory._id == civicaCardReload._id
+            }"
+            [routerLink]="civicaCardReload._id"
+            matRipple
+          >
+          </mat-row>
+        </mat-table>
+        <mat-paginator
+          #paginator
+          [length]="tableSize"
+          [pageIndex]="page"
+          [pageSize]="count"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        >
+        </mat-paginator>
+      </div>
+      <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+  </mat-sidenav-container>
+</div>
