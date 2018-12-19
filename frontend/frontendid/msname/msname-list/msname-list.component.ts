@@ -113,6 +113,10 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     "user"
   ];
 
+  /////// OTHERS ///////
+
+  selectedmsentitycamel: any = null;
+
   constructor(    
     private formBuilder: FormBuilder,
     private translationLoader: FuseTranslationLoaderService,
@@ -176,11 +180,11 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     // Reactive Filter Form
     this.filterForm = this.formBuilder.group({
       name: [null],
-      state: [null],
       creationDate: [null],
-      modificationDate: [null],
-      userCreator: [null],
-      userModifier: [null]
+      //modificationDate: [null],
+      creatorUser: [null],
+      modifierUser: [null],
+      show: [null]
     });
   }
 
@@ -223,8 +227,8 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       }),
       mergeMap(([filterInput, paginationInput]) => {
         return forkJoin(
-          this.getentitycamelList$(filterInput, paginationInput),
-          this.getentitycamelSize$(filterInput),
+          this.getmsentitycamelList$(filterInput, paginationInput),
+          this.getmsentitycamelSize$(filterInput),
         )
       }),
       takeUntil(this.ngUnsubscribe)
@@ -236,28 +240,43 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Gets the entitycamel list
+   * Gets the msentitycamel list
    * @param filterInput 
    * @param paginationInput 
    */
-  getentitycamelList$(filterInput, paginationInput){
-    return this.msnamecamelListservice.getentitycamelList$(filterInput, paginationInput)
+  getmsentitycamelList$(filterInput, paginationInput){
+    return this.msnamecamelListservice.getmsentitycamelList$(filterInput, paginationInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.entitycamel)
+      map(resp => resp.data.msentitycamel)
     );
   }
 
     /**
-   * Gets the entitycamel size
+   * Gets the msentitycamel size
    * @param filterInput 
    */
-  getentitycamelSize$(filterInput){
-    return this.msnamecamelListservice.getentitycamelSize$(filterInput)
+  getmsentitycamelSize$(filterInput){
+    return this.msnamecamelListservice.getmsentitycamelSize$(filterInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.entitycamelSize)
+      map(resp => resp.data.msentitycamelSize)
     );
+  }
+
+  /**
+   * Receives the selected msentitycamel
+   * @param msentitycamel selected msentitycamel
+   */
+  selectmsentitycamelRow(msentitycamel) {
+    this.selectedmsentitycamel = msentitycamel;
+  }
+
+  resetFilter() {
+    this.filterForm.reset();
+    this.paginator.pageIndex = 0;
+    this.tablePage = 0;
+    this.tableCount = 10;
   }
 
   graphQlAlarmsErrorHandler$(response) {

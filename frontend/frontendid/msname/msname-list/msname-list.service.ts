@@ -5,8 +5,8 @@ import {
 } from "rxjs/operators";
 import { GatewayService } from '../../../api/gateway.service';
 import {
-  entitycamel,
-  entitycamelSize,
+  msentitycamel,
+  msentitycamelSize,
   getHelloWorld,
   msnamecamelHelloWorldSubscription
 } from './gql/msnamecamel';
@@ -55,14 +55,14 @@ export class msnamecamelListService {
 
 
   /**
-   * Gets the entitycamel list
+   * Gets the msentitycamel list
    * @param filter Data to filter the list
    * @param paginator Object that contains info about page number and amount of records to recover 
-   * @returns {Observable} Observable with the entitycamel list
+   * @returns {Observable} Observable with the msentitycamel list
    */
-  getentitycamelList$(filterInput, paginatorInput){
+  getmsentitycamelList$(filterInput, paginatorInput){
     return this.gateway.apollo.query<any>({
-      query: entitycamel,
+      query: msentitycamel,
       variables: {
         filterInput: filterInput,
         paginationInput: paginatorInput
@@ -73,13 +73,13 @@ export class msnamecamelListService {
   }
 
     /**
-   * Gets the amount of entitycamel
+   * Gets the amount of msentitycamel
    * @param filter Data to filter the list
-   * @returns {Observable} Observable with the amount of entitycamel
+   * @returns {Observable} Observable with the amount of msentitycamel
    */
-  getentitycamelSize$(filterInput){
+  getmsentitycamelSize$(filterInput){
     return this.gateway.apollo.query<any>({
-      query: entitycamelSize,
+      query: msentitycamelSize,
       variables: {
         filterInput: filterInput
       },
