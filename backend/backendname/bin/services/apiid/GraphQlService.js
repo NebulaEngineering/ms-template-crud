@@ -1,6 +1,7 @@
 "use strict";
 
 const { helloWorldCQRS } = require("../../domain/hello-word");
+const { msentitypascalCQRS } = require("../../domain/msentityname");
 const broker = require("../../tools/broker/BrokerFactory")();
 const { of, from } = require("rxjs");
 const jsonwebtoken = require("jsonwebtoken");
