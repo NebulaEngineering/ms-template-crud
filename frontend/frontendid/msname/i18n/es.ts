@@ -12,7 +12,8 @@ export const locale = {
       CREATION_TIMESTAMP: 'Creado',
       LAST_MODIFICATION_TIMESTAMP: 'Modificado',
       MODIFIER_USER: 'Usuario que modificó',
-      ADD_NEW: 'Agregar nuevo'
+      ADD_NEW: 'Agregar nuevo',
+      ACTIVE: 'Activo'
     },
     ERRORS: {
       1: 'Error interno de servidor',

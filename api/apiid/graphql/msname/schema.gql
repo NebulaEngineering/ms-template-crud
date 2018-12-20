@@ -1,12 +1,78 @@
-"Hello world sample, please remove"
-type HelloWorldmsnamecamel{
-  "text"
-  sn: String!  
+type CommandResponse {
+  "Response code"
+  code: Int
+  "Response message"
+  message: String
+}
+
+type msnamecamelmsentitypascal {
+  "msentitypascal ID"
+  id: ID!
+  "User general info"
+  generalInfo: msentitypascalGeneralInfo
+  "msentitypascal state"
+  state: Boolean!
+  "Creation timestamp"
+  creationTimestamp: BigInt!
+  "Creator user"
+  creatorUser: String!
+  "Modification timestamp"
+  modificationTimestamp: BigInt!
+  "Modifier user"
+  modifierUser: String!
+  "Business ID"
+  businessId: String!
+}
+
+input FilterInput {
+  "ID of the business"
+  businessId: String
+  "State"
+  state: Boolean
+  "Creator user"
+  creatorUser: String
+  "modifier user"
+  modifierUser: String
+  "Filter by the msnamecamelmsentitypascal created after Creation timestamp"
+  creationTimestamp: BigInt
+}
+
+input PaginationInput {
+  "Page"
+  page: Int!
+  "Count"
+  count: Int!
+  "Sort, default: ASC"
+  sort: Int
+}
+
+input msentitypascalInput {
+  "Username"
+  username: String!
+  "Name"
+  name: String!
+  "Lastname"
+  lastname: String!
+  "Document type"
+  documentType: String
+  "Document ID"
+  documentId: String
+  "Email"
+  email: String
+  "Phone"
+  phone: String
+  "User state"
+  state: Boolean
 }
 
 type Query {
-  "Hello world sample, please remove"
-  getHelloWorldFrommsnamecamel: HelloWorldmsnamecamel
+  "Get msentitiespascal filtered "
+  msnamecamelmsentitiespascal(filterInput: FilterInput!, paginationInput: PaginationInput!): [msnamecamelmsentitypascal]
+}
+
+type Mutation {
+  "Create a new msentitypascal"
+  createmsentitypascal(): CommandResponse
 }
 
 type Subscription {

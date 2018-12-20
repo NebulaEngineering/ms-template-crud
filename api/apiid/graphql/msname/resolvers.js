@@ -33,26 +33,91 @@ module.exports = {
     //// QUERY ///////
 
     Query: {
-        getHelloWorldFrommsnamecamel(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'getHelloWorldFrommsnamecamel', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', [])
+        msnamecamelmsentitiespascal(root, args, context) {
+            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'msnamecamelmsentitiespascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
             .pipe(
                 mergeMap(() =>
                     broker
                     .forwardAndGetReply$(
-                        "HelloWorld",
-                        "apiid.graphql.query.getHelloWorldFrommsnamecamel",
+                        "msentitypascal",
+                        "apiid.graphql.query.msnamecamelmsentitiespascal",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
                 ),
-                catchError(err => handleError$(err, "getHelloWorldFrommsnamecamel")),
+                catchError(err => handleError$(err, "msnamecamelmsentitiespascal")),
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         }
     },
 
     //// MUTATIONS ///////
-
+    Mutation: {
+        createmsentitypascal(root, args, context) {
+            return RoleValidator.checkPermissions$(
+              context.authToken.realm_access.roles,
+              "msentitypascal",
+              "createmsentitypascal",
+              PERMISSION_DENIED_ERROR_CODE,
+              "Permission denied",
+              ["PLATFORM-ADMIN"]
+            )
+            .pipe(
+                mergeMap(() =>
+                  context.broker.forwardAndGetReply$(
+                    "msentitypascal",
+                    "apiid.graphql.mutation.createmsentitypascal",
+                    { root, args, jwt: context.encodedToken },
+                    2000
+                  )
+                ),
+                catchError(err => handleError$(err, "createmsentitypascal")),
+                mergeMap(response => getResponseFromBackEnd$(response))
+            ).toPromise();
+        },
+        updatemsentitypascalGeneralInfo(root, args, context) {
+            return RoleValidator.checkPermissions$(
+              context.authToken.realm_access.roles,
+              "msentitypascal",
+              "updatemsentitypascalGeneralInfo",
+              PERMISSION_DENIED_ERROR_CODE,
+              "Permission denied",
+              ["PLATFORM-ADMIN"]
+            ).pipe(
+                mergeMap(() =>
+                  context.broker.forwardAndGetReply$(
+                    "msentitypascal",
+                    "apiid.graphql.mutation.updatemsentitypascalGeneralInfo",
+                    { root, args, jwt: context.encodedToken },
+                    2000
+                  )
+                ),
+                catchError(err => handleError$(err, "updatemsentitypascalGeneralInfo")),
+                mergeMap(response => getResponseFromBackEnd$(response))
+            ).toPromise();
+        },
+        updatemsentitypascalState(root, args, context) {
+            return RoleValidator.checkPermissions$(
+              context.authToken.realm_access.roles,
+              "msentitypascal",
+              "updatemsentitypascalState",
+              USERS_PERMISSION_DENIED_ERROR_CODE,
+              "Permission denied",
+              ["PLATFORM-ADMIN"]
+            ).pipe(
+                mergeMap(() =>
+                  context.broker.forwardAndGetReply$(
+                    "msentitypascal",
+                    "apiid.graphql.mutation.updatemsentitypascalState",
+                    { root, args, jwt: context.encodedToken },
+                    2000
+                  )
+                ),
+                catchError(err => handleError$(err, "updatemsentitypascalState")),
+                mergeMap(response => getResponseFromBackEnd$(response))
+            ).toPromise();
+        },
+    },
 
     //// SUBSCRIPTIONS ///////
     Subscription: {
