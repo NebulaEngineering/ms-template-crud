@@ -103,19 +103,16 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
 
   // Columns to show in the table
   displayedColumns = [
-    "timestamp",
-    "value",
-    "consolidatedBalance",
-    "posTerminal",
-    "posId",
-    "posUserId",
-    "posUsername",
-    "user"
+    "name",
+    "creationTimestamp",
+    "creatorUser",
+    "modificationTimestamp",
+    "modifierUser"
   ];
 
   /////// OTHERS ///////
 
-  selectedmsentitycamel: any = null;
+  selectedmsentitypascal: any = null;
 
   constructor(    
     private formBuilder: FormBuilder,
@@ -181,10 +178,10 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     this.filterForm = this.formBuilder.group({
       name: [null],
       creationDate: [null],
+      creatorUser: [null],      
+      useSelectedBusiness: [null],
       //modificationDate: [null],
-      creatorUser: [null],
-      modifierUser: [null],
-      show: [null]
+      //modifierUser: [null],
     });
   }
 
@@ -218,8 +215,8 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       //Service toolbar
     ).pipe(
       debounceTime(500),
-      filter(([filter, paginator, business]) => (filter != null && paginator != null)),
-      map(([filter, paginator, business]) => {
+      filter(([filter, paginator]) => (filter != null && paginator != null)),
+      map(([filter, paginator]) => {
         const filterInput = {};
         const paginationInput = {};
 
@@ -232,11 +229,11 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
         )
       }),
       takeUntil(this.ngUnsubscribe)
-      .subscribe(([list, size]) => {
-        this.dataSource.data = list;
-        this.tableSize = size;
-      })
     )
+    .subscribe(([list, size]) => {
+      this.dataSource.data = list;
+      this.tableSize = size;
+    })
   }
 
   /**
@@ -269,7 +266,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
    * @param msentitycamel selected msentitycamel
    */
   selectmsentitycamelRow(msentitycamel) {
-    this.selectedmsentitycamel = msentitycamel;
+    this.selectedmsentitypascal = msentitycamel;
   }
 
   resetFilter() {

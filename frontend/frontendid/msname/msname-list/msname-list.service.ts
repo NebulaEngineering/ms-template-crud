@@ -3,13 +3,13 @@ import { Observable, BehaviorSubject } from "rxjs";
 import {
   startWith
 } from "rxjs/operators";
-import { GatewayService } from '../../../api/gateway.service';
+import { GatewayService } from '../../../../api/gateway.service';
 import {
-  msentitycamel,
-  msentitycamelSize,
+  msnamecamelentitycamel,
+  msnamecamelentitycamelSize,
   getHelloWorld,
   msnamecamelHelloWorldSubscription
-} from './gql/msnamecamel';
+} from '../gql/msnamecamel';
 
 @Injectable()
 export class msnamecamelListService {
@@ -62,7 +62,7 @@ export class msnamecamelListService {
    */
   getmsentitycamelList$(filterInput, paginatorInput){
     return this.gateway.apollo.query<any>({
-      query: msentitycamel,
+      query: msnamecamelentitycamel,
       variables: {
         filterInput: filterInput,
         paginationInput: paginatorInput
@@ -79,7 +79,7 @@ export class msnamecamelListService {
    */
   getmsentitycamelSize$(filterInput){
     return this.gateway.apollo.query<any>({
-      query: msentitycamelSize,
+      query: msnamecamelentitycamelSize,
       variables: {
         filterInput: filterInput
       },

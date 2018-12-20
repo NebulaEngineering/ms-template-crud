@@ -5,12 +5,19 @@ import { DatePipe } from '@angular/common';
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
 
 import { msnamecamelService } from './msname.service';
-import { msnamecamelComponent } from './msname.component';
+import { msnamecamelListService } from './msname-list/msname-list.service';
+import { msnamecamelListComponent } from './msname-list/msname-list.component';
+import { msnamecamelDetailService } from './msname-detail/msname-detail.service';
+import { msnamecamelDetailComponent } from './msname-detail/msname-detail.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: msnamecamelComponent,
+    component: msnamecamelListComponent,
+  },
+  {
+    path: 'ms-name/:username',
+    component: msnamecamelDetailComponent,
   }
 ];
 
@@ -21,9 +28,10 @@ const routes: Routes = [
     FuseWidgetModule
   ],
   declarations: [
-    msnamecamelComponent    
+    msnamecamelListComponent,
+    msnamecamelDetailComponent  
   ],
-  providers: [ msnamecamelService, DatePipe]
+  providers: [ msnamecamelService, msnamecamelListService, msnamecamelDetailService, DatePipe]
 })
 
 export class msnamecamelModule {}
