@@ -22,8 +22,8 @@
                     "en": "msname_en",
                     "es": "msname_es"
                 },
-                "navURL": "/msname",
-                "path": "msname",
+                "navURL": "/msentityname",
+                "path": "msentityname",
                 "loadChildren": "./main/content/msname/msname.module#msnamecamelModule",
                 "priority": 1000,
                 "roles" : ["developer"],

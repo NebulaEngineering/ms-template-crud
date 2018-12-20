@@ -16,7 +16,7 @@ const routes: Routes = [
     component: msnamecamelListComponent,
   },
   {
-    path: 'ms-name/:username',
+    path: ':id',
     component: msnamecamelDetailComponent,
   }
 ];

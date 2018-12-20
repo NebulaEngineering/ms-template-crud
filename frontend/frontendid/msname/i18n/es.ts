@@ -2,7 +2,7 @@ export const locale = {
   lang: 'es',
   data: {
     msnameuppercase: {
-      TITLE: 'msnametitle',
+      TITLE: 'Nombre entidad',
       FILTER: 'Filtros',
       NAME: 'Nombre',
       CREATION_DATE: 'Fecha creación',
@@ -12,7 +12,7 @@ export const locale = {
       CREATION_TIMESTAMP: 'Creado',
       LAST_MODIFICATION_TIMESTAMP: 'Modificado',
       MODIFIER_USER: 'Usuario que modificó',
-      ADD_NEW: 'Agregar msnametitle'
+      ADD_NEW: 'Agregar nuevo'
     },
     ERRORS: {
       1: 'Error interno de servidor',
