@@ -2,36 +2,21 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
+  OnDestroy
+} from '@angular/core';
 
 import {
   FormBuilder,
   FormGroup,
   FormControl,
   Validators
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 
 ////////// RXJS ///////////
-import {
-  map,
-  mergeMap,
-  switchMap,
-  toArray,
-  filter,
-  tap,
-  takeUntil,
-  startWith,
-  debounceTime,
-  distinctUntilChanged,
-  take
-} from "rxjs/operators";
-
-import { Subject, fromEvent, of, forkJoin, Observable, concat, combineLatest } from "rxjs";
+import { map, mergeMap } from 'rxjs/operators';
+import { Subject} from 'rxjs';
 
 //////////// ANGULAR MATERIAL ///////////
 import {
@@ -39,18 +24,18 @@ import {
   MatSort,
   MatTableDataSource,
   MatSnackBar
-} from "@angular/material";
+} from '@angular/material';
 
 //////////// i18n ////////////
 import {
   TranslateService
-} from "@ngx-translate/core";
-import { locale as english } from "../i18n/en";
-import { locale as spanish } from "../i18n/es";
-import { FuseTranslationLoaderService } from "../../../../core/services/translation-loader.service";
+} from '@ngx-translate/core';
+import { locale as english } from '../i18n/en';
+import { locale as spanish } from '../i18n/es';
+import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 
 //////////// Other Services ////////////
-import { KeycloakService } from "keycloak-angular";
+import { KeycloakService } from 'keycloak-angular';
 import { msnamecamelDetailService } from './msname-detail.service';
 
 @Component({
@@ -59,33 +44,34 @@ import { msnamecamelDetailService } from './msname-detail.service';
   templateUrl: './msname-detail.component.html',
   styleUrls: ['./msname-detail.component.scss']
 })
+// tslint:disable-next-line:class-name
 export class msnamecamelDetailComponent implements OnInit, OnDestroy {
-  //Subject to unsubscribe 
+  // Subject to unsubscribe
   private ngUnsubscribe = new Subject();
 
   pageType: string;
-  
+
   msentitycamel: any;
 
-  constructor(    
+  constructor(
     private translationLoader: FuseTranslationLoaderService,
     private translate: TranslateService,
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private msnamecamelDetailservice: msnamecamelDetailService  
-  ) {    
+    private msnamecamelDetailservice: msnamecamelDetailService
+  ) {
       this.translationLoader.loadTranslations(english, spanish);
   }
-    
+
 
   ngOnInit() {
-    this.pageType = this.msentitycamel.id ? 'edit' : 'new';
+    this.pageType = ( this.msentitycamel && this.msentitycamel.id ) ? 'edit' : 'new';
 
   }
 
-  
+
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
