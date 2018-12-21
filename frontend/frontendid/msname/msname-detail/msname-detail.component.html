@@ -3,30 +3,30 @@
     <!-- TOP BACKGROUND -->
     <div class="top-bg mat-accent-bg"></div>
     <!-- / TOP BACKGROUND -->
-  
+
     <!-- CENTER -->
     <div class="center">
-  
+
       <!-- HEADER -->
       <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
-  
+
         <!-- APP TITLE -->
         <div fxLayout="row" fxLayoutAlign="start center">
-  
-          <button class="mr-0 mr-sm-16" mat-icon-button [routerLink]="'/msentityname'">
+
+          <button class="mr-0 mr-sm-16" mat-icon-button [routerLink]="['../']">
             <mat-icon>arrow_back</mat-icon>
           </button>
-  
+
           <div fxLayout="column" fxLayoutAlign="start start" *fuseIfOnDom>
-  
-            <div class="h2" *ngIf="msentitycamel.id">
+
+            <div class="h2" *ngIf="msentitycamel && msentitycamel.id">
               {{msentitycamel.name}}
             </div>
-  
-            <div class="h2" *ngIf="!msentitycamel.id">
+
+            <div class="h2" *ngIf="msentitycamel && !msentitycamel.id">
               {{'msnameuppercase.NEW_msentityuppercase' | translate}}
             </div>
-  
+
             <div class="subtitle secondary-text">
               <span>{{'msnameuppercase.msentityuppercase' | translate}}</span>
             </div>
@@ -35,22 +35,22 @@
         <!-- / APP TITLE -->
       </div>
       <!-- / HEADER -->
-  
+
       <!-- CONTENT CARD -->
       <div class="content-card mat-white-bg">
         <mat-tab-group>
-  
-          <mat-tab label="{{'msnameuppercase.GENERAL_INFO' | translate}}">  
-            <!--app-device-network deviceValue="{{deviceVal}}"></app-device-network-->
+
+          <mat-tab label="{{'msnameuppercase.GENERAL_INFO' | translate}}">
+            <msname-general-info></msname-general-info>
           </mat-tab>
-  
+
         </mat-tab-group>
-  
+
         <!-- / CONTENT -->
-  
+
       </div>
       <!-- / CONTENT CARD -->
-  
+
     </div>
     <!-- / CENTER -->
   </div>
