@@ -4,7 +4,8 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
-  ElementRef
+  ElementRef,
+  Input
 } from '@angular/core';
 
 import {
@@ -64,23 +65,11 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   // Subject to unsubscribe
   private ngUnsubscribe = new Subject();
 
-  pageType: string;
-  // msentitycamel: any;
-  msentitycamel = {
-    id: 'id_user',
-    state: true,
-    generalInfo: {
-      username: 'juan.santa'
-    }
-  };
+  @Input('pageType') pageType: string;
+  @Input('msentitycamel') msentitycamel: any;
 
-  msentitycamelGeneralInfoForm = new FormGroup({
-    username: new FormControl('Felipe')
-  });
-
-  msentitycamelStateForm = new FormGroup({
-    state: new FormControl(true)
-  });
+  msentitycamelGeneralInfoForm: any;
+  msentitycamelStateForm: any;
 
   constructor(
     private translationLoader: FuseTranslationLoaderService,
@@ -96,7 +85,17 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
 
 
   ngOnInit() {
-    this.pageType = ( this.msentitycamel && this.msentitycamel.id) ? 'edit' : 'new';
+    console.log('GENERAL INFO (ngOnInit) ==> ', this.pageType, this.msentitycamel);
+
+    this.msentitycamelGeneralInfoForm = new FormGroup({
+      username: new FormControl( this.msentitycamel ? this.msentitycamel.name : '' ),
+      description: new FormControl( this.msentitycamel ? this.msentitycamel.escription : '' )
+    });
+
+    this.msentitycamelStateForm = new FormGroup({
+      state: new FormControl(this.msentitycamel  ? this.msentitycamel.state : true )
+    });
+
 
   }
 
@@ -107,19 +106,19 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   }
 
   createmsentityPascal(){
+    console.log(' [CREATE] Form value ==> ', this.msentitycamelGeneralInfoForm.getRawValue());
+    const formValue = this.msentitycamelGeneralInfoForm.getRawValue();
 
+    this.msnamecamelDetailservice.createmsnamecamelentitycamel$(formValue);
   }
 
   updatemsentityPascalGeneralInfo(){
+    console.log(' [UPDATE] Form value ==> ', this.msentitycamelGeneralInfoForm.getRawValue());
 
   }
   onmsentityPascalStateChange(){
-    // [(ngModel)]="msentitycamel.state"
     console.log(this.msentitycamel);
-    console.log(this.msentitycamelGeneralInfoForm.getRawValue());
     console.log(this.msentitycamelStateForm.getRawValue());
-
-
   }
 
 }

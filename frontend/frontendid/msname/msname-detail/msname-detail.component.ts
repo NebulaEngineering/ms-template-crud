@@ -15,8 +15,8 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 
 ////////// RXJS ///////////
-import { map, mergeMap } from 'rxjs/operators';
-import { Subject} from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
+import { Subject, of} from 'rxjs';
 
 //////////// ANGULAR MATERIAL ///////////
 import {
@@ -60,14 +60,24 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private msnamecamelDetailservice: msnamecamelDetailService
+    private msnamecamelDetailservice: msnamecamelDetailService,
+    private route: ActivatedRoute
   ) {
       this.translationLoader.loadTranslations(english, spanish);
   }
 
 
   ngOnInit() {
-    this.pageType = ( this.msentitycamel && this.msentitycamel.id ) ? 'edit' : 'new';
+    this.route.params
+    .pipe(
+      map(params => params['id']),
+      tap(id => console.log('El ID es ==> ', id) ),
+      mergeMap(entityId => entityId !== 'new' ? this.msnamecamelDetailservice.getmsnamecamelentity$(entityId) : of(null)  ),
+      tap((msentitycamel: any) => this.msentitycamel = msentitycamel),
+      map((msentitycamel: any) => (msentitycamel && msentitycamel.id ) ? 'edit' : 'new' ),
+      tap((pageType: string) => this.pageType = pageType )
+    )
+    .subscribe(() => {}, e => console.log(e), () => {});
 
   }
 

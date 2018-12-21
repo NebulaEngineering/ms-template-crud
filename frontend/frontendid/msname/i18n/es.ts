@@ -2,6 +2,7 @@ export const locale = {
   lang: 'es',
   data: {
     msnameuppercase: {
+      msentityuppercase: 'msentityuppercase',
       TITLE: 'Nombre entidad',
       FILTER: 'Filtros',
       NAME: 'Nombre',
@@ -13,7 +14,17 @@ export const locale = {
       LAST_MODIFICATION_TIMESTAMP: 'Modificado',
       MODIFIER_USER: 'Usuario que modificó',
       ADD_NEW: 'Agregar nuevo',
-      ACTIVE: 'Activo'
+      DETAILS: {
+        TABS: {
+          GENERAL_INFO: 'Información general'
+        },
+        GENERAL_INFO: 'Información general',
+        ENABLED: 'Activo',
+        DISABLED: 'Desactivado',
+        NAME: 'Nombre',
+        DESCRIPTION: 'Descripción'
+
+      }
     },
     ERRORS: {
       1: 'Error interno de servidor',

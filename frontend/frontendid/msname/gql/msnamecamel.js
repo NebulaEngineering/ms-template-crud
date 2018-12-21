@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 export const getHelloWorld = gql`
   query getHelloWorldFrommsnamecamel{
     getHelloWorldFrommsnamecamel{
-      sn      
+      sn
     }
   }
 `;
@@ -24,13 +24,13 @@ export const msnamecamelHelloWorldSubscription = gql`
 export const msnamecamelentitycamel = gql`
   query msnamecamelentitycamel($filterInput: FilterInput!, $paginationInput: PaginationInput!) {
     msnamecamelentitycamel(filterInput: $filterInput, paginationInput: $paginationInput) {
-      _id      
+      _id
       name
       description
       creationTimestamp
-      creatorUser 
-      modifierTimestamp     
-      modifierUser      
+      creatorUser
+      modifierTimestamp
+      modifierUser
     }
   }
 `;
@@ -38,5 +38,11 @@ export const msnamecamelentitycamel = gql`
 export const msnamecamelentitycamelSize = gql`
   query msnamecamelentitycamelSize($filterInput: FilterInput!) {
     msnamecamelentitycamelSize(filterInput: $filterInput)
+  }
+`;
+
+export const msnamecamelCreatemsentitypascal = gql `
+  mutation msnamecamelCreatemsentitypascal($generalInfo: msnamecamelentityGeneralInfo!){
+    msnamecamelCreatemsentitypascal(generalInfo: $generalInfo)
   }
 `;

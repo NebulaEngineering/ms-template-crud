@@ -4,17 +4,17 @@
       fxLayout="column" class="mat-white-bg p-24 mr-24 mb-24">
 
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between  start">
-        <div class="h2">{{'USER.GENERAL_INFO' | translate}}</div>
-        <form *ngIf="msentitycamelStateForm && msentitycamel" name="msentitycamelStateForm" [formGroup]="msentitycamelStateForm" fxLayout="column">
+        <div class="h2">{{'msnameuppercase.DETAILS.GENERAL_INFO' | translate}}</div>
+        <form *ngIf="msentitycamelStateForm" name="msentitycamelStateForm" [formGroup]="msentitycamelStateForm" fxLayout="column">
           <mat-slide-toggle formControlName="state" color="accent" (change)="onmsentityPascalStateChange($event)">
-            <label *ngIf="msentitycamel.state">{{'USER.USER_ENABLED' | translate}}</label>
-            <label *ngIf="!msentitycamel.state">{{'USER.USER_DISABLED' | translate}}</label>
+            <label *ngIf="msentitycamelStateForm.controls['state'].value">{{'msnameuppercase.DETAILS.ENABLED' | translate}}</label>
+            <label *ngIf="!msentitycamelStateForm.controls['state'].value">{{'msnameuppercase.DETAILS.DISABLED' | translate}}</label>
           </mat-slide-toggle>
         </form>
       </div>
 
       <mat-form-field class="w-100-p">
-        <input matInput name="username" formControlName="username" maxlength="15" placeholder="{{'USER.USERNAME' | translate}}">
+        <input matInput name="username" formControlName="username" maxlength="15" placeholder="{{'msnameuppercase.DETAILS.NAME' | translate}}">
         <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['username'])">
           {{'USER.USERNAME_REQUIRED' | translate}}
         </mat-error>
@@ -22,60 +22,28 @@
           {{'USER.INVALID_USERNAME_FORMAT' | translate}}
         </mat-error>
       </mat-form-field>
-    <!--
-      <mat-form-field class="w-100-p">
-        <input matInput name="name" formControlName="name" maxlength="40" placeholder="{{'USER.NAME' | translate}}">
+
+      <mat-form-field class="w-100-p" fxLAyout="column">
+        <textarea matInput matTextareaAutosize name="description" formControlName="description"
+          maxlength="350" placeholder="{{'msnameuppercase.DETAILS.DESCRIPTION' | translate}}"
+          matAutosizeMinRows="1" matAutosizeMaxRows="5" >
+        </textarea>
         <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['name'])">
           {{'USER.NAME_REQUIRED' | translate}}
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="w-100-p">
-        <input matInput name="lastname" formControlName="lastname" maxlength="40" placeholder="{{'USER.LASTNAME' | translate}}">
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['lastname'])">
-          {{'USER.LASTNAME_REQUIRED' | translate}}
-        </mat-error>
-      </mat-form-field>
 
-      <mat-form-field class="w-100-p">
-        <mat-select placeholder="{{'USER.DOCUMENT_TYPE' | translate}}" formControlName="documentType" [(value)]="msentitycamel.generalInfo.documentType">
-          <mat-option value="CITIZENSHIP_CARD">{{ 'USER.CITIZENSHIP_CARD' | translate }}</mat-option>
-          <mat-option value="FOREIGNER_ID">{{ 'USER.FOREIGNER_ID' | translate }}</mat-option>
-          <mat-option value="PASSPORT">{{ 'USER.PASSPORT' | translate }}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['documentType'])">
-          {{'USER.DOCUMENT_TYPE_REQUIRED' | translate}}
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="w-100-p">
-        <input matInput name="documentId" formControlName="documentId" placeholder="{{'USER.DOCUMENT_ID' | translate}}">
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['documentId'])">
-          {{'USER.DOCUMENT_ID_REQUIRED' | translate}}
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="w-100-p">
-        <input matInput name="email" formControlName="email" maxlength="50" placeholder="{{'USER.EMAIL' | translate}}">
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('pattern', ['email'])">
-          {{'USER.EMAIL_FORMAT' | translate}}
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="w-100-p">
-        <input matInput name="phone" formControlName="phone" maxlength="15" placeholder="{{'USER.PHONE' | translate}}">
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['phone'])">
-          {{'USER.PHONE_REQUIRED' | translate}}
-        </mat-error>
-      </mat-form-field> -->
-
-
-      <!-- <div *ngIf="msentitycamel" class="mt-16">
-        <button mat-raised-button *ngIf="!msentitycamel.id" (click)="createmsentityPascal()" [disabled]="msentitycamelGeneralInfoForm.invalid || msentitycamelGeneralInfoForm.pristine">{{'USER.CREATE'
-          | translate}}</button>
-        <button mat-raised-button *ngIf="msentitycamel.id" (click)="updatemsentityPascalGeneralInfo()" [disabled]="msentitycamelGeneralInfoForm.invalid || msentitycamelGeneralInfoForm.pristine">{{'USER.SAVE'
-          | translate}}</button>
-      </div> -->
+      <div class="mt-16">
+        <button mat-raised-button *ngIf="pageType === 'new'" (click)="createmsentityPascal()"
+          [disabled]="msentitycamelGeneralInfoForm.invalid || msentitycamelGeneralInfoForm.pristine">
+          {{'USER.CREATE' | translate}}
+        </button>
+        <button mat-raised-button *ngIf="pageType === 'edit'" (click)="updatemsentityPascalGeneralInfo()"
+          [disabled]="msentitycamelGeneralInfoForm.invalid || msentitycamelGeneralInfoForm.pristine">
+          {{'USER.UPDATE' | translate}}
+        </button>
+      </div>
 
     </form>
 

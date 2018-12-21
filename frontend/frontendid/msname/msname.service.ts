@@ -22,7 +22,7 @@ export class msnamecamelService {
     return this.gateway.apollo
       .watchQuery<any>({
         query: getHelloWorld,
-        fetchPolicy: "network-only"
+        fetchPolicy: 'network-only'
       })
       .valueChanges.map(
         resp => resp.data.getHelloWorldFrommsnamecamel.sn
