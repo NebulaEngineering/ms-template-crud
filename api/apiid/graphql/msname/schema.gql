@@ -33,7 +33,7 @@ input FilterInput {
   creatorUser: String
   "modifier user"
   modifierUser: String
-  "Filter by the msnamecamelmsentitypascal created after Creation timestamp"
+  "get data created after indicated timestamp"
   creationTimestamp: BigInt
 }
 
@@ -47,35 +47,38 @@ input PaginationInput {
 }
 
 input msentitypascalInput {
-  "Username"
-  username: String!
-  "Name"
-  name: String!
-  "Lastname"
-  lastname: String!
-  "Document type"
-  documentType: String
-  "Document ID"
-  documentId: String
-  "Email"
-  email: String
-  "Phone"
-  phone: String
-  "User state"
-  state: Boolean
+  "msentitypascal general info"
+  generalInfo: msentitypascalGeneralInfoInput!
+  "msentitypascal status"
+  state: Boolean!
+  "Business ID"
+  businessId: String!
+}
+
+input msentitypascalGeneralInfoInput {
+  "msentitypascal name"
+  name: String!,
+  "msentitypascal description"
+  description: String!
 }
 
 type Query {
   "Get msentitiespascal filtered "
   msnamecamelmsentitiespascal(filterInput: FilterInput!, paginationInput: PaginationInput!): [msnamecamelmsentitypascal]
+  "Get msentitypascal by its id"
+  msnamecamelmsentitypascal(id: String!): msnamecamelmsentitypascal
 }
 
 type Mutation {
   "Create a new msentitypascal"
-  createmsentitypascal(): CommandResponse
+  createmsentitypascal(input: msentitypascalInput!): CommandResponse
+  "Update the msentitypascal generalInfo"
+  updatemsentitypascalGeneralInfo(id:ID!, input: msentitypascalGeneralInfoInput!): CommandResponse
+  "Update the msentitypascal state"
+  updatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
 }
 
 type Subscription {
-  "Hello world sample, please remove"
-  msnamecamelHelloWorldSubscription: HelloWorldmsnamecamel  
+  "This events is triggered when a msentitypascal is created or updated"
+  msnamecamelmsentitypascalUpdatedSubscription: msnamecamelmsentitypascal  
 }

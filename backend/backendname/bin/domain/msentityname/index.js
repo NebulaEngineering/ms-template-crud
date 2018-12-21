@@ -5,11 +5,11 @@ const msentitypascalES = require("./msentitypascalES")();
 
 module.exports = {
   /**
-   * @returns {HelloWorldCQRS}
+   * @returns {msentitypascalCQRS}
    */
   msentitypascalCQRS,
   /**
-   * @returns {HelloWorldES}
+   * @returns {msentitypascalES}
    */
   msentitypascalES
 };

@@ -1,7 +1,7 @@
 "use strict";
 const { of, from, concat } = require("rxjs");
 const eventSourcing = require("../../tools/EventSourcing")();
-const { helloWorldES } = require("../../domain/hello-word");
+const { msentitypascalES } = require("../../domain/msentityname");
 const { map, switchMap, filter, mergeMap, concatMap } = require('rxjs/operators');
 /**
  * Singleton instance
@@ -121,10 +121,17 @@ class EventStoreService {
 
   generateFunctionMap() {
     return {
-      //Sample for handling event-sourcing events, please remove
-      HelloWorldEvent: {
-        fn: helloWorldES.handleHelloWorld$,
-        obj: helloWorldES
+      msentitypascalCreated: {
+        fn: msentitypascalES.handlemsentitypascalCreated$,
+        obj: msentitypascalES
+      },
+      msentitypascalGeneralInfoUpdated: {
+        fn: msentitypascalES.handlemsentitypascalGeneralInfoUpdated$,
+        obj: msentitypascalES
+      },
+      msentitypascalStateUpdated: {
+        fn: msentitypascalES.handlemsentitypascalStateUpdated$,
+        obj: msentitypascalES
       },
 
     };
@@ -135,12 +142,18 @@ class EventStoreService {
   */
   generateAggregateEventsArray() {
     return [
-      //Sample for assoc events and aggregates, please remove
       {
-        aggregateType: "HelloWorld",
-        eventType: "HelloWorldEvent"
+        aggregateType: "msentitypascal",
+        eventType: "msentitypascalCreated"
       },
-
+      {
+        aggregateType: "msentitypascal",
+        eventType: "msentitypascalGeneralInfoUpdated"
+      },
+      {
+        aggregateType: "msentitypascal",
+        eventType: "msentitypascalStateUpdated"
+      },
     ]
   }
 }

@@ -121,10 +121,10 @@ module.exports = {
 
     //// SUBSCRIPTIONS ///////
     Subscription: {
-        msnamecamelHelloWorldSubscription: {
+        msnamecamelmsentitypascalUpdatedSubscription: {
             subscribe: withFilter(
                 (payload, variables, context, info) => {
-                    return pubsub.asyncIterator("msnamecamelHelloWorldSubscription");
+                    return pubsub.asyncIterator("msnamecamelmsentitypascalUpdatedSubscription");
                 },
                 (payload, variables, context, info) => {
                     return true;
@@ -141,8 +141,8 @@ module.exports = {
 
 const eventDescriptors = [
     {
-        backendEventName: 'msnamecamelHelloWorldEvent',
-        gqlSubscriptionName: 'msnamecamelHelloWorldSubscription',
+        backendEventName: 'msnamecamelmsentitypascalUpdatedEvent',
+        gqlSubscriptionName: 'msnamecamelmsentitypascalUpdatedSubscription',
         dataExtractor: (evt) => evt.data,// OPTIONAL, only use if needed
         onError: (error, descriptor) => console.log(`Error processing ${descriptor.backendEventName}`),// OPTIONAL, only use if needed
         onEvent: (evt, descriptor) => console.log(`Event of type  ${descriptor.backendEventName} arraived`),// OPTIONAL, only use if needed
@@ -178,7 +178,7 @@ eventDescriptors.forEach(descriptor => {
 
             () =>
                 console.log(
-                    `${descriptor.gqlSubscriptionName} listener STOPED`
+                    `${descriptor.gqlSubscriptionName} listener STOPPED`
                 )
         );
 });
