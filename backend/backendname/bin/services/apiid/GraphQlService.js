@@ -145,18 +145,25 @@ class GraphQlService {
   getSubscriptionDescriptors() {
     console.log("GraphQl Service starting ...");
     return [
-      //Sample incoming request, please remove
       {
         aggregateType: "msentitypascal",
         messageType: "apiid.graphql.query.msnamecamelmsentitiespascal"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.mutation.createmsentitypascal"
+        messageType: "apiid.graphql.query.msnamecamelmsentitypascal"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.mutation.updatemsentitypascalGeneralInfo"
+        messageType: "apiid.graphql.mutation.msnamecamelcreatemsentitypascal"
+      },
+      {
+        aggregateType: "msentitypascal",
+        messageType: "apiid.graphql.mutationmsnamecamel.msnamecamelupdatemsentitypascalGeneralInfo"
+      },
+      {
+        aggregateType: "msentitypascal",
+        messageType: "apiid.graphql.mutationmsnamecamel.msnamecamelupdatemsentitypascalState"
       },
     ];
   }
@@ -175,15 +182,15 @@ class GraphQlService {
         fn: msentitypascalCQRS.getmsentitypascal$,
         obj: msentitypascalCQRS
       },
-      "apiid.graphql.mutation.createmsentitypascal": {
+      "apiid.graphql.mutation.msnamecamelcreatemsentitypascal": {
         fn: msentitypascalCQRS.createmsentitypascal$,
         obj: msentitypascalCQRS
       }, 
-      "apiid.graphql.mutation.updatemsentitypascalGeneralInfo": {
+      "apiid.graphql.mutation.msnamecamelupdatemsentitypascalGeneralInfo": {
         fn: msentitypascalCQRS.updatemsentitypascalGeneralInfo$,
         obj: msentitypascalCQRS
       },
-      "apiid.graphql.mutation.updatemsentitypascalState": {
+      "apiid.graphql.mutation.msnamecamelupdatemsentitypascalState": {
         fn: msentitypascalCQRS.updatemsentitypascalState$,
         obj: msentitypascalCQRS
       }

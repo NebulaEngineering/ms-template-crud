@@ -44,7 +44,6 @@ class msentitypascalCQRS {
         const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.businessId;
         return msentitypascalDA.getmsentitypascal$(args.id, businessId)
       }),
-      toArray(),
       mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),
       catchError(err => GraphqlResponseTools.handleError$(error))
     );
@@ -64,7 +63,11 @@ class msentitypascalCQRS {
       ["PLATFORM-ADMIN"]
     ).pipe(
       mergeMap(roles => {
-        return msentitypascalDA.getmsentitypascalList$(args.filterInput, args.paginationInput);
+        const isPlatformAdmin = roles["PLATFORM-ADMIN"];
+        //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
+        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.input.businessId;
+
+        return msentitypascalDA.getmsentitypascalList$(args.input.businessId, args.paginationInput);
       }),
       toArray(),
       mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),

@@ -71,11 +71,11 @@ type Query {
 
 type Mutation {
   "Create a new msentitypascal"
-  createmsentitypascal(input: msentitypascalInput!): CommandResponse
+  msnamecamelcreatemsentitypascal(input: msentitypascalInput!): CommandResponse
   "Update the msentitypascal generalInfo"
-  updatemsentitypascalGeneralInfo(id:ID!, input: msentitypascalGeneralInfoInput!): CommandResponse
+  msnamecamelupdatemsentitypascalGeneralInfo(id:ID!, input: msentitypascalGeneralInfoInput!): CommandResponse
   "Update the msentitypascal state"
-  updatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
+  msnamecamelupdatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
 }
 
 type Subscription {
