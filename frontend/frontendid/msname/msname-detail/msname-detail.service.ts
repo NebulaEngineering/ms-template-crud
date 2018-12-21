@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { GatewayService } from '../../../../api/gateway.service';
 import {
-  msnamecamelCreatemsentitycamel
+  msnamecamelCreatemsentitypascal
 } from '../gql/msnamecamel.js';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class msnamecamelDetailService {
   createmsnamecamelentitycamel$(generalInfo: any) {
     return this.gateway.apollo
       .mutate<any>({
-        mutation: msnamecamelCreatemsentitycamel,
+        mutation: msnamecamelCreatemsentitypascal,
         variables: {
           ...generalInfo
         },

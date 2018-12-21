@@ -41,8 +41,8 @@ export const msnamecamelentitycamelSize = gql`
   }
 `;
 
-export const msnamecamelCreatemsentitycamel = gql `
-  mutation msnamecamelCreatemsentitycamel($generalInfo: msnamecamelentityGeneralInfo!){
-    msnamecamelCreatemsentitycamel(generalInfo: $generalInfo)
+export const msnamecamelCreatemsentitypascal = gql `
+  mutation msnamecamelCreatemsentitypascal($generalInfo: msnamecamelentityGeneralInfo!){
+    msnamecamelCreatemsentitypascal(generalInfo: $generalInfo)
   }
 `;
