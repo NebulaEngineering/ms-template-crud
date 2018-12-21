@@ -2,6 +2,7 @@ export const locale = {
   lang: 'en',
   data: {
     msnameuppercase: {
+      msentityuppercase: 'msentityuppercase',
       TITLE: 'Entity name',
       FILTER: 'Filter',
       NAME: 'Name',
@@ -13,11 +14,21 @@ export const locale = {
       LAST_MODIFICATION_TIMESTAMP: 'Modified',
       MODIFIER_USER: 'User who modified',
       ADD_NEW: 'Add new',
-      ACTIVE: 'Active'
+      DETAILS: {
+        TABS: {
+          GENERAL_INFO: 'General Info'
+        },
+        GENERAL_INFO: 'General Info',
+        ENABLED: 'Enabled',
+        DISABLED: 'Disabled',
+        NAME: 'Name',
+        DESCRIPTION: 'Description'
+
+      }
     },
     ERRORS: {
       1: 'Internal server error',
       2: 'Permission denied',
-    }
+    },
   }
 };

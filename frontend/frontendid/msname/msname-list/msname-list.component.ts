@@ -107,16 +107,14 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     "creationTimestamp",
     "creatorUser",
     "modificationTimestamp",
-    "modifierUser",
-    "active"
+    "modifierUser"
   ];
 
   /////// OTHERS ///////
 
   selectedmsentitypascal: any = null;
 
-  constructor(
-    private toolbarService: ToolbarService, 
+  constructor(    
     private formBuilder: FormBuilder,
     private translationLoader: FuseTranslationLoaderService,
     private translate: TranslateService,
@@ -217,8 +215,8 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       //Service toolbar
     ).pipe(
       debounceTime(500),
-      filter(([filters, paginator]) => (paginator != null)),
-      map(([filters, paginator]) => {
+      filter(([filter, paginator]) => (filter != null && paginator != null)),
+      map(([filter, paginator]) => {
         const filterInput = {};
         const paginationInput = {};
 
