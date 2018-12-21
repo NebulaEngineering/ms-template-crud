@@ -5,7 +5,7 @@ let mongoDB = undefined;
 const CollectionName = "msentitypascal";
 const { CustomError } = require("../tools/customError");
 const { map } = require("rxjs/operators");
-const { of, Observable } = require("rxjs");
+const { of, Observable, defer } = require("rxjs");
 
 class msentitypascalDA {
   static start$(mongoDbInstance) {
@@ -19,6 +19,20 @@ class msentitypascalDA {
       }
       observer.complete();
     });
+  }
+
+  /**
+   * Gets an user by its username
+   */
+  static getmsentitypascal$(id, businessId) {
+    const collection = mongoDB.db.collection(COLLECTION_NAME);
+
+    const query = {
+      _id: id,
+      businessId
+    };
+
+    return defer(() => collection.findOne(query));
   }
 
   static getmsentitypascalList$(filter, pagination) {
@@ -58,16 +72,16 @@ class msentitypascalDA {
   }
 
   /**
-   * get hello world data
-   * @param {string} type
+   * Creates a new msentitypascal
+   * @param {*} msentitycamel msentitycamel to create
    */
-  static getHelloWorld$(evt) {
-    return of(`{sn: Hello World ${Date.now()}}`).pipe(
-      map(val => ({ sn: val }))
-    );
+  static createmsentitypascal$(msentitycamel) {
+    const collection = mongoDB.db.collection(CollectionName);
+    return defer(() => collection.insertOne(msentitycamel));
   }
+
 }
 /**
- * @returns {HelloWorldDA}
+ * @returns {msentitypascalDA}
  */
-module.exports = HelloWorldDA;
+module.exports = msentitypascalDA;

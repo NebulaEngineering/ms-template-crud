@@ -1,6 +1,5 @@
 "use strict";
 
-const { helloWorldCQRS } = require("../../domain/hello-word");
 const { msentitypascalCQRS } = require("../../domain/msentityname");
 const broker = require("../../tools/broker/BrokerFactory")();
 const { of, from } = require("rxjs");
@@ -148,9 +147,17 @@ class GraphQlService {
     return [
       //Sample incoming request, please remove
       {
-        aggregateType: "HelloWorld",
-        messageType: "apiid.graphql.query.getHelloWorldFrommsnamecamel"
-      }     
+        aggregateType: "msentitypascal",
+        messageType: "apiid.graphql.query.msnamecamelmsentitiespascal"
+      },
+      {
+        aggregateType: "msentitypascal",
+        messageType: "apiid.graphql.mutation.createmsentitypascal"
+      },
+      {
+        aggregateType: "msentitypascal",
+        messageType: "apiid.graphql.mutation.updatemsentitypascalGeneralInfo"
+      },
     ];
   }
 
@@ -160,11 +167,26 @@ class GraphQlService {
    */
   generateFunctionMap() {    
     return {
-      //Sample incoming request, please remove
-      "apiid.graphql.query.getHelloWorldFrommsnamecamel": {
-        fn: helloWorldCQRS.getHelloWorld$,
-        obj: helloWorldCQRS
-      },      
+      "apiid.graphql.query.msnamecamelmsentitiespascal": {
+        fn: msentitypascalCQRS.getmsentitypascalList$,
+        obj: msentitypascalCQRS
+      },
+      "apiid.graphql.query.msnamecamelmsentitypascal": {
+        fn: msentitypascalCQRS.getmsentitypascal$,
+        obj: msentitypascalCQRS
+      },
+      "apiid.graphql.mutation.createmsentitypascal": {
+        fn: msentitypascalCQRS.createmsentitypascal$,
+        obj: msentitypascalCQRS
+      }, 
+      "apiid.graphql.mutation.updatemsentitypascalGeneralInfo": {
+        fn: msentitypascalCQRS.updatemsentitypascalGeneralInfo$,
+        obj: msentitypascalCQRS
+      },
+      "apiid.graphql.mutation.updatemsentitypascalState": {
+        fn: msentitypascalCQRS.updatemsentitypascalState$,
+        obj: msentitypascalCQRS
+      }
     };
   }
 }
