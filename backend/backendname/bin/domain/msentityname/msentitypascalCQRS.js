@@ -66,12 +66,42 @@ class msentitypascalCQRS {
         const isPlatformAdmin = roles["PLATFORM-ADMIN"];
         //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
         const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.input.businessId;
+        const filterInput = args.input;
+        filterInput.businessId = businessId;
 
         return msentitypascalDA.getmsentitypascalList$(args.input.businessId, args.paginationInput);
       }),
       toArray(),
       mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),
-      catchError(err => GraphqlResponseTools.handleError$(error))
+      catchError(err => GraphqlResponseTools.handleError$(err))
+    );
+  }
+
+    /**  
+   * Gets the amount of the msentitypascal according to the filter
+   *
+   * @param {*} args args
+   */
+  getmsentitypascalListSize$({ args }, authToken) {
+    return RoleValidator.checkPermissions$(
+      authToken.realm_access.roles,
+      "msentitypascal",
+      "getmsentitypascalListSize",
+      PERMISSION_DENIED,
+      ["PLATFORM-ADMIN"]
+    ).pipe(
+      mergeMap(roles => {
+        const isPlatformAdmin = roles["PLATFORM-ADMIN"];
+        //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
+        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.input.businessId;
+        const filterInput = args.input;
+        filterInput.businessId = businessId;
+
+        return msentitypascalDA.getmsentitypascalList$(filterInput);
+      }),
+      toArray(),
+      mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),
+      catchError(err => GraphqlResponseTools.handleError$(err))
     );
   }
 
@@ -103,7 +133,7 @@ class msentitypascalCQRS {
           user: authToken.preferred_username
         }))
       ),
-      map(() => ({ code: 200, message: `msentitypascal with id: ${msentitycamel._id} has been updated` })),
+      map(() => ({ code: 200, message: `msentitypascal with id: ${msentitycamel._id} has been created` })),
       mergeMap(r => GraphqlResponseTools.buildSuccessResponse$(r)),
       catchError(err => GraphqlResponseTools.handleError$(err))
     );

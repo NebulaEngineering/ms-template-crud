@@ -158,7 +158,6 @@ class EventStoreService {
   }
 }
 
-
 /**
  * @returns {EventStoreService}
  */

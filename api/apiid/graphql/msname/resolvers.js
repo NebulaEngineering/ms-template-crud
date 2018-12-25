@@ -49,6 +49,22 @@ module.exports = {
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
+        msnamecamelmsentitiespascalSize(root, args, context) {
+            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'msnamecamelmsentitiespascalSize', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
+            .pipe(
+                mergeMap(() =>
+                    broker
+                    .forwardAndGetReply$(
+                        "msentitypascal",
+                        "apiid.graphql.query.msnamecamelmsentitiespascalSize",
+                        { root, args, jwt: context.encodedToken },
+                        2000
+                    )
+                ),
+                catchError(err => handleError$(err, "msnamecamelmsentitiespascalSize")),
+                mergeMap(response => getResponseFromBackEnd$(response))
+            ).toPromise();
+        },
         msnamecamelmsentitypascal(root, args, context) {
             return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'msnamecamelmsentitypascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
             .pipe(

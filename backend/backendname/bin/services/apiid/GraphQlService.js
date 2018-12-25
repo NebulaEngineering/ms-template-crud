@@ -151,6 +151,10 @@ class GraphQlService {
       },
       {
         aggregateType: "msentitypascal",
+        messageType: "apiid.graphql.query.msnamecamelmsentitiespascalSize"
+      },
+      {
+        aggregateType: "msentitypascal",
         messageType: "apiid.graphql.query.msnamecamelmsentitypascal"
       },
       {
@@ -176,6 +180,10 @@ class GraphQlService {
     return {
       "apiid.graphql.query.msnamecamelmsentitiespascal": {
         fn: msentitypascalCQRS.getmsentitypascalList$,
+        obj: msentitypascalCQRS
+      },
+      "apiid.graphql.query.msnamecamelmsentitiespascalSize": {
+        fn: msentitypascalCQRS.getmsentitypascalListSize$,
         obj: msentitypascalCQRS
       },
       "apiid.graphql.query.msnamecamelmsentitypascal": {

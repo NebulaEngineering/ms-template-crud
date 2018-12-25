@@ -65,6 +65,8 @@ input msentitypascalGeneralInfoInput {
 type Query {
   "Get msentitiespascal filtered "
   msnamecamelmsentitiespascal(filterInput: FilterInput!, paginationInput: PaginationInput!): [msnamecamelmsentitypascal]
+  "Get the amount of msentitiespascal filtered "
+  msnamecamelmsentitiespascalSize(filterInput: FilterInput!): Int!
   "Get msentitypascal by its id"
   msnamecamelmsentitypascal(id: String!): msnamecamelmsentitypascal
 }
