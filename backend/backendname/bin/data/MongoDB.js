@@ -2,7 +2,6 @@
 
 const Rx = require("rxjs");
 const MongoClient = require("mongodb").MongoClient;
-const CollectionName = "Business";
 let instance = null;
 const { map } = require("rxjs/operators");
 const { of, bindNodeCallback, Observable } = require("rxjs");
@@ -63,7 +62,7 @@ class MongoDB {
    * extracts every item in the mongo cursor, one by one
    * @param {*} cursor
    */
-  static extractAllFromMongoCursor$(cursor) {
+  extractAllFromMongoCursor$(cursor) {
     return Observable.create(async observer => {
       let obj = await MongoDB.extractNextFromMongoCursor(cursor);
       while (obj) {

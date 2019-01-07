@@ -25,18 +25,20 @@ class msentitypascalDA {
    * Gets an user by its username
    */
   static getmsentitypascal$(id, businessId) {
-    const collection = mongoDB.db.collection(COLLECTION_NAME);
+    const collection = mongoDB.db.collection(CollectionName);
 
     const query = {
-      _id: id,
-      businessId
+      _id: id      
     };
+    if(businessId){
+      query.businessId = businessId;
+    }
 
     return defer(() => collection.findOne(query));
   }
 
   static getmsentitypascalList$(filter, pagination) {
-    const collection = mongoDB.db.collection(COLLECTION_NAME);
+    const collection = mongoDB.db.collection(CollectionName);
 
     const query = {
       businessId: filter.businessId
@@ -71,6 +73,36 @@ class msentitypascalDA {
     return mongoDB.extractAllFromMongoCursor$(cursor);
   }
 
+  static getmsentitypascalSize$(filter) {
+    const collection = mongoDB.db.collection(CollectionName);
+
+    const query = {
+      businessId: filter.businessId
+    };
+
+    if (filter.businessId) {
+      query.businessId = filter.businessId;
+    }
+
+    if (filter.name) {
+      query["generalInfo.name"] = filter.name;
+    }
+
+    if (filter.creationTimestamp) {
+      query.creationTimestamp = filter.creationTimestamp;
+    }
+
+    if (filter.creatorUser) {
+      query.creatorUser = { $regex: filter.creatorUser, $options: "i" };
+    }
+
+    if (filter.modifierUser) {
+      query.modifierUser = { $regex: filter.modifierUser, $options: "i" };
+    }
+
+    return collection.count(query);
+  }
+
   /**
    * Creates a new msentitypascal
    * @param {*} msentitycamel msentitycamel to create
@@ -78,6 +110,48 @@ class msentitypascalDA {
   static createmsentitypascal$(msentitycamel) {
     const collection = mongoDB.db.collection(CollectionName);
     return defer(() => collection.insertOne(msentitycamel));
+  }
+
+      /**
+   * modifies the general info of the indicated msentitypascal 
+   * @param {*} id  msentitypascal ID
+   * @param {*} msentitypascalGeneralInfo  New general information of the msentitypascal
+   */
+  static updatemsentitypascalGeneralInfo$(id, msentitypascalGeneralInfo) {
+    const collection = mongoDB.db.collection(CollectionName);
+
+    return Rx.Observable.defer(()=>
+        collection.findOneAndUpdate(
+          { _id: id },
+          {
+            $set: {generalInfo: msentitypascalGeneralInfo.generalInfo, modifierUser: msentitypascalGeneralInfo.modifierUser, modificationTimestamp: msentitypascalGeneralInfo.modificationTimestamp}
+          },{
+            returnOriginal: false
+          }
+        )
+    ).map(result => result && result.value ? result.value : undefined);
+  }
+
+  /**
+   * Updates the msentitypascal state 
+   * @param {string} id msentitypascal ID
+   * @param {boolean} newmsentitypascalState boolean that indicates the new msentitypascal state
+   */
+  static updatemsentitypascalState$(id, newmsentitypascalState) {
+    const collection = mongoDB.db.collection(CollectionName);
+    
+    return defer(()=>
+        collection.findOneAndUpdate(
+          { _id: id},
+          {
+            $set: {state: newmsentitypascalState.state, modifierUser: newmsentitypascalState.modifierUser, modificationTimestamp: newmsentitypascalState.modificationTimestamp}
+          },{
+            returnOriginal: false
+          }
+        )
+    ).pipe(
+      map(result => result && result.value ? result.value : undefined)
+    );
   }
 
 }

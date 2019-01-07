@@ -15,7 +15,7 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 
 ////////// RXJS ///////////
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap, tap, takeUntil } from 'rxjs/operators';
 import { Subject, of} from 'rxjs';
 
 //////////// ANGULAR MATERIAL ///////////
@@ -68,17 +68,61 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.loadmsentitycamel();
+    this.subscribemsentitypascalUpdated();
+  }
+
+  loadmsentitycamel(){
     this.route.params
     .pipe(
       map(params => params['id']),
-      tap(id => console.log('El ID es ==> ', id) ),
-      mergeMap(entityId => entityId !== 'new' ? this.msnamecamelDetailservice.getmsnamecamelentity$(entityId) : of(null)  ),
-      tap((msentitycamel: any) => this.msentitycamel = msentitycamel),
-      map((msentitycamel: any) => (msentitycamel && msentitycamel.id ) ? 'edit' : 'new' ),
-      tap((pageType: string) => this.pageType = pageType )
+      mergeMap(entityId => entityId !== 'new' ?
+        this.msnamecamelDetailservice.getmsnamecamelentitycamel$(entityId).pipe(
+          map(res => res.data.msnamecamelmsentitypascal)
+        ) : of(null)
+      )
     )
-    .subscribe(() => {}, e => console.log(e), () => {});
+    .subscribe((msentitycamel: any) => {
+      this.msentitycamel = msentitycamel;
+      this.pageType = (msentitycamel && msentitycamel._id) ? 'edit' : 'new'
+    }, e => console.log(e));
+  }
+  
+  subscribemsentitypascalUpdated(){
+    console.log('subscribemsentitypascalUpdated');
+    this.msnamecamelDetailservice.subscribemsnamecamelmsentitypascalUpdatedSubscription$()
+    .pipe(
+      map(subscription => subscription.data.msnamecamelmsentitypascalUpdatedSubscription),
+      takeUntil(this.ngUnsubscribe)
+    )
+    .subscribe((msentitycamel: any) => {
+      console.log('Subscription => ', msentitycamel);
 
+      this.checkIfEntityHasBeenUpdated(msentitycamel);
+    })
+  }
+
+  checkIfEntityHasBeenUpdated(newmsentitycamel){
+    if(this.msnamecamelDetailservice.lastOperation == 'CREATE'){
+
+      //Fields that will be compared to check if the entity was created
+      if(newmsentitycamel.generalInfo.name == this.msentitycamel.generalInfo.name && newmsentitycamel.generalInfo.description == this.msentitycamel.generalInfo.description){
+        //Show message entity created and redirect to the main page
+        this.router.navigate(['msentityname/']);
+      }
+
+    }else if(this.msnamecamelDetailservice.lastOperation == 'UPDATE'){
+      // Just comparing the ids is enough to recognise if it is the same entity
+      if(newmsentitycamel._id == this.msentitycamel._id){
+        //Show message entity updated and redirect to the main page
+        this.router.navigate(['msentityname/']);
+      }
+
+    }else{
+      if(newmsentitycamel.id == this.msentitycamel._id){
+        //Show message indicating that the entity has been updated
+      }
+    }
   }
 
 

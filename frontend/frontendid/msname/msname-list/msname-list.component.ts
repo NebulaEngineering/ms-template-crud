@@ -33,12 +33,13 @@ import {
 
 import { Subject, fromEvent, of, forkJoin, Observable, concat, combineLatest } from "rxjs";
 
-//////////// ANGULAR MATERIAL ///////////
+////////// ANGULAR MATERIAL //////////
 import {
   MatPaginator,
   MatSort,
   MatTableDataSource,
-  MatSnackBar
+  MatSnackBar,
+  MatDialog
 } from "@angular/material";
 import { fuseAnimations } from "../../../../core/animations";
 
@@ -66,6 +67,7 @@ import * as moment from "moment";
 //////////// Other Services ////////////
 import { KeycloakService } from "keycloak-angular";
 import { msnamecamelListService } from './msname-list.service';
+import { ToolbarService } from "../../../toolbar/toolbar.service";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -123,7 +125,9 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     private activatedRouter: ActivatedRoute,
     private keycloakService: KeycloakService,
     private adapter: DateAdapter<any>,
-    private msnamecamelListservice: msnamecamelListService  
+    private msnamecamelListservice: msnamecamelListService,
+    private toolbarService: ToolbarService,
+    private dialog: MatDialog
   ) {    
       this.translationLoader.loadTranslations(english, spanish);
   }
@@ -212,13 +216,19 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     combineLatest(
       this.msnamecamelListservice.filter$,
       this.msnamecamelListservice.paginator$,
-      //Service toolbar
+      this.toolbarService.onSelectedBusiness
     ).pipe(
       debounceTime(500),
-      filter(([filter, paginator]) => (filter != null && paginator != null)),
-      map(([filter, paginator]) => {
-        const filterInput = {};
-        const paginationInput = {};
+      filter(([filter, paginator, selectedBusiness]) => (filter != null && paginator != null)),
+      map(([filter, paginator,selectedBusiness]) => {
+        const filterInput = {
+          businessId: selectedBusiness.id
+        };
+        const paginationInput = {
+          page: paginator.pagination.page,
+          count: paginator.pagination.count,
+          sort: paginator.pagination.sort,
+        };
 
         return [filterInput, paginationInput]
       }),
@@ -233,6 +243,8 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     .subscribe(([list, size]) => {
       this.dataSource.data = list;
       this.tableSize = size;
+      console.log('List => ', list);
+      console.log('Size => ', size);
     })
   }
 

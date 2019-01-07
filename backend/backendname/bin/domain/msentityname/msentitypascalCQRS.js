@@ -1,12 +1,15 @@
 "use strict";
 
+const uuidv4 = require("uuid/v4");
 const { of, interval } = require("rxjs");
+const Event = require("@nebulae/event-store").Event;
+const eventSourcing = require("../../tools/EventSourcing")();
 const msentitypascalDA = require("../../data/msentitypascalDA");
 const broker = require("../../tools/broker/BrokerFactory")();
 const MATERIALIZED_VIEW_TOPIC = "materialized-view-updates";
 const GraphqlResponseTools = require('../../tools/GraphqlResponseTools');
 const RoleValidator = require("../../tools/RoleValidator");
-const { take, mergeMap, catchError, map } = require('rxjs/operators');
+const { take, mergeMap, catchError, map, toArray } = require('rxjs/operators');
 const {
   CustomError,
   DefaultError,
@@ -41,7 +44,7 @@ class msentitypascalCQRS {
       mergeMap(roles => {
         const isPlatformAdmin = roles["PLATFORM-ADMIN"];
         //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
-        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.businessId;
+        const businessId = !isPlatformAdmin? (authToken.businessId || ''): null;
         return msentitypascalDA.getmsentitypascal$(args.id, businessId)
       }),
       mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),
@@ -63,13 +66,16 @@ class msentitypascalCQRS {
       ["PLATFORM-ADMIN"]
     ).pipe(
       mergeMap(roles => {
+        console.log('getmsentitypascalList => ', args);
+
         const isPlatformAdmin = roles["PLATFORM-ADMIN"];
+        console.log('isPlatformAdmin => ', isPlatformAdmin);
         //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
-        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.input.businessId;
-        const filterInput = args.input;
+        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.filterInput.businessId;
+        const filterInput = args.filterInput;
         filterInput.businessId = businessId;
 
-        return msentitypascalDA.getmsentitypascalList$(args.input.businessId, args.paginationInput);
+        return msentitypascalDA.getmsentitypascalList$(filterInput, args.paginationInput);
       }),
       toArray(),
       mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),
@@ -93,13 +99,12 @@ class msentitypascalCQRS {
       mergeMap(roles => {
         const isPlatformAdmin = roles["PLATFORM-ADMIN"];
         //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
-        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.input.businessId;
-        const filterInput = args.input;
+        const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.filterInput.businessId;
+        const filterInput = args.filterInput;
         filterInput.businessId = businessId;
 
-        return msentitypascalDA.getmsentitypascalList$(filterInput);
+        return msentitypascalDA.getmsentitypascalSize$(filterInput);
       }),
-      toArray(),
       mergeMap(rawResponse => GraphqlResponseTools.buildSuccessResponse$(rawResponse)),
       catchError(err => GraphqlResponseTools.handleError$(err))
     );
@@ -112,9 +117,9 @@ class msentitypascalCQRS {
     const msentitycamel = args ? args.input: undefined;
     msentitycamel._id = uuidv4();
     msentitycamel.creatorUser = authToken.preferred_username;
-    msentitycamel.creationTimestamp = new Date();
+    msentitycamel.creationTimestamp = new Date().getTime();
     msentitycamel.modifierUser = authToken.preferred_username;
-    msentitycamel.modificationTimestamp = new Date();
+    msentitycamel.modificationTimestamp = new Date().getTime();
 
     return RoleValidator.checkPermissions$(
       authToken.realm_access.roles,
@@ -128,7 +133,7 @@ class msentitypascalCQRS {
           eventType: "msentitypascalCreated",
           eventTypeVersion: 1,
           aggregateType: "msentitypascal",
-          aggregateId: args._id,
+          aggregateId: msentitycamel._id,
           data: msentitycamel,
           user: authToken.preferred_username
         }))
@@ -146,8 +151,8 @@ class msentitypascalCQRS {
     const msentitycamel = {
       _id: args.id,
       generalInfo: args.input,
-      modifierUser = authToken.preferred_username,
-      modificationTimestamp = new Date()
+      modifierUser: authToken.preferred_username,
+      modificationTimestamp: new Date().getTime()
     };
 
     return RoleValidator.checkPermissions$(
@@ -162,7 +167,7 @@ class msentitypascalCQRS {
           eventType: "msentitypascalGeneralInfoUpdated",
           eventTypeVersion: 1,
           aggregateType: "msentitypascal",
-          aggregateId: args._id,
+          aggregateId: msentitycamel._id,
           data: msentitycamel,
           user: authToken.preferred_username
         })
@@ -182,8 +187,8 @@ class msentitypascalCQRS {
     const msentitycamel = {
       _id: args.id,
       state: args.newState,
-      modifierUser = authToken.preferred_username,
-      modificationTimestamp = new Date()
+      modifierUser: authToken.preferred_username,
+      modificationTimestamp: new Date().getTime()
     };
 
     return RoleValidator.checkPermissions$(
@@ -198,7 +203,7 @@ class msentitypascalCQRS {
           eventType: "msentitypascalStateUpdated",
           eventTypeVersion: 1,
           aggregateType: "msentitypascal",
-          aggregateId: args._id,
+          aggregateId: msentitycamel._id,
           data: msentitycamel,
           user: authToken.preferred_username
         })

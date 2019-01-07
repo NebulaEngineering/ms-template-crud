@@ -39,7 +39,8 @@ import {
   MatPaginator,
   MatSort,
   MatTableDataSource,
-  MatSnackBar
+  MatSnackBar,
+  MatDialog
 } from '@angular/material';
 
 //////////// i18n ////////////
@@ -50,9 +51,10 @@ import { locale as english } from '../../i18n/en';
 import { locale as spanish } from '../../i18n/es';
 import { FuseTranslationLoaderService } from '../../../../../core/services/translation-loader.service';
 
-//////////// Other Services ////////////
+//////////// Others ////////////
 import { KeycloakService } from 'keycloak-angular';
 import { msnamecamelDetailService } from '../msname-detail.service';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -78,7 +80,8 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
     public snackBar: MatSnackBar,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private msnamecamelDetailservice: msnamecamelDetailService
+    private msnamecamelDetailservice: msnamecamelDetailService,
+    private dialog: MatDialog
   ) {
       this.translationLoader.loadTranslations(english, spanish);
   }
@@ -88,37 +91,173 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
     console.log('GENERAL INFO (ngOnInit) ==> ', this.pageType, this.msentitycamel);
 
     this.msentitycamelGeneralInfoForm = new FormGroup({
-      username: new FormControl( this.msentitycamel ? this.msentitycamel.name : '' ),
-      description: new FormControl( this.msentitycamel ? this.msentitycamel.escription : '' )
+      name: new FormControl(this.msentitycamel ? (this.msentitycamel.generalInfo || {}).name : ''),
+      description: new FormControl(this.msentitycamel ? (this.msentitycamel.generalInfo || {}).description : '')
     });
 
     this.msentitycamelStateForm = new FormGroup({
-      state: new FormControl(this.msentitycamel  ? this.msentitycamel.state : true )
+      state: new FormControl(this.msentitycamel ? this.msentitycamel.state : true)
     });
+  }
 
+  createmsentitypascal() {
+    this.showConfirmationDialog$("msnameuppercase.CREATE_MESSAGE", "msnameuppercase.CREATE_TITLE")
+      .pipe(
+        mergeMap(ok => {
+          console.log('msentitycamelGeneralInfoForm => ', this.msentitycamelGeneralInfoForm.getRawValue());
+          console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());
+          this.msentitycamel = {
+            generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
+            state: this.msentitycamelStateForm.getRawValue().state,
+            businessId: '1'
+          };
+          return this.msnamecamelDetailservice.createVehicleTestentitycamel$(this.msentitycamel);
+        }),
+        mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
+        filter((resp: any) => !resp.errors || resp.errors.length === 0)
+      )
+      .subscribe(result => {
+        this.showSnackBar('msnameuppercase.ENTITY_CREATED');
+      },
+        error => {
+          this.showSnackBar('msnameuppercase.ERROR_OPERATION');
+          console.log('Error ==> ', error);
+        }
+      );
+  }
+
+  updatemsentitypascalGeneralInfo() {
+    console.log(' [UPDATE] Form value ==> ', this.msentitycamelGeneralInfoForm.getRawValue());
+
+    this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
+      .pipe(
+        mergeMap(ok => {
+          const generalInfoinput = {
+            name: this.msentitycamelGeneralInfoForm.getRawValue().name,
+            description: this.msentitycamelGeneralInfoForm.getRawValue().description
+          };
+          return this.msnamecamelDetailservice.updateVehicleTestentitycamelGeneralInfo$(this.msentitycamel._id, generalInfoinput);
+        }),
+        mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
+        filter((resp: any) => !resp.errors || resp.errors.length === 0)
+      )
+      .subscribe(result => {
+        this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
+      },
+        error => {
+          this.showSnackBar('msnameuppercase.ERROR_OPERATION');
+          console.log('Error ==> ', error);
+        }
+      );
 
   }
+
+  onmsentitypascalStateChange() {
+    this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
+      .pipe(
+        mergeMap(ok => {
+          console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());          
+          return this.msnamecamelDetailservice.updateVehicleTestentitycamelState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
+        }),
+        mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
+        filter((resp: any) => !resp.errors || resp.errors.length === 0)
+      ).subscribe(result => {
+        this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
+      },
+        error => {
+          this.showSnackBar('msnameuppercase.ERROR_OPERATION');
+          console.log('Error ==> ', error);
+        });
+  }
+
+  showConfirmationDialog$(dialogMessage, dialogTitle) {
+    return this.dialog
+      //Opens confirm dialog
+      .open(DialogComponent, {
+        data: {
+          dialogMessage,
+          dialogTitle
+        }
+      })
+      .afterClosed()
+      .pipe(
+        filter(okButton => okButton),
+      );
+  }
+
+  showSnackBar(message) {
+    this.snackBar.open(this.translationLoader.getTranslate().instant(message),
+      this.translationLoader.getTranslate().instant('msnameuppercase.CLOSE'), {
+        duration: 2000
+      });
+  }
+
+  graphQlAlarmsErrorHandler$(response) {
+    return of(JSON.parse(JSON.stringify(response)))
+      .pipe(
+        tap((resp: any) => {
+          this.showSnackBarError(resp);
+
+          return resp;
+        })
+      );
+  }
+
+  /**
+   * Shows an error snackbar
+   * @param response
+   */
+  showSnackBarError(response) {
+    if (response.errors) {
+
+      if (Array.isArray(response.errors)) {
+        response.errors.forEach(error => {
+          if (Array.isArray(error)) {
+            error.forEach(errorDetail => {
+              this.showMessageSnackbar('ERRORS.' + errorDetail.message.code);
+            });
+          } else {
+            response.errors.forEach(error => {
+              this.showMessageSnackbar('ERRORS.' + error.message.code);
+            });
+          }
+        });
+      }
+    }
+  }
+
+  /**
+   * Shows a message snackbar on the bottom of the page
+   * @param messageKey Key of the message to i18n
+   * @param detailMessageKey Key of the detail message to i18n
+   */
+  showMessageSnackbar(messageKey, detailMessageKey?) {
+    let translationData = [];
+    if (messageKey) {
+      translationData.push(messageKey);
+    }
+
+    if (detailMessageKey) {
+      translationData.push(detailMessageKey);
+    }
+
+    this.translate.get(translationData)
+      .subscribe(data => {
+        this.snackBar.open(
+          messageKey ? data[messageKey] : '',
+          detailMessageKey ? data[detailMessageKey] : '',
+          {
+            duration: 2000
+          }
+        );
+      });
+  }
+
 
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-  }
-
-  createmsentityPascal(){
-    console.log(' [CREATE] Form value ==> ', this.msentitycamelGeneralInfoForm.getRawValue());
-    const formValue = this.msentitycamelGeneralInfoForm.getRawValue();
-
-    this.msnamecamelDetailservice.createmsnamecamelentitycamel$(formValue);
-  }
-
-  updatemsentityPascalGeneralInfo(){
-    console.log(' [UPDATE] Form value ==> ', this.msentitycamelGeneralInfoForm.getRawValue());
-
-  }
-  onmsentityPascalStateChange(){
-    console.log(this.msentitycamel);
-    console.log(this.msentitycamelStateForm.getRawValue());
   }
 
 }

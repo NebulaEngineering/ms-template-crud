@@ -133,7 +133,7 @@ module.exports = {
               context.authToken.realm_access.roles,
               "msentitypascal",
               "msnamecamelupdatemsentitypascalState",
-              USERS_PERMISSION_DENIED_ERROR_CODE,
+              PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
             ).pipe(
@@ -173,7 +173,7 @@ module.exports = {
 
 const eventDescriptors = [
     {
-        backendEventName: 'msnamecamelmsentitypascalUpdatedEvent',
+        backendEventName: 'msnamecamelmsentitypascalUpdatedSubscription',
         gqlSubscriptionName: 'msnamecamelmsentitypascalUpdatedSubscription',
         dataExtractor: (evt) => evt.data,// OPTIONAL, only use if needed
         onError: (error, descriptor) => console.log(`Error processing ${descriptor.backendEventName}`),// OPTIONAL, only use if needed

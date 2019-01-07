@@ -24,6 +24,13 @@ type msnamecamelmsentitypascal {
   businessId: String!
 }
 
+type msentitypascalGeneralInfo {
+  "msentitypascal name"
+  name: String!,
+  "msentitypascal description"
+  description: String!
+}
+
 input FilterInput {
   "ID of the business"
   businessId: String
@@ -73,11 +80,11 @@ type Query {
 
 type Mutation {
   "Create a new msentitypascal"
-  msnamecamelcreatemsentitypascal(input: msentitypascalInput!): CommandResponse
+  msnamecamelCreatemsentitypascal(input: msentitypascalInput!): CommandResponse
   "Update the msentitypascal generalInfo"
-  msnamecamelupdatemsentitypascalGeneralInfo(id:ID!, input: msentitypascalGeneralInfoInput!): CommandResponse
+  msnamecamelUpdatemsentitypascalGeneralInfo(id:ID!, input: msentitypascalGeneralInfoInput!): CommandResponse
   "Update the msentitypascal state"
-  msnamecamelupdatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
+  msnamecamelUpdatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
 }
 
 type Subscription {

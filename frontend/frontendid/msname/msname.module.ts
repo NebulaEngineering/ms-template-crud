@@ -10,7 +10,8 @@ import { msnamecamelListComponent } from './msname-list/msname-list.component';
 import { msnamecamelDetailService } from './msname-detail/msname-detail.service';
 import { msnamecamelDetailComponent } from './msname-detail/msname-detail.component';
 import { msnamecamelDetailGeneralInfoComponent } from './msname-detail/general-info/msname-general-info.component';
-
+import { ToolbarService } from '../../toolbar/toolbar.service';
+import { DialogComponent } from './dialog/dialog.component';
 
 const routes: Routes = [
   {
@@ -30,11 +31,13 @@ const routes: Routes = [
     FuseWidgetModule
   ],
   declarations: [
+    DialogComponent,
     msnamecamelListComponent,
     msnamecamelDetailComponent,
     msnamecamelDetailGeneralInfoComponent
   ],
-  providers: [ msnamecamelService, msnamecamelListService, msnamecamelDetailService, DatePipe]
+  entryComponents: [DialogComponent],
+  providers: [ msnamecamelService, msnamecamelListService, msnamecamelDetailService, DatePipe, ToolbarService]
 })
 
 export class msnamecamelModule {}
