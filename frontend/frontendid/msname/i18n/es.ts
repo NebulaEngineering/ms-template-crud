@@ -2,7 +2,8 @@ export const locale = {
   lang: 'es',
   data: {
     'msnameuppercase': {
-      msentityuppercase: 'msentityuppercase',
+      DETAIL_HEADER_NAME: 'ENTIDAD',
+      DETAIL_HEADER_NEW: 'Nueva entidad',
       TITLE: 'Nombre entidad',
       FILTER: 'Filtros',
       NAME: 'Nombre',

@@ -49,17 +49,6 @@
             [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
             >{{ "msnameuppercase.FILTER" | translate }}
           </span>
-
-          <button
-            mat-mini-fab
-            class="mb-8"
-            *ngIf="false"
-            [ngClass]="{ 'blink-button': outdatedData }"
-            (click)="resetFilter()"
-            matTooltip="{{ 'msnameuppercase.msnameuppercase_REFRESH' | translate }}"
-          >
-            <mat-icon aria-label="Icon with a refresh icon">refresh</mat-icon>
-          </button>
         </div>
       </div>
       <!-- / SIDENAV HEADER -->
