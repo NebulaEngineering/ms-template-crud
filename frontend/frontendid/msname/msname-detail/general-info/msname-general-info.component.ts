@@ -55,6 +55,7 @@ import { FuseTranslationLoaderService } from '../../../../../core/services/trans
 import { KeycloakService } from 'keycloak-angular';
 import { msnamecamelDetailService } from '../msname-detail.service';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { ToolbarService } from "../../../../toolbar/toolbar.service";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -81,7 +82,8 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private msnamecamelDetailservice: msnamecamelDetailService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toolbarService: ToolbarService
   ) {
       this.translationLoader.loadTranslations(english, spanish);
   }
@@ -101,29 +103,39 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   }
 
   createmsentitypascal() {
-    this.showConfirmationDialog$("msnameuppercase.CREATE_MESSAGE", "msnameuppercase.CREATE_TITLE")
-      .pipe(
-        mergeMap(ok => {
-          console.log('msentitycamelGeneralInfoForm => ', this.msentitycamelGeneralInfoForm.getRawValue());
-          console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());
-          this.msentitycamel = {
-            generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
-            state: this.msentitycamelStateForm.getRawValue().state,
-            businessId: '1'
-          };
-          return this.msnamecamelDetailservice.createmsnamecamelmsentitypascal$(this.msentitycamel);
-        }),
-        mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-        filter((resp: any) => !resp.errors || resp.errors.length === 0)
-      )
-      .subscribe(result => {
+    this.toolbarService.onSelectedBusiness
+    .pipe(
+      tap(selectedBusiness => {
+        if(!selectedBusiness){
+          this.showSnackBar('msnameuppercase.SELECT_BUSINESS');
+        }
+      }),
+      filter(selectedBusiness => selectedBusiness != null),
+      mergeMap(selectedBusiness => {
+        return this.showConfirmationDialog$("msnameuppercase.CREATE_MESSAGE", "msnameuppercase.CREATE_TITLE")
+        .pipe(
+          mergeMap(ok => {
+            console.log('msentitycamelGeneralInfoForm => ', this.msentitycamelGeneralInfoForm.getRawValue());
+            console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());
+            this.msentitycamel = {
+              generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
+              state: this.msentitycamelStateForm.getRawValue().state,
+              businessId: selectedBusiness.id
+            };
+            return this.msnamecamelDetailservice.createmsnamecamelmsentitypascal$(this.msentitycamel);
+          }),
+          mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
+          filter((resp: any) => !resp.errors || resp.errors.length === 0)
+        )
+      })
+    ).subscribe(result => {
         this.showSnackBar('msnameuppercase.WAIT_OPERATION');
       },
         error => {
           this.showSnackBar('msnameuppercase.ERROR_OPERATION');
           console.log('Error ==> ', error);
         }
-      );
+    );
   }
 
   updatemsentitypascalGeneralInfo() {

@@ -37,7 +37,7 @@ const routes: Routes = [
     msnamecamelDetailGeneralInfoComponent
   ],
   entryComponents: [DialogComponent],
-  providers: [ msnamecamelService, msnamecamelListService, msnamecamelDetailService, DatePipe, ToolbarService]
+  providers: [ msnamecamelService, msnamecamelListService, msnamecamelDetailService, DatePipe]
 })
 
 export class msnamecamelModule {}

@@ -37,7 +37,8 @@ export const locale = {
       ENTITY_UPDATED: 'Element updated',
       ENTITY_CREATED: 'Element created',
       CLOSE: 'Close',
-      WAIT_OPERATION: 'Operation in process, in case of not receiving an answer, verify if the changes made were applied successfully.'
+      WAIT_OPERATION: 'Operation in process, in case of not receiving an answer, verify if the changes made were applied successfully.',
+      SELECT_BUSINESS: 'You must select a business unit before performing the creation.'
     },
     ERRORS: {
       1: 'Internal server error',

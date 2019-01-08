@@ -41,7 +41,6 @@ class msentitypascalDA {
     const collection = mongoDB.db.collection(CollectionName);
 
     const query = {
-      businessId: filter.businessId
     };
 
     if (filter.businessId) {
@@ -68,7 +67,7 @@ class msentitypascalDA {
       .find(query)
       .skip(pagination.count * pagination.page)
       .limit(pagination.count)
-      .sort({ timestamp: pagination.sort });
+      .sort({ creationTimestamp: pagination.sort });
 
     return mongoDB.extractAllFromMongoCursor$(cursor);
   }
@@ -77,7 +76,6 @@ class msentitypascalDA {
     const collection = mongoDB.db.collection(CollectionName);
 
     const query = {
-      businessId: filter.businessId
     };
 
     if (filter.businessId) {

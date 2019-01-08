@@ -106,7 +106,8 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
     if(this.msnamecamelDetailservice.lastOperation == 'CREATE'){
 
       //Fields that will be compared to check if the entity was created
-      if(newmsentitycamel.generalInfo.name == this.msentitycamel.generalInfo.name && newmsentitycamel.generalInfo.description == this.msentitycamel.generalInfo.description){
+      if(newmsentitycamel.generalInfo.name == this.msnamecamelDetailservice.msentitycamel.generalInfo.name 
+        && newmsentitycamel.generalInfo.description == this.msnamecamelDetailservice.msentitycamel.generalInfo.description){
         //Show message entity created and redirect to the main page
         this.showSnackBar('msnameuppercase.ENTITY_CREATED');
         this.router.navigate(['msentityname/']);

@@ -224,7 +224,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       map(([filter, paginator,selectedBusiness]) => {
         console.log('Filter => ', filter);
         const filterInput = {
-          businessId: selectedBusiness.id,
+          businessId: filter.useSelectedBusiness && selectedBusiness ? selectedBusiness.id: null,
           name: filter.name,
           creatorUser: filter.creatorUser,
           creationTimestamp: filter.creationTimestamp ? filter.creationTimestamp.valueOf() : null
