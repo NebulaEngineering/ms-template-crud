@@ -80,7 +80,8 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
         this.msnamecamelDetailservice.getmsnamecamelmsentitypascal$(entityId).pipe(
           map(res => res.data.msnamecamelmsentitypascal)
         ) : of(null)
-      )
+      ),
+      takeUntil(this.ngUnsubscribe)
     )
     .subscribe((msentitycamel: any) => {
       this.msentitycamel = msentitycamel;
@@ -89,15 +90,12 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
   }
   
   subscribemsentitypascalUpdated(){
-    console.log('subscribemsentitypascalUpdated');
     this.msnamecamelDetailservice.subscribemsnamecamelmsentitypascalUpdatedSubscription$()
     .pipe(
       map(subscription => subscription.data.msnamecamelmsentitypascalUpdatedSubscription),
       takeUntil(this.ngUnsubscribe)
     )
     .subscribe((msentitycamel: any) => {
-      console.log('Subscription => ', msentitycamel);
-
       this.checkIfEntityHasBeenUpdated(msentitycamel);
     })
   }

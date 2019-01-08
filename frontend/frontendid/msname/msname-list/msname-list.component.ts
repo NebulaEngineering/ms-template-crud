@@ -185,7 +185,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       name: [null],
       creationTimestamp: [null],
       creatorUser: [null],      
-      useSelectedBusiness: [null],
+      useSelectedBusiness: [null],      
       //modificationDate: [null],
       //modifierUser: [null],
     });

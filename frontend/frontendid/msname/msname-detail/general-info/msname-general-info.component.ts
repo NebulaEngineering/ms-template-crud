@@ -90,8 +90,6 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
 
 
   ngOnInit() {
-    console.log('GENERAL INFO (ngOnInit) ==> ', this.pageType, this.msentitycamel);
-
     this.msentitycamelGeneralInfoForm = new FormGroup({
       name: new FormControl(this.msentitycamel ? (this.msentitycamel.generalInfo || {}).name : ''),
       description: new FormControl(this.msentitycamel ? (this.msentitycamel.generalInfo || {}).description : '')
@@ -115,8 +113,6 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
         return this.showConfirmationDialog$("msnameuppercase.CREATE_MESSAGE", "msnameuppercase.CREATE_TITLE")
         .pipe(
           mergeMap(ok => {
-            console.log('msentitycamelGeneralInfoForm => ', this.msentitycamelGeneralInfoForm.getRawValue());
-            console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());
             this.msentitycamel = {
               generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
               state: this.msentitycamelStateForm.getRawValue().state,
@@ -125,9 +121,10 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
             return this.msnamecamelDetailservice.createmsnamecamelmsentitypascal$(this.msentitycamel);
           }),
           mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-          filter((resp: any) => !resp.errors || resp.errors.length === 0)
+          filter((resp: any) => !resp.errors || resp.errors.length === 0),          
         )
-      })
+      }),
+      takeUntil(this.ngUnsubscribe)
     ).subscribe(result => {
         this.showSnackBar('msnameuppercase.WAIT_OPERATION');
       },
@@ -139,8 +136,6 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   }
 
   updatemsentitypascalGeneralInfo() {
-    console.log(' [UPDATE] Form value ==> ', this.msentitycamelGeneralInfoForm.getRawValue());
-
     this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
       .pipe(
         mergeMap(ok => {
@@ -151,7 +146,8 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
           return this.msnamecamelDetailservice.updatemsnamecamelmsentitypascalGeneralInfo$(this.msentitycamel._id, generalInfoinput);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-        filter((resp: any) => !resp.errors || resp.errors.length === 0)
+        filter((resp: any) => !resp.errors || resp.errors.length === 0),
+        takeUntil(this.ngUnsubscribe)
       )
       .subscribe(result => {
         this.showSnackBar('msnameuppercase.WAIT_OPERATION');
@@ -167,12 +163,12 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   onmsentitypascalStateChange() {
     this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
       .pipe(
-        mergeMap(ok => {
-          console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());          
+        mergeMap(ok => {        
           return this.msnamecamelDetailservice.updatemsnamecamelmsentitypascalState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-        filter((resp: any) => !resp.errors || resp.errors.length === 0)
+        filter((resp: any) => !resp.errors || resp.errors.length === 0),
+        takeUntil(this.ngUnsubscribe)
       ).subscribe(result => {
         this.showSnackBar('msnameuppercase.WAIT_OPERATION');
       },
