@@ -40,14 +40,19 @@ export class msnamecamelDetailService {
   }
 
   createmsnamecamelmsentitypascal$(msentitycamel: any) {
-    return this.gateway.apollo
-      .mutate<any>({
-        mutation: msnamecamelCreatemsentitypascal,
-        variables: {
-          input: msentitycamel
-        },
-        errorPolicy: 'all'
-      });
+    return this.createOperation$(msentitycamel)
+    .pipe(
+      mergeMap(() => {
+        return this.gateway.apollo
+        .mutate<any>({
+          mutation: msnamecamelCreatemsentitypascal,
+          variables: {
+            input: msentitycamel
+          },
+          errorPolicy: 'all'
+        });
+      })
+    )
   }
 
   updatemsnamecamelmsentitypascalGeneralInfo$(id: String, msentitycamelGeneralInfo: any) {

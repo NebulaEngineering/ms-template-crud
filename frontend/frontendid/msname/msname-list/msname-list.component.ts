@@ -139,6 +139,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     this.buildFilterForm();  
     this.updateFilterDataSubscription();
     this.updatePaginatorDataSubscription();
+    this.loadLastFilters();
     this.refreshTableSubscription();
   }
 
@@ -188,6 +189,11 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       //modificationDate: [null],
       //modifierUser: [null],
     });
+
+    this.filterForm.disable({
+      onlySelf: true,
+      emitEvent: false
+    });
   }
 
   updateFilterDataSubscription() {
@@ -201,12 +207,46 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
   }
 
   updatePaginatorDataSubscription() {
-    this.listenFilterFormChanges$()
+    this.listenPaginatorChanges$()
       .pipe(
         takeUntil(this.ngUnsubscribe)
       )
-      .subscribe(filterData => {
-        this.msnamecamelListservice.updateFilterData(filterData);
+      .subscribe(pagination => {
+        const paginator = {
+          pagination: {
+            page: pagination.pageIndex, count: pagination.pageSize, sort: -1
+          },
+        };
+        this.msnamecamelListservice.updatePaginatorData(paginator);
+      });
+  }
+
+  /**
+   * First time that the page is loading is needed to check if there were filters applied previously to load this info into the forms
+   */
+  loadLastFilters() {
+    combineLatest(
+      this.msnamecamelListservice.filter$,
+      this.msnamecamelListservice.paginator$
+    ).pipe(
+      take(1)
+    ).subscribe(([filter, paginator]) => {
+          if (filter) {
+            this.filterForm.patchValue({
+              name: filter.name,
+              creationTimestamp: filter.creationTimestamp,
+              creatorUser: filter.creatorUser,      
+              useSelectedBusiness: filter.useSelectedBusiness,
+            });
+          }
+
+          if (paginator) {
+            this.tablePage = paginator.pagination.page;
+            this.tableCount = paginator.pagination.count;
+          }
+        
+
+        this.filterForm.enable({ emitEvent: true });
       });
   }
   
@@ -222,7 +262,6 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       debounceTime(500),
       filter(([filter, paginator, selectedBusiness]) => (filter != null && paginator != null)),
       map(([filter, paginator,selectedBusiness]) => {
-        console.log('Filter => ', filter);
         const filterInput = {
           businessId: filter.useSelectedBusiness && selectedBusiness ? selectedBusiness.id: null,
           name: filter.name,
@@ -248,8 +287,6 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     .subscribe(([list, size]) => {
       this.dataSource.data = list;
       this.tableSize = size;
-      console.log('List => ', list);
-      console.log('Size => ', size);
     })
   }
 

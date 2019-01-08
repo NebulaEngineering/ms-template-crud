@@ -45,6 +45,7 @@ export const msnamecamelmsentitiespascal = gql`
         name
         description
       }
+      state
       creationTimestamp
       creatorUser
       modificationTimestamp
@@ -60,7 +61,7 @@ export const msnamecamelmsentitiespascalSize = gql`
 `;
 
 export const msnamecamelCreatemsentitypascal = gql `
-  mutation msnamecamelCreatemsentitypascal($generalInfo: msnamecamelmsentitypascalInput!){
+  mutation msnamecamelCreatemsentitypascal($input: msnamecamelmsentitypascalInput!){
     msnamecamelCreatemsentitypascal(input: $input){
       code
       message

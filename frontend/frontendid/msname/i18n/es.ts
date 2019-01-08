@@ -37,7 +37,8 @@ export const locale = {
       ENTITY_CREATED: 'Elemento creado',
       CLOSE: 'Cerrar',
       WAIT_OPERATION: 'Operación en proceso, en caso de no recibir respuesta, verificar si los cambios realizados fueron aplicados exitosamente.',
-      SELECT_BUSINESS: 'Debe seleccionar una unidad de negocio antes de realizar la creación.'
+      SELECT_BUSINESS: 'Debe seleccionar una unidad de negocio antes de realizar la creación.',
+      ERROR_OPERATION: 'Error realizando operación'
     },
     ERRORS: {
       1: 'Error interno de servidor',

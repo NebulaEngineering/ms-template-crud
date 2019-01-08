@@ -122,7 +122,7 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
       }
 
     }else{
-      if(newmsentitycamel.id == this.msentitycamel._id){
+      if(this.msentitycamel != null && newmsentitycamel._id == this.msentitycamel._id){
         //Show message indicating that the entity has been updated
         this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
       }
