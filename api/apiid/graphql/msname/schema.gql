@@ -7,7 +7,7 @@ type CommandResponse {
 
 type msnamecamelmsentitypascal {
   "msentitypascal ID"
-  id: ID!
+  _id: ID!
   "User general info"
   generalInfo: msentitypascalGeneralInfo
   "msentitypascal state"
@@ -34,6 +34,8 @@ type msentitypascalGeneralInfo {
 input FilterInput {
   "ID of the business"
   businessId: String
+  "Name"
+  name: String
   "State"
   state: Boolean
   "Creator user"
@@ -53,16 +55,16 @@ input PaginationInput {
   sort: Int
 }
 
-input msentitypascalInput {
+input msnamecamelmsentitypascalInput {
   "msentitypascal general info"
-  generalInfo: msentitypascalGeneralInfoInput!
+  generalInfo: msnamecamelmsentitypascalGeneralInfoInput!
   "msentitypascal status"
   state: Boolean!
   "Business ID"
   businessId: String!
 }
 
-input msentitypascalGeneralInfoInput {
+input msnamecamelmsentitypascalGeneralInfoInput {
   "msentitypascal name"
   name: String!,
   "msentitypascal description"
@@ -80,9 +82,9 @@ type Query {
 
 type Mutation {
   "Create a new msentitypascal"
-  msnamecamelCreatemsentitypascal(input: msentitypascalInput!): CommandResponse
+  msnamecamelCreatemsentitypascal(input: msnamecamelmsentitypascalInput!): CommandResponse
   "Update the msentitypascal generalInfo"
-  msnamecamelUpdatemsentitypascalGeneralInfo(id:ID!, input: msentitypascalGeneralInfoInput!): CommandResponse
+  msnamecamelUpdatemsentitypascalGeneralInfo(id:ID!, input: msnamecamelmsentitypascalGeneralInfoInput!): CommandResponse
   "Update the msentitypascal state"
   msnamecamelUpdatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
 }

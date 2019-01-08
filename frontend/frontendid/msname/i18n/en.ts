@@ -25,7 +25,19 @@ export const locale = {
         NAME: 'Name',
         DESCRIPTION: 'Description'
 
-      }
+      },
+      ACTIVE: 'Active',
+      CREATE: 'Create',
+      UPDATE: 'Save',
+      UPDATE_TITLE: 'Update',
+      UPDATE_MESSAGE: 'Are you sure you want to make the modification?',
+      CREATE_TITLE: 'Creation',
+      CREATE_MESSAGE: '¿Are you sure you want to make the creation?',
+      CANCEL: 'Cancel',
+      ENTITY_UPDATED: 'Element updated',
+      ENTITY_CREATED: 'Element created',
+      CLOSE: 'Close',
+      WAIT_OPERATION: 'Operation in process, in case of not receiving an answer, verify if the changes made were applied successfully.'
     },
     ERRORS: {
       1: 'Internal server error',

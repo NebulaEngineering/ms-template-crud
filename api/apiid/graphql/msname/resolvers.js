@@ -85,11 +85,11 @@ module.exports = {
 
     //// MUTATIONS ///////
     Mutation: {
-        msnamecamelcreatemsentitypascal(root, args, context) {
+        msnamecamelCreatemsentitypascal(root, args, context) {
             return RoleValidator.checkPermissions$(
               context.authToken.realm_access.roles,
               "msentitypascal",
-              "msnamecamelcreatemsentitypascal",
+              "msnamecamelCreatemsentitypascal",
               PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
@@ -98,20 +98,20 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamecamelcreatemsentitypascal",
+                    "apiid.graphql.mutation.msnamecamelCreatemsentitypascal",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
                 ),
-                catchError(err => handleError$(err, "msnamecamelcreatemsentitypascal")),
+                catchError(err => handleError$(err, "msnamecamelCreatemsentitypascal")),
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
-        msnamecamelupdatemsentitypascalGeneralInfo(root, args, context) {
+        msnamecamelUpdatemsentitypascalGeneralInfo(root, args, context) {
             return RoleValidator.checkPermissions$(
               context.authToken.realm_access.roles,
               "msentitypascal",
-              "msnamecamelupdatemsentitypascalGeneralInfo",
+              "msnamecamelUpdatemsentitypascalGeneralInfo",
               PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
@@ -119,7 +119,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamecamelupdatemsentitypascalGeneralInfo",
+                    "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalGeneralInfo",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
@@ -128,11 +128,11 @@ module.exports = {
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
-        msnamecamelupdatemsentitypascalState(root, args, context) {
+        msnamecamelUpdatemsentitypascalState(root, args, context) {
             return RoleValidator.checkPermissions$(
               context.authToken.realm_access.roles,
               "msentitypascal",
-              "msnamecamelupdatemsentitypascalState",
+              "msnamecamelUpdatemsentitypascalState",
               PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
@@ -140,7 +140,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamecamelupdatemsentitypascalState",
+                    "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalState",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )

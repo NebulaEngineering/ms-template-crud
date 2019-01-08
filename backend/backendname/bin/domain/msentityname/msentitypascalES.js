@@ -2,8 +2,9 @@
 
 const {} = require("rxjs");
 const { tap, mergeMap, catchError, map, mapTo } = require('rxjs/operators');
+const broker = require("../../tools/broker/BrokerFactory")();
 const msentitypascalDA = require('../../data/msentitypascalDA');
-
+const MATERIALIZED_VIEW_TOPIC = "emi-gateway-materialized-view-updates";
 
 /**
  * Singleton instance
@@ -23,9 +24,9 @@ class msentitypascalES {
     handlemsentitypascalCreated$(msentitycamelCreatedEvent) {  
         const msentitycamel = msentitycamelCreatedEvent.data;
         return msentitypascalDA.createmsentitypascal$(msentitycamel)
-        .mergeMap(result => {
-            return broker.send$(MATERIALIZED_VIEW_TOPIC, `msentitypascalUpdatedSubscription`, result.ops[0])        
-        });
+        .pipe(
+            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamecamelmsentitypascalUpdatedSubscription`, result.ops[0]))
+        );
     }
 
         /**
@@ -35,9 +36,9 @@ class msentitypascalES {
     handlemsentitypascalGeneralInfoUpdated$(msentitycamelGeneralInfoUpdatedEvent) {  
         const msentitycamelGeneralInfo = msentitycamelGeneralInfoUpdatedEvent.data;
         return msentitypascalDA.updatemsentitypascalGeneralInfo$(msentitycamelGeneralInfoUpdatedEvent.aid, msentitycamelGeneralInfo)
-        .mergeMap(result => {
-            return broker.send$(MATERIALIZED_VIEW_TOPIC, `msentitypascalUpdatedSubscription`, result.ops[0])        
-        });
+        .pipe(
+            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamecamelmsentitypascalUpdatedSubscription`, result))
+        );
     }
 
     /**
@@ -46,9 +47,9 @@ class msentitypascalES {
      */
     handlemsentitypascalStateUpdated$(msentitypascalStateUpdatedEvent) {          
         return msentitypascalDA.updatemsentitypascalState$(msentitypascalStateUpdatedEvent.aid, msentitypascalStateUpdatedEvent.data)
-        .mergeMap(result => {
-            return broker.send$(MATERIALIZED_VIEW_TOPIC, `msentitypascalUpdatedSubscription`, result)        
-        });
+        .pipe(
+            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamecamelmsentitypascalUpdatedSubscription`, result))
+        );
     }
 
 }

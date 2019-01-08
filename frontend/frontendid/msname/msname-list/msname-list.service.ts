@@ -5,8 +5,8 @@ import {
 } from "rxjs/operators";
 import { GatewayService } from '../../../../api/gateway.service';
 import {
-  msnamecamelentitiespascal,
-  msnamecamelentitiespascalSize,
+  msnamecamelmsentitiespascal,
+  msnamecamelmsentitiespascalSize,
   getHelloWorld,
   msnamecamelHelloWorldSubscription
 } from '../gql/msnamecamel';
@@ -62,7 +62,7 @@ export class msnamecamelListService {
    */
   getmsentitycamelList$(filterInput, paginatorInput){
     return this.gateway.apollo.query<any>({
-      query: msnamecamelentitiespascal,
+      query: msnamecamelmsentitiespascal,
       variables: {
         filterInput: filterInput,
         paginationInput: paginatorInput
@@ -79,7 +79,7 @@ export class msnamecamelListService {
    */
   getmsentitycamelSize$(filterInput){
     return this.gateway.apollo.query<any>({
-      query: msnamecamelentitiespascalSize,
+      query: msnamecamelmsentitiespascalSize,
       variables: {
         filterInput: filterInput
       },

@@ -49,7 +49,7 @@ class msentitypascalDA {
     }
 
     if (filter.name) {
-      query["generalInfo.name"] = filter.name;
+      query["generalInfo.name"] = { $regex: filter.name, $options: "i" };
     }
 
     if (filter.creationTimestamp) {
@@ -85,7 +85,7 @@ class msentitypascalDA {
     }
 
     if (filter.name) {
-      query["generalInfo.name"] = filter.name;
+      query["generalInfo.name"] = { $regex: filter.name, $options: "i" };
     }
 
     if (filter.creationTimestamp) {
@@ -120,7 +120,7 @@ class msentitypascalDA {
   static updatemsentitypascalGeneralInfo$(id, msentitypascalGeneralInfo) {
     const collection = mongoDB.db.collection(CollectionName);
 
-    return Rx.Observable.defer(()=>
+    return defer(()=>
         collection.findOneAndUpdate(
           { _id: id },
           {
@@ -129,7 +129,9 @@ class msentitypascalDA {
             returnOriginal: false
           }
         )
-    ).map(result => result && result.value ? result.value : undefined);
+    ).pipe(
+      map(result => result && result.value ? result.value : undefined)
+    );
   }
 
   /**

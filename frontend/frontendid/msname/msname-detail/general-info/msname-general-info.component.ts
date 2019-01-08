@@ -111,13 +111,13 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
             state: this.msentitycamelStateForm.getRawValue().state,
             businessId: '1'
           };
-          return this.msnamecamelDetailservice.createVehicleTestentitycamel$(this.msentitycamel);
+          return this.msnamecamelDetailservice.createmsnamecamelmsentitypascal$(this.msentitycamel);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
         filter((resp: any) => !resp.errors || resp.errors.length === 0)
       )
       .subscribe(result => {
-        this.showSnackBar('msnameuppercase.ENTITY_CREATED');
+        this.showSnackBar('msnameuppercase.WAIT_OPERATION');
       },
         error => {
           this.showSnackBar('msnameuppercase.ERROR_OPERATION');
@@ -136,13 +136,13 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
             name: this.msentitycamelGeneralInfoForm.getRawValue().name,
             description: this.msentitycamelGeneralInfoForm.getRawValue().description
           };
-          return this.msnamecamelDetailservice.updateVehicleTestentitycamelGeneralInfo$(this.msentitycamel._id, generalInfoinput);
+          return this.msnamecamelDetailservice.updatemsnamecamelmsentitypascalGeneralInfo$(this.msentitycamel._id, generalInfoinput);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
         filter((resp: any) => !resp.errors || resp.errors.length === 0)
       )
       .subscribe(result => {
-        this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
+        this.showSnackBar('msnameuppercase.WAIT_OPERATION');
       },
         error => {
           this.showSnackBar('msnameuppercase.ERROR_OPERATION');
@@ -157,12 +157,12 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
       .pipe(
         mergeMap(ok => {
           console.log('msentitycamelStateForm => ', this.msentitycamelStateForm.getRawValue());          
-          return this.msnamecamelDetailservice.updateVehicleTestentitycamelState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
+          return this.msnamecamelDetailservice.updatemsnamecamelmsentitypascalState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
         filter((resp: any) => !resp.errors || resp.errors.length === 0)
       ).subscribe(result => {
-        this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
+        this.showSnackBar('msnameuppercase.WAIT_OPERATION');
       },
         error => {
           this.showSnackBar('msnameuppercase.ERROR_OPERATION');
@@ -188,7 +188,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   showSnackBar(message) {
     this.snackBar.open(this.translationLoader.getTranslate().instant(message),
       this.translationLoader.getTranslate().instant('msnameuppercase.CLOSE'), {
-        duration: 2000
+        duration: 6000
       });
   }
 

@@ -14,12 +14,9 @@
       </div>
 
       <mat-form-field class="w-100-p">
-        <input matInput name="username" formControlName="username" maxlength="15" placeholder="{{'msnameuppercase.DETAILS.NAME' | translate}}">
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['username'])">
-          {{'msnameuppercase.USERNAME_REQUIRED' | translate}}
-        </mat-error>
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('pattern', ['username'])">
-          {{'msnameuppercase.INVALID_USERNAME_FORMAT' | translate}}
+        <input matInput name="name" formControlName="name" maxlength="15" placeholder="{{'msnameuppercase.DETAILS.NAME' | translate}}">
+        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['name'])">
+          {{'msnameuppercase.NAME_REQUIRED' | translate}}
         </mat-error>
       </mat-form-field>
 
@@ -28,8 +25,8 @@
           maxlength="350" placeholder="{{'msnameuppercase.DETAILS.DESCRIPTION' | translate}}"
           matAutosizeMinRows="1" matAutosizeMaxRows="5" >
         </textarea>
-        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['name'])">
-          {{'msnameuppercase.NAME_REQUIRED' | translate}}
+        <mat-error *ngIf="msentitycamelGeneralInfoForm.hasError('required', ['description'])">
+          {{'msnameuppercase.DESCRIPTION_REQUIRED' | translate}}
         </mat-error>
       </mat-form-field>
 

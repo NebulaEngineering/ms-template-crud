@@ -169,7 +169,7 @@
 
         </div>
 
-        <button mat-raised-button class="mat-white-bg" [routerLink]="new">
+        <button mat-raised-button class="mat-white-bg" [routerLink]="'new'">
           <span>{{ "msnameuppercase.ADD_NEW" | translate }}</span>
         </button>
       </div>
@@ -178,7 +178,7 @@
       <!-- CONTENT CARD -->
       <div class="content-card mat-white-bg">
         <mat-table
-          id="msentity-table"
+          id="entity-table"
           class="item-table"
           #table
           [dataSource]="dataSource"
@@ -194,6 +194,17 @@
               <p class="text-truncate">
                 {{ element.generalInfo.name }}
               </p>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Active Column -->
+          <ng-container cdkColumnDef="state">
+            <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>{{
+              "msnameuppercase.ACTIVE" | translate
+              }}</mat-header-cell>
+            <mat-cell *cdkCellDef="let element" fxHide fxShow.gt-xs>
+              <mat-icon *ngIf="element.state" class="active-icon mat-green-600-bg s-16">check</mat-icon>
+              <mat-icon *ngIf="!element.state" class="active-icon mat-red-500-bg s-16">close</mat-icon>
             </mat-cell>
           </ng-container>
 

@@ -37,12 +37,14 @@ export const msnamecamelmsentitypascal = gql`
   }
 `;
 
-export const msnamecamelentitiespascal = gql`
-  query msnamecamelentitiespascal($filterInput: FilterInput!, $paginationInput: PaginationInput!) {
-    msnamecamelentitiespascal(filterInput: $filterInput, paginationInput: $paginationInput) {
+export const msnamecamelmsentitiespascal = gql`
+  query msnamecamelmsentitiespascal($filterInput: FilterInput!, $paginationInput: PaginationInput!) {
+    msnamecamelmsentitiespascal(filterInput: $filterInput, paginationInput: $paginationInput) {
       _id
-      name
-      description
+      generalInfo {
+        name
+        description
+      }
       creationTimestamp
       creatorUser
       modificationTimestamp
@@ -51,20 +53,23 @@ export const msnamecamelentitiespascal = gql`
   }
 `;
 
-export const msnamecamelentitiespascalSize = gql`
-  query msnamecamelentitiespascalSize($filterInput: FilterInput!) {
-    msnamecamelentitiespascalSize(filterInput: $filterInput)
+export const msnamecamelmsentitiespascalSize = gql`
+  query msnamecamelmsentitiespascalSize($filterInput: FilterInput!) {
+    msnamecamelmsentitiespascalSize(filterInput: $filterInput)
   }
 `;
 
 export const msnamecamelCreatemsentitypascal = gql `
-  mutation msnamecamelCreatemsentitypascal($generalInfo: msnamecamelentityGeneralInfo!){
-    msnamecamelCreatemsentitypascal(generalInfo: $generalInfo)
+  mutation msnamecamelCreatemsentitypascal($generalInfo: msnamecamelmsentitypascalInput!){
+    msnamecamelCreatemsentitypascal(input: $input){
+      code
+      message
+    }
   }
 `;
 
 export const msnamecamelUpdatemsentitypascalGeneralInfo = gql `
-  mutation msnamecamelUpdatemsentitypascalGeneralInfo($id: ID!, $input: VehicleTestmsentitypascalGeneralInfoInput!){
+  mutation msnamecamelUpdatemsentitypascalGeneralInfo($id: ID!, $input: msnamecamelmsentitypascalGeneralInfoInput!){
     msnamecamelUpdatemsentitypascalGeneralInfo(id: $id, input: $input){
       code
       message

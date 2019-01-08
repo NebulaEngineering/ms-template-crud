@@ -39,7 +39,7 @@ export class msnamecamelDetailService {
     );
   }
 
-  createmsnamecamelentitycamel$(msentitycamel: any) {
+  createmsnamecamelmsentitypascal$(msentitycamel: any) {
     return this.gateway.apollo
       .mutate<any>({
         mutation: msnamecamelCreatemsentitypascal,
@@ -50,7 +50,7 @@ export class msnamecamelDetailService {
       });
   }
 
-  updatemsnamecamelentitycamelGeneralInfo$(id: String, msentitycamelGeneralInfo: any) {
+  updatemsnamecamelmsentitypascalGeneralInfo$(id: String, msentitycamelGeneralInfo: any) {
     return this.updateOperation$(msentitycamelGeneralInfo)
     .pipe(
       mergeMap(() => {
@@ -67,7 +67,7 @@ export class msnamecamelDetailService {
     )
   }
 
-  updatemsnamecamelentitycamelState$(id: String, newState: boolean) {
+  updatemsnamecamelmsentitypascalState$(id: String, newState: boolean) {
     return this.gateway.apollo
       .mutate<any>({
         mutation: msnamecamelUpdatemsentitypascalState,
@@ -79,7 +79,7 @@ export class msnamecamelDetailService {
       });
   }
 
-  getmsnamecamelentitycamel$(entityId: string) {
+  getmsnamecamelmsentitypascal$(entityId: string) {
     return this.gateway.apollo.query<any>({
       query: msnamecamelmsentitypascal,
       variables: {

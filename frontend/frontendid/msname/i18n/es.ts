@@ -24,8 +24,19 @@ export const locale = {
         DISABLED: 'Desactivado',
         NAME: 'Nombre',
         DESCRIPTION: 'Descripción'
-
-      }
+      },
+      ACTIVE: 'Activo',
+      CREATE: 'Crear',
+      UPDATE: 'Guardar',
+      UPDATE_TITLE: 'Actualizar',
+      UPDATE_MESSAGE: '¿Estás seguro que desea realizar la modificación?',
+      CREATE_TITLE: 'Creación',
+      CREATE_MESSAGE: '¿Estás seguro que desea realizar la creación?',
+      CANCEL: 'Cancelar',
+      ENTITY_UPDATED: 'Elemento actualizado',
+      ENTITY_CREATED: 'Elemento creado',
+      CLOSE: 'Cerrar',
+      WAIT_OPERATION: 'Operación en proceso, en caso de no recibir respuesta, verificar si los cambios realizados fueron aplicados exitosamente.'
     },
     ERRORS: {
       1: 'Error interno de servidor',

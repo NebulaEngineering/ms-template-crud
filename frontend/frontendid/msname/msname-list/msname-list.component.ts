@@ -106,6 +106,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
   // Columns to show in the table
   displayedColumns = [
     "name",
+    "state",
     "creationTimestamp",
     "creatorUser",
     "modificationTimestamp",
@@ -181,7 +182,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     // Reactive Filter Form
     this.filterForm = this.formBuilder.group({
       name: [null],
-      creationDate: [null],
+      creationTimestamp: [null],
       creatorUser: [null],      
       useSelectedBusiness: [null],
       //modificationDate: [null],
@@ -221,8 +222,12 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       debounceTime(500),
       filter(([filter, paginator, selectedBusiness]) => (filter != null && paginator != null)),
       map(([filter, paginator,selectedBusiness]) => {
+        console.log('Filter => ', filter);
         const filterInput = {
-          businessId: selectedBusiness.id
+          businessId: selectedBusiness.id,
+          name: filter.name,
+          creatorUser: filter.creatorUser,
+          creationTimestamp: filter.creationTimestamp ? filter.creationTimestamp.valueOf() : null
         };
         const paginationInput = {
           page: paginator.pagination.page,
@@ -257,7 +262,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     return this.msnamecamelListservice.getmsentitycamelList$(filterInput, paginationInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.msentitycamel)
+      map(resp => resp.data.msnamecamelmsentitiespascal)
     );
   }
 
@@ -269,7 +274,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     return this.msnamecamelListservice.getmsentitycamelSize$(filterInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.msentitycamelSize)
+      map(resp => resp.data.msnamecamelmsentitiespascalSize)
     );
   }
 
