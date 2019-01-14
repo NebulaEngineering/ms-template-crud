@@ -257,7 +257,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     combineLatest(
       this.msnamecamelListservice.filter$,
       this.msnamecamelListservice.paginator$,
-      this.toolbarService.onSelectedBusiness
+      this.toolbarService.onSelectedBusiness$
     ).pipe(
       debounceTime(500),
       filter(([filter, paginator, selectedBusiness]) => (filter != null && paginator != null)),
@@ -328,6 +328,29 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     this.paginator.pageIndex = 0;
     this.tablePage = 0;
     this.tableCount = 10;
+  }
+
+  /**
+   * Navigates to the detail page
+   */
+  goToDetail(){
+    this.toolbarService.onSelectedBusiness$
+    .pipe(
+      take(1)
+    ).subscribe(selectedBusiness => {
+      if(selectedBusiness == null){
+        this.showSnackBar('msnameuppercase.SELECT_BUSINESS');
+      }else{
+        this.router.navigate(['msentityname/new']);
+      }      
+    })    
+  }
+
+  showSnackBar(message) {
+    this.snackBar.open(this.translationLoader.getTranslate().instant(message),
+      this.translationLoader.getTranslate().instant('msnameuppercase.CLOSE'), {
+        duration: 4000
+      });
   }
 
   graphQlAlarmsErrorHandler$(response) {

@@ -169,7 +169,7 @@
 
         </div>
 
-        <button mat-raised-button class="mat-white-bg" [routerLink]="'new'">
+        <button mat-raised-button class="mat-white-bg" (click)="goToDetail()">
           <span>{{ "msnameuppercase.ADD_NEW" | translate }}</span>
         </button>
       </div>

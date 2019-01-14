@@ -101,7 +101,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
   }
 
   createmsentitypascal() {
-    this.toolbarService.onSelectedBusiness
+    this.toolbarService.onSelectedBusiness$
     .pipe(
       tap(selectedBusiness => {
         if(!selectedBusiness){
