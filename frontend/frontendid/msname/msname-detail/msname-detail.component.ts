@@ -15,7 +15,7 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 
 ////////// RXJS ///////////
-import { map, mergeMap, tap, takeUntil } from 'rxjs/operators';
+import { map, mergeMap, tap, takeUntil, take } from 'rxjs/operators';
 import { Subject, of} from 'rxjs';
 
 //////////// ANGULAR MATERIAL ///////////
@@ -70,6 +70,7 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadmsentitycamel();
     this.subscribemsentitypascalUpdated();
+    this.stopWaitingOperation();
   }
 
   loadmsentitycamel(){
@@ -125,6 +126,15 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
         this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
       }
     }
+  }
+
+  stopWaitingOperation(){
+    this.ngUnsubscribe.pipe(
+      take(1),
+      mergeMap(() => this.msnamecamelDetailservice.resetOperation$())
+    ).subscribe(val => {
+      //console.log('Reset operation');
+    })
   }
 
   showSnackBar(message) {

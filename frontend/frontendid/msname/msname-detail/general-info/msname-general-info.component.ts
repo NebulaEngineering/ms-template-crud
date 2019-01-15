@@ -108,7 +108,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
           this.showSnackBar('msnameuppercase.SELECT_BUSINESS');
         }
       }),
-      filter(selectedBusiness => selectedBusiness != null),
+      filter(selectedBusiness => selectedBusiness != null && selectedBusiness.id != null),
       mergeMap(selectedBusiness => {
         return this.showConfirmationDialog$("msnameuppercase.CREATE_MESSAGE", "msnameuppercase.CREATE_TITLE")
         .pipe(

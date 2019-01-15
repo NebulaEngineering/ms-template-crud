@@ -336,7 +336,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     .pipe(
       take(1)
     ).subscribe(selectedBusiness => {
-      if(selectedBusiness == null){
+      if(selectedBusiness == null || selectedBusiness.id == null){
         this.showSnackBar('msnameuppercase.SELECT_BUSINESS');
       }else{
         this.router.navigate(['msentityname/new']);
@@ -365,7 +365,6 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
    * @param response
    */
   showSnackBarError(response) {
-    // console.log('showSnackBarError => ', response);
     if (response.errors) {
       if (Array.isArray(response.errors)) {
         response.errors.forEach(error => {

@@ -21,6 +21,9 @@ export class msnamecamelDetailService {
 
   }
 
+  /**
+   * Registers an operation, this is useful to indicate that we are waiting for the response of the CREATE operation
+   */
   createOperation$(msentitycamel: any) {
     return of('CREATE').pipe(
       tap(operation => {
@@ -30,11 +33,26 @@ export class msnamecamelDetailService {
     );
   }
 
+  /**
+   * Registers an operation, this is useful to indicate that we are waiting for the response of the UPDATE operation
+   */
   updateOperation$(msentitycamel: any) {
     return of('UPDATE').pipe(
       tap(operation => {
         this.lastOperation = operation;
         this.msentitycamel = msentitycamel;
+      })
+    );
+  }
+
+  /**
+   * Unregisters an operation, this is useful to indicate that we are not longer waiting for the response of the last operation
+   */
+  resetOperation$(){
+    return of('').pipe(
+      tap(() => {
+        this.lastOperation = null;
+        this.msentitycamel = null;
       })
     );
   }

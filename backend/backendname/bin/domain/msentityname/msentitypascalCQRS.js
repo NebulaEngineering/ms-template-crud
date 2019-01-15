@@ -66,10 +66,7 @@ class msentitypascalCQRS {
       ["PLATFORM-ADMIN"]
     ).pipe(
       mergeMap(roles => {
-        console.log('getmsentitypascalList => ', args);
-
         const isPlatformAdmin = roles["PLATFORM-ADMIN"];
-        console.log('isPlatformAdmin => ', isPlatformAdmin);
         //If an user does not have the role to get the msentitypascal from other business, the query must be filtered with the businessId of the user
         const businessId = !isPlatformAdmin? (authToken.businessId || ''): args.filterInput.businessId;
         const filterInput = args.filterInput;
