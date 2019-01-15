@@ -185,7 +185,6 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       name: [null],
       creationTimestamp: [null],
       creatorUser: [null],      
-      useSelectedBusiness: [null],      
       //modificationDate: [null],
       //modifierUser: [null],
     });
@@ -235,8 +234,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
             this.filterForm.patchValue({
               name: filter.name,
               creationTimestamp: filter.creationTimestamp,
-              creatorUser: filter.creatorUser,      
-              useSelectedBusiness: filter.useSelectedBusiness,
+              creatorUser: filter.creatorUser
             });
           }
 
@@ -263,7 +261,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
       filter(([filter, paginator, selectedBusiness]) => (filter != null && paginator != null)),
       map(([filter, paginator,selectedBusiness]) => {
         const filterInput = {
-          businessId: filter.useSelectedBusiness && selectedBusiness ? selectedBusiness.id: null,
+          businessId: selectedBusiness ? selectedBusiness.id: null,
           name: filter.name,
           creatorUser: filter.creatorUser,
           creationTimestamp: filter.creationTimestamp ? filter.creationTimestamp.valueOf() : null
