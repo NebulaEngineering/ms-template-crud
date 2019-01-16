@@ -3,15 +3,15 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { startWith,  tap, mergeMap } from 'rxjs/operators';
 import { GatewayService } from '../../../../api/gateway.service';
 import {
-  msnamecamelCreatemsentitypascal,
-  msnamecamelUpdatemsentitypascalGeneralInfo,
-  msnamecamelUpdatemsentitypascalState,
-  msnamecamelmsentitypascal,
-  msnamecamelmsentitypascalUpdatedSubscription
-} from '../gql/msnamecamel.js';
+  msnamepascalCreatemsentitypascal,
+  msnamepascalUpdatemsentitypascalGeneralInfo,
+  msnamepascalUpdatemsentitypascalState,
+  msnamepascalmsentitypascal,
+  msnamepascalmsentitypascalUpdatedSubscription
+} from '../gql/msnamepascal.js';
 
 @Injectable()
-export class msnamecamelDetailService {
+export class msnamepascalDetailService {
 
   lastOperation = null;
 
@@ -57,13 +57,13 @@ export class msnamecamelDetailService {
     );
   }
 
-  createmsnamecamelmsentitypascal$(msentitycamel: any) {
+  createmsnamepascalmsentitypascal$(msentitycamel: any) {
     return this.createOperation$(msentitycamel)
     .pipe(
       mergeMap(() => {
         return this.gateway.apollo
         .mutate<any>({
-          mutation: msnamecamelCreatemsentitypascal,
+          mutation: msnamepascalCreatemsentitypascal,
           variables: {
             input: msentitycamel
           },
@@ -73,13 +73,13 @@ export class msnamecamelDetailService {
     )
   }
 
-  updatemsnamecamelmsentitypascalGeneralInfo$(id: String, msentitycamelGeneralInfo: any) {
+  updatemsnamepascalmsentitypascalGeneralInfo$(id: String, msentitycamelGeneralInfo: any) {
     return this.updateOperation$(msentitycamelGeneralInfo)
     .pipe(
       mergeMap(() => {
         return this.gateway.apollo
         .mutate<any>({
-          mutation: msnamecamelUpdatemsentitypascalGeneralInfo,
+          mutation: msnamepascalUpdatemsentitypascalGeneralInfo,
           variables: {
             id: id,
             input: msentitycamelGeneralInfo
@@ -90,10 +90,10 @@ export class msnamecamelDetailService {
     )
   }
 
-  updatemsnamecamelmsentitypascalState$(id: String, newState: boolean) {
+  updatemsnamepascalmsentitypascalState$(id: String, newState: boolean) {
     return this.gateway.apollo
       .mutate<any>({
-        mutation: msnamecamelUpdatemsentitypascalState,
+        mutation: msnamepascalUpdatemsentitypascalState,
         variables: {
           id: id,
           newState: newState
@@ -102,9 +102,9 @@ export class msnamecamelDetailService {
       });
   }
 
-  getmsnamecamelmsentitypascal$(entityId: string) {
+  getmsnamepascalmsentitypascal$(entityId: string) {
     return this.gateway.apollo.query<any>({
-      query: msnamecamelmsentitypascal,
+      query: msnamepascalmsentitypascal,
       variables: {
         id: entityId
       },
@@ -116,10 +116,10 @@ export class msnamecamelDetailService {
 /**
  * Event triggered when a business is created, updated or deleted.
  */
-subscribemsnamecamelmsentitypascalUpdatedSubscription$(): Observable<any> {
+subscribemsnamepascalmsentitypascalUpdatedSubscription$(): Observable<any> {
   return this.gateway.apollo
   .subscribe({
-    query: msnamecamelmsentitypascalUpdatedSubscription
+    query: msnamepascalmsentitypascalUpdatedSubscription
   });
 }
 

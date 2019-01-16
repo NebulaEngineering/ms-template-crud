@@ -36,7 +36,7 @@ import { FuseTranslationLoaderService } from '../../../../core/services/translat
 
 //////////// Other Services ////////////
 import { KeycloakService } from 'keycloak-angular';
-import { msnamecamelDetailService } from './msname-detail.service';
+import { msnamepascalDetailService } from './msname-detail.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -45,7 +45,7 @@ import { msnamecamelDetailService } from './msname-detail.service';
   styleUrls: ['./msname-detail.component.scss']
 })
 // tslint:disable-next-line:class-name
-export class msnamecamelDetailComponent implements OnInit, OnDestroy {
+export class msnamepascalDetailComponent implements OnInit, OnDestroy {
   // Subject to unsubscribe
   private ngUnsubscribe = new Subject();
 
@@ -60,7 +60,7 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private msnamecamelDetailservice: msnamecamelDetailService,
+    private msnamepascalDetailservice: msnamepascalDetailService,
     private route: ActivatedRoute
   ) {
       this.translationLoader.loadTranslations(english, spanish);
@@ -78,8 +78,8 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
     .pipe(
       map(params => params['id']),
       mergeMap(entityId => entityId !== 'new' ?
-        this.msnamecamelDetailservice.getmsnamecamelmsentitypascal$(entityId).pipe(
-          map(res => res.data.msnamecamelmsentitypascal)
+        this.msnamepascalDetailservice.getmsnamepascalmsentitypascal$(entityId).pipe(
+          map(res => res.data.msnamepascalmsentitypascal)
         ) : of(null)
       ),
       takeUntil(this.ngUnsubscribe)
@@ -91,9 +91,9 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
   }
   
   subscribemsentitypascalUpdated(){
-    this.msnamecamelDetailservice.subscribemsnamecamelmsentitypascalUpdatedSubscription$()
+    this.msnamepascalDetailservice.subscribemsnamepascalmsentitypascalUpdatedSubscription$()
     .pipe(
-      map(subscription => subscription.data.msnamecamelmsentitypascalUpdatedSubscription),
+      map(subscription => subscription.data.msnamepascalmsentitypascalUpdatedSubscription),
       takeUntil(this.ngUnsubscribe)
     )
     .subscribe((msentitycamel: any) => {
@@ -102,17 +102,17 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
   }
 
   checkIfEntityHasBeenUpdated(newmsentitycamel){
-    if(this.msnamecamelDetailservice.lastOperation == 'CREATE'){
+    if(this.msnamepascalDetailservice.lastOperation == 'CREATE'){
 
       //Fields that will be compared to check if the entity was created
-      if(newmsentitycamel.generalInfo.name == this.msnamecamelDetailservice.msentitycamel.generalInfo.name 
-        && newmsentitycamel.generalInfo.description == this.msnamecamelDetailservice.msentitycamel.generalInfo.description){
+      if(newmsentitycamel.generalInfo.name == this.msnamepascalDetailservice.msentitycamel.generalInfo.name 
+        && newmsentitycamel.generalInfo.description == this.msnamepascalDetailservice.msentitycamel.generalInfo.description){
         //Show message entity created and redirect to the main page
         this.showSnackBar('msnameuppercase.ENTITY_CREATED');
         this.router.navigate(['msentityname/']);
       }
 
-    }else if(this.msnamecamelDetailservice.lastOperation == 'UPDATE'){
+    }else if(this.msnamepascalDetailservice.lastOperation == 'UPDATE'){
       // Just comparing the ids is enough to recognise if it is the same entity
       if(newmsentitycamel._id == this.msentitycamel._id){
         //Show message entity updated and redirect to the main page
@@ -131,7 +131,7 @@ export class msnamecamelDetailComponent implements OnInit, OnDestroy {
   stopWaitingOperation(){
     this.ngUnsubscribe.pipe(
       take(1),
-      mergeMap(() => this.msnamecamelDetailservice.resetOperation$())
+      mergeMap(() => this.msnamepascalDetailservice.resetOperation$())
     ).subscribe(val => {
       //console.log('Reset operation');
     })

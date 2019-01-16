@@ -53,7 +53,7 @@ import { FuseTranslationLoaderService } from '../../../../../core/services/trans
 
 //////////// Others ////////////
 import { KeycloakService } from 'keycloak-angular';
-import { msnamecamelDetailService } from '../msname-detail.service';
+import { msnamepascalDetailService } from '../msname-detail.service';
 import { DialogComponent } from '../../dialog/dialog.component';
 import { ToolbarService } from "../../../../toolbar/toolbar.service";
 
@@ -64,7 +64,7 @@ import { ToolbarService } from "../../../../toolbar/toolbar.service";
   styleUrls: ['./msname-general-info.component.scss']
 })
 // tslint:disable-next-line:class-name
-export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy {
+export class msnamepascalDetailGeneralInfoComponent implements OnInit, OnDestroy {
   // Subject to unsubscribe
   private ngUnsubscribe = new Subject();
 
@@ -81,7 +81,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
     public snackBar: MatSnackBar,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private msnamecamelDetailservice: msnamecamelDetailService,
+    private msnamepascalDetailservice: msnamepascalDetailService,
     private dialog: MatDialog,
     private toolbarService: ToolbarService
   ) {
@@ -118,7 +118,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
               state: this.msentitycamelStateForm.getRawValue().state,
               businessId: selectedBusiness.id
             };
-            return this.msnamecamelDetailservice.createmsnamecamelmsentitypascal$(this.msentitycamel);
+            return this.msnamepascalDetailservice.createmsnamepascalmsentitypascal$(this.msentitycamel);
           }),
           mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
           filter((resp: any) => !resp.errors || resp.errors.length === 0),          
@@ -143,7 +143,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
             name: this.msentitycamelGeneralInfoForm.getRawValue().name,
             description: this.msentitycamelGeneralInfoForm.getRawValue().description
           };
-          return this.msnamecamelDetailservice.updatemsnamecamelmsentitypascalGeneralInfo$(this.msentitycamel._id, generalInfoinput);
+          return this.msnamepascalDetailservice.updatemsnamepascalmsentitypascalGeneralInfo$(this.msentitycamel._id, generalInfoinput);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
         filter((resp: any) => !resp.errors || resp.errors.length === 0),
@@ -164,7 +164,7 @@ export class msnamecamelDetailGeneralInfoComponent implements OnInit, OnDestroy 
     this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
       .pipe(
         mergeMap(ok => {        
-          return this.msnamecamelDetailservice.updatemsnamecamelmsentitypascalState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
+          return this.msnamepascalDetailservice.updatemsnamepascalmsentitypascalState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
         filter((resp: any) => !resp.errors || resp.errors.length === 0),

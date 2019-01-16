@@ -33,51 +33,51 @@ module.exports = {
     //// QUERY ///////
 
     Query: {
-        msnamecamelmsentitiespascal(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'msnamecamelmsentitiespascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
+        msnamepascalmsentitiespascal(root, args, context) {
+            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamepascal', 'msnamepascalmsentitiespascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
             .pipe(
                 mergeMap(() =>
                     broker
                     .forwardAndGetReply$(
                         "msentitypascal",
-                        "apiid.graphql.query.msnamecamelmsentitiespascal",
+                        "apiid.graphql.query.msnamepascalmsentitiespascal",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
                 ),
-                catchError(err => handleError$(err, "msnamecamelmsentitiespascal")),
+                catchError(err => handleError$(err, "msnamepascalmsentitiespascal")),
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
-        msnamecamelmsentitiespascalSize(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'msnamecamelmsentitiespascalSize', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
+        msnamepascalmsentitiespascalSize(root, args, context) {
+            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamepascal', 'msnamepascalmsentitiespascalSize', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
             .pipe(
                 mergeMap(() =>
                     broker
                     .forwardAndGetReply$(
                         "msentitypascal",
-                        "apiid.graphql.query.msnamecamelmsentitiespascalSize",
+                        "apiid.graphql.query.msnamepascalmsentitiespascalSize",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
                 ),
-                catchError(err => handleError$(err, "msnamecamelmsentitiespascalSize")),
+                catchError(err => handleError$(err, "msnamepascalmsentitiespascalSize")),
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
-        msnamecamelmsentitypascal(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamecamel', 'msnamecamelmsentitypascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
+        msnamepascalmsentitypascal(root, args, context) {
+            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamepascal', 'msnamepascalmsentitypascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
             .pipe(
                 mergeMap(() =>
                     broker
                     .forwardAndGetReply$(
                         "msentitypascal",
-                        "apiid.graphql.query.msnamecamelmsentitypascal",
+                        "apiid.graphql.query.msnamepascalmsentitypascal",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
                 ),
-                catchError(err => handleError$(err, "msnamecamelmsentitypascal")),
+                catchError(err => handleError$(err, "msnamepascalmsentitypascal")),
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         }
@@ -85,11 +85,11 @@ module.exports = {
 
     //// MUTATIONS ///////
     Mutation: {
-        msnamecamelCreatemsentitypascal(root, args, context) {
+        msnamepascalCreatemsentitypascal(root, args, context) {
             return RoleValidator.checkPermissions$(
               context.authToken.realm_access.roles,
               "msentitypascal",
-              "msnamecamelCreatemsentitypascal",
+              "msnamepascalCreatemsentitypascal",
               PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
@@ -98,20 +98,20 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamecamelCreatemsentitypascal",
+                    "apiid.graphql.mutation.msnamepascalCreatemsentitypascal",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
                 ),
-                catchError(err => handleError$(err, "msnamecamelCreatemsentitypascal")),
+                catchError(err => handleError$(err, "msnamepascalCreatemsentitypascal")),
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
-        msnamecamelUpdatemsentitypascalGeneralInfo(root, args, context) {
+        msnamepascalUpdatemsentitypascalGeneralInfo(root, args, context) {
             return RoleValidator.checkPermissions$(
               context.authToken.realm_access.roles,
               "msentitypascal",
-              "msnamecamelUpdatemsentitypascalGeneralInfo",
+              "msnamepascalUpdatemsentitypascalGeneralInfo",
               PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
@@ -119,7 +119,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalGeneralInfo",
+                    "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalGeneralInfo",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
@@ -128,11 +128,11 @@ module.exports = {
                 mergeMap(response => getResponseFromBackEnd$(response))
             ).toPromise();
         },
-        msnamecamelUpdatemsentitypascalState(root, args, context) {
+        msnamepascalUpdatemsentitypascalState(root, args, context) {
             return RoleValidator.checkPermissions$(
               context.authToken.realm_access.roles,
               "msentitypascal",
-              "msnamecamelUpdatemsentitypascalState",
+              "msnamepascalUpdatemsentitypascalState",
               PERMISSION_DENIED_ERROR_CODE,
               "Permission denied",
               ["PLATFORM-ADMIN"]
@@ -140,7 +140,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalState",
+                    "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalState",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
@@ -153,10 +153,10 @@ module.exports = {
 
     //// SUBSCRIPTIONS ///////
     Subscription: {
-        msnamecamelmsentitypascalUpdatedSubscription: {
+        msnamepascalmsentitypascalUpdatedSubscription: {
             subscribe: withFilter(
                 (payload, variables, context, info) => {
-                    return pubsub.asyncIterator("msnamecamelmsentitypascalUpdatedSubscription");
+                    return pubsub.asyncIterator("msnamepascalmsentitypascalUpdatedSubscription");
                 },
                 (payload, variables, context, info) => {
                     return true;
@@ -173,8 +173,8 @@ module.exports = {
 
 const eventDescriptors = [
     {
-        backendEventName: 'msnamecamelmsentitypascalUpdatedSubscription',
-        gqlSubscriptionName: 'msnamecamelmsentitypascalUpdatedSubscription',
+        backendEventName: 'msnamepascalmsentitypascalUpdatedSubscription',
+        gqlSubscriptionName: 'msnamepascalmsentitypascalUpdatedSubscription',
         dataExtractor: (evt) => evt.data,// OPTIONAL, only use if needed
         onError: (error, descriptor) => console.log(`Error processing ${descriptor.backendEventName}`),// OPTIONAL, only use if needed
         onEvent: (evt, descriptor) => console.log(`Event of type  ${descriptor.backendEventName} arraived`),// OPTIONAL, only use if needed

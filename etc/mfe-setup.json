@@ -24,7 +24,7 @@
                 },
                 "navURL": "/msentityname",
                 "path": "msentityname",
-                "loadChildren": "./main/content/msname/msname.module#msnamecamelModule",
+                "loadChildren": "./main/content/msname/msname.module#msnamepascalModule",
                 "priority": 1000,
                 "roles" : ["PLATFORM-ADMIN"],
                 "default" : false

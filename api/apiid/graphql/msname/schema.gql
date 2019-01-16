@@ -5,7 +5,7 @@ type CommandResponse {
   message: String
 }
 
-type msnamecamelmsentitypascal {
+type msnamepascalmsentitypascal {
   "msentitypascal ID"
   _id: ID!
   "User general info"
@@ -55,16 +55,16 @@ input PaginationInput {
   sort: Int
 }
 
-input msnamecamelmsentitypascalInput {
+input msnamepascalmsentitypascalInput {
   "msentitypascal general info"
-  generalInfo: msnamecamelmsentitypascalGeneralInfoInput!
+  generalInfo: msnamepascalmsentitypascalGeneralInfoInput!
   "msentitypascal status"
   state: Boolean!
   "Business ID"
   businessId: String!
 }
 
-input msnamecamelmsentitypascalGeneralInfoInput {
+input msnamepascalmsentitypascalGeneralInfoInput {
   "msentitypascal name"
   name: String!,
   "msentitypascal description"
@@ -73,23 +73,23 @@ input msnamecamelmsentitypascalGeneralInfoInput {
 
 type Query {
   "Get msentitiespascal filtered "
-  msnamecamelmsentitiespascal(filterInput: FilterInput!, paginationInput: PaginationInput!): [msnamecamelmsentitypascal]
+  msnamepascalmsentitiespascal(filterInput: FilterInput!, paginationInput: PaginationInput!): [msnamepascalmsentitypascal]
   "Get the amount of msentitiespascal filtered "
-  msnamecamelmsentitiespascalSize(filterInput: FilterInput!): Int!
+  msnamepascalmsentitiespascalSize(filterInput: FilterInput!): Int!
   "Get msentitypascal by its id"
-  msnamecamelmsentitypascal(id: String!): msnamecamelmsentitypascal
+  msnamepascalmsentitypascal(id: String!): msnamepascalmsentitypascal
 }
 
 type Mutation {
   "Create a new msentitypascal"
-  msnamecamelCreatemsentitypascal(input: msnamecamelmsentitypascalInput!): CommandResponse
+  msnamepascalCreatemsentitypascal(input: msnamepascalmsentitypascalInput!): CommandResponse
   "Update the msentitypascal generalInfo"
-  msnamecamelUpdatemsentitypascalGeneralInfo(id:ID!, input: msnamecamelmsentitypascalGeneralInfoInput!): CommandResponse
+  msnamepascalUpdatemsentitypascalGeneralInfo(id:ID!, input: msnamepascalmsentitypascalGeneralInfoInput!): CommandResponse
   "Update the msentitypascal state"
-  msnamecamelUpdatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
+  msnamepascalUpdatemsentitypascalState(id: ID!, newState: Boolean!): CommandResponse
 }
 
 type Subscription {
   "This events is triggered when a msentitypascal is created or updated"
-  msnamecamelmsentitypascalUpdatedSubscription: msnamecamelmsentitypascal  
+  msnamepascalmsentitypascalUpdatedSubscription: msnamepascalmsentitypascal  
 }

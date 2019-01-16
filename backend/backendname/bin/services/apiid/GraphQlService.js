@@ -147,27 +147,27 @@ class GraphQlService {
     return [
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.query.msnamecamelmsentitiespascal"
+        messageType: "apiid.graphql.query.msnamepascalmsentitiespascal"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.query.msnamecamelmsentitiespascalSize"
+        messageType: "apiid.graphql.query.msnamepascalmsentitiespascalSize"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.query.msnamecamelmsentitypascal"
+        messageType: "apiid.graphql.query.msnamepascalmsentitypascal"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.mutation.msnamecamelCreatemsentitypascal"
+        messageType: "apiid.graphql.mutation.msnamepascalCreatemsentitypascal"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalGeneralInfo"
+        messageType: "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalGeneralInfo"
       },
       {
         aggregateType: "msentitypascal",
-        messageType: "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalState"
+        messageType: "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalState"
       },
     ];
   }
@@ -178,27 +178,27 @@ class GraphQlService {
    */
   generateFunctionMap() {    
     return {
-      "apiid.graphql.query.msnamecamelmsentitiespascal": {
+      "apiid.graphql.query.msnamepascalmsentitiespascal": {
         fn: msentitypascalCQRS.getmsentitypascalList$,
         obj: msentitypascalCQRS
       },
-      "apiid.graphql.query.msnamecamelmsentitiespascalSize": {
+      "apiid.graphql.query.msnamepascalmsentitiespascalSize": {
         fn: msentitypascalCQRS.getmsentitypascalListSize$,
         obj: msentitypascalCQRS
       },
-      "apiid.graphql.query.msnamecamelmsentitypascal": {
+      "apiid.graphql.query.msnamepascalmsentitypascal": {
         fn: msentitypascalCQRS.getmsentitypascal$,
         obj: msentitypascalCQRS
       },
-      "apiid.graphql.mutation.msnamecamelCreatemsentitypascal": {
+      "apiid.graphql.mutation.msnamepascalCreatemsentitypascal": {
         fn: msentitypascalCQRS.createmsentitypascal$,
         obj: msentitypascalCQRS
       }, 
-      "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalGeneralInfo": {
+      "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalGeneralInfo": {
         fn: msentitypascalCQRS.updatemsentitypascalGeneralInfo$,
         obj: msentitypascalCQRS
       },
-      "apiid.graphql.mutation.msnamecamelUpdatemsentitypascalState": {
+      "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalState": {
         fn: msentitypascalCQRS.updatemsentitypascalState$,
         obj: msentitypascalCQRS
       }

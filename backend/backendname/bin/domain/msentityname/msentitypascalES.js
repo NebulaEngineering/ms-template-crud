@@ -25,7 +25,7 @@ class msentitypascalES {
         const msentitycamel = msentitycamelCreatedEvent.data;
         return msentitypascalDA.createmsentitypascal$(msentitycamel)
         .pipe(
-            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamecamelmsentitypascalUpdatedSubscription`, result.ops[0]))
+            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamepascalmsentitypascalUpdatedSubscription`, result.ops[0]))
         );
     }
 
@@ -37,7 +37,7 @@ class msentitypascalES {
         const msentitycamelGeneralInfo = msentitycamelGeneralInfoUpdatedEvent.data;
         return msentitypascalDA.updatemsentitypascalGeneralInfo$(msentitycamelGeneralInfoUpdatedEvent.aid, msentitycamelGeneralInfo)
         .pipe(
-            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamecamelmsentitypascalUpdatedSubscription`, result))
+            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamepascalmsentitypascalUpdatedSubscription`, result))
         );
     }
 
@@ -48,7 +48,7 @@ class msentitypascalES {
     handlemsentitypascalStateUpdated$(msentitypascalStateUpdatedEvent) {          
         return msentitypascalDA.updatemsentitypascalState$(msentitypascalStateUpdatedEvent.aid, msentitypascalStateUpdatedEvent.data)
         .pipe(
-            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamecamelmsentitypascalUpdatedSubscription`, result))
+            mergeMap(result => broker.send$(MATERIALIZED_VIEW_TOPIC, `msnamepascalmsentitypascalUpdatedSubscription`, result))
         );
     }
 

@@ -5,14 +5,14 @@ import {
 } from "rxjs/operators";
 import { GatewayService } from '../../../../api/gateway.service';
 import {
-  msnamecamelmsentitiespascal,
-  msnamecamelmsentitiespascalSize,
+  msnamepascalmsentitiespascal,
+  msnamepascalmsentitiespascalSize,
   getHelloWorld,
-  msnamecamelHelloWorldSubscription
-} from '../gql/msnamecamel';
+  msnamepascalHelloWorldSubscription
+} from '../gql/msnamepascal';
 
 @Injectable()
-export class msnamecamelListService {
+export class msnamepascalListService {
 
   private _filterSubject$ = new BehaviorSubject({
     filter: {}
@@ -38,7 +38,7 @@ export class msnamecamelListService {
         fetchPolicy: "network-only"
       })
       .valueChanges.map(
-        resp => resp.data.getHelloWorldFrommsnamecamel.sn
+        resp => resp.data.getHelloWorldFrommsnamepascal.sn
       );
   }
 
@@ -48,7 +48,7 @@ export class msnamecamelListService {
  getEventSourcingMonitorHelloWorldSubscription$(): Observable<any> {
   return this.gateway.apollo
     .subscribe({
-      query: msnamecamelHelloWorldSubscription
+      query: msnamepascalHelloWorldSubscription
     })
     .map(resp => resp.data.EventSourcingMonitorHelloWorldSubscription.sn);
 }
@@ -62,7 +62,7 @@ export class msnamecamelListService {
    */
   getmsentitycamelList$(filterInput, paginatorInput){
     return this.gateway.apollo.query<any>({
-      query: msnamecamelmsentitiespascal,
+      query: msnamepascalmsentitiespascal,
       variables: {
         filterInput: filterInput,
         paginationInput: paginatorInput
@@ -79,7 +79,7 @@ export class msnamecamelListService {
    */
   getmsentitycamelSize$(filterInput){
     return this.gateway.apollo.query<any>({
-      query: msnamecamelmsentitiespascalSize,
+      query: msnamepascalmsentitiespascalSize,
       variables: {
         filterInput: filterInput
       },

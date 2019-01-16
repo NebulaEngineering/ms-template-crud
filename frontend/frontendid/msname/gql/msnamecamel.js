@@ -4,8 +4,8 @@ import gql from "graphql-tag";
 
 //Hello world sample, please remove
 export const getHelloWorld = gql`
-  query getHelloWorldFrommsnamecamel{
-    getHelloWorldFrommsnamecamel{
+  query getHelloWorldFrommsnamepascal{
+    getHelloWorldFrommsnamepascal{
       sn
     }
   }
@@ -13,16 +13,16 @@ export const getHelloWorld = gql`
 
 
 //Hello world sample, please remove
-export const msnamecamelHelloWorldSubscription = gql`
+export const msnamepascalHelloWorldSubscription = gql`
   subscription{
-    msnamecamelHelloWorldSubscription{
+    msnamepascalHelloWorldSubscription{
       sn
   }
 }`;
 
-export const msnamecamelmsentitypascal = gql`
-  query msnamecamelmsentitypascal($id: String!) {
-    msnamecamelmsentitypascal(id: $id) {
+export const msnamepascalmsentitypascal = gql`
+  query msnamepascalmsentitypascal($id: String!) {
+    msnamepascalmsentitypascal(id: $id) {
       _id
       generalInfo {
         name
@@ -37,9 +37,9 @@ export const msnamecamelmsentitypascal = gql`
   }
 `;
 
-export const msnamecamelmsentitiespascal = gql`
-  query msnamecamelmsentitiespascal($filterInput: FilterInput!, $paginationInput: PaginationInput!) {
-    msnamecamelmsentitiespascal(filterInput: $filterInput, paginationInput: $paginationInput) {
+export const msnamepascalmsentitiespascal = gql`
+  query msnamepascalmsentitiespascal($filterInput: FilterInput!, $paginationInput: PaginationInput!) {
+    msnamepascalmsentitiespascal(filterInput: $filterInput, paginationInput: $paginationInput) {
       _id
       generalInfo {
         name
@@ -54,33 +54,33 @@ export const msnamecamelmsentitiespascal = gql`
   }
 `;
 
-export const msnamecamelmsentitiespascalSize = gql`
-  query msnamecamelmsentitiespascalSize($filterInput: FilterInput!) {
-    msnamecamelmsentitiespascalSize(filterInput: $filterInput)
+export const msnamepascalmsentitiespascalSize = gql`
+  query msnamepascalmsentitiespascalSize($filterInput: FilterInput!) {
+    msnamepascalmsentitiespascalSize(filterInput: $filterInput)
   }
 `;
 
-export const msnamecamelCreatemsentitypascal = gql `
-  mutation msnamecamelCreatemsentitypascal($input: msnamecamelmsentitypascalInput!){
-    msnamecamelCreatemsentitypascal(input: $input){
+export const msnamepascalCreatemsentitypascal = gql `
+  mutation msnamepascalCreatemsentitypascal($input: msnamepascalmsentitypascalInput!){
+    msnamepascalCreatemsentitypascal(input: $input){
       code
       message
     }
   }
 `;
 
-export const msnamecamelUpdatemsentitypascalGeneralInfo = gql `
-  mutation msnamecamelUpdatemsentitypascalGeneralInfo($id: ID!, $input: msnamecamelmsentitypascalGeneralInfoInput!){
-    msnamecamelUpdatemsentitypascalGeneralInfo(id: $id, input: $input){
+export const msnamepascalUpdatemsentitypascalGeneralInfo = gql `
+  mutation msnamepascalUpdatemsentitypascalGeneralInfo($id: ID!, $input: msnamepascalmsentitypascalGeneralInfoInput!){
+    msnamepascalUpdatemsentitypascalGeneralInfo(id: $id, input: $input){
       code
       message
     }
   }
 `;
 
-export const msnamecamelUpdatemsentitypascalState = gql `
-  mutation msnamecamelUpdatemsentitypascalState($id: ID!, $newState: Boolean!){
-    msnamecamelUpdatemsentitypascalState(id: $id, newState: $newState){
+export const msnamepascalUpdatemsentitypascalState = gql `
+  mutation msnamepascalUpdatemsentitypascalState($id: ID!, $newState: Boolean!){
+    msnamepascalUpdatemsentitypascalState(id: $id, newState: $newState){
       code
       message
     }
@@ -88,9 +88,9 @@ export const msnamecamelUpdatemsentitypascalState = gql `
 `;
 
 // SUBSCRIPTION
-export const msnamecamelmsentitypascalUpdatedSubscription = gql`
+export const msnamepascalmsentitypascalUpdatedSubscription = gql`
   subscription{
-    msnamecamelmsentitypascalUpdatedSubscription{
+    msnamepascalmsentitypascalUpdatedSubscription{
       _id
       generalInfo {
         name

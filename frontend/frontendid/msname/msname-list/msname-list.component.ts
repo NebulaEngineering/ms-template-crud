@@ -66,7 +66,7 @@ import * as moment from "moment";
 
 //////////// Other Services ////////////
 import { KeycloakService } from "keycloak-angular";
-import { msnamecamelListService } from './msname-list.service';
+import { msnamepascalListService } from './msname-list.service';
 import { ToolbarService } from "../../../toolbar/toolbar.service";
 
 @Component({
@@ -85,7 +85,7 @@ import { ToolbarService } from "../../../toolbar/toolbar.service";
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
   ]
 })
-export class msnamecamelListComponent implements OnInit, OnDestroy {
+export class msnamepascalListComponent implements OnInit, OnDestroy {
   //Subject to unsubscribe 
   private ngUnsubscribe = new Subject();
 
@@ -126,7 +126,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
     private activatedRouter: ActivatedRoute,
     private keycloakService: KeycloakService,
     private adapter: DateAdapter<any>,
-    private msnamecamelListservice: msnamecamelListService,
+    private msnamepascalListservice: msnamepascalListService,
     private toolbarService: ToolbarService,
     private dialog: MatDialog
   ) {    
@@ -201,7 +201,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(filterData => {
-        this.msnamecamelListservice.updateFilterData(filterData);
+        this.msnamepascalListservice.updateFilterData(filterData);
       });
   }
 
@@ -216,7 +216,7 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
             page: pagination.pageIndex, count: pagination.pageSize, sort: -1
           },
         };
-        this.msnamecamelListservice.updatePaginatorData(paginator);
+        this.msnamepascalListservice.updatePaginatorData(paginator);
       });
   }
 
@@ -225,8 +225,8 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
    */
   loadLastFilters() {
     combineLatest(
-      this.msnamecamelListservice.filter$,
-      this.msnamecamelListservice.paginator$
+      this.msnamepascalListservice.filter$,
+      this.msnamepascalListservice.paginator$
     ).pipe(
       take(1)
     ).subscribe(([filter, paginator]) => {
@@ -253,8 +253,8 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
    */
   refreshTableSubscription() {
     combineLatest(
-      this.msnamecamelListservice.filter$,
-      this.msnamecamelListservice.paginator$,
+      this.msnamepascalListservice.filter$,
+      this.msnamepascalListservice.paginator$,
       this.toolbarService.onSelectedBusiness$
     ).pipe(
       debounceTime(500),
@@ -294,10 +294,10 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
    * @param paginationInput 
    */
   getmsentitycamelList$(filterInput, paginationInput){
-    return this.msnamecamelListservice.getmsentitycamelList$(filterInput, paginationInput)
+    return this.msnamepascalListservice.getmsentitycamelList$(filterInput, paginationInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.msnamecamelmsentitiespascal)
+      map(resp => resp.data.msnamepascalmsentitiespascal)
     );
   }
 
@@ -306,10 +306,10 @@ export class msnamecamelListComponent implements OnInit, OnDestroy {
    * @param filterInput 
    */
   getmsentitycamelSize$(filterInput){
-    return this.msnamecamelListservice.getmsentitycamelSize$(filterInput)
+    return this.msnamepascalListservice.getmsentitycamelSize$(filterInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.msnamecamelmsentitiespascalSize)
+      map(resp => resp.data.msnamepascalmsentitiespascalSize)
     );
   }
 
