@@ -36,16 +36,16 @@ import { FuseTranslationLoaderService } from '../../../../core/services/translat
 
 //////////// Other Services ////////////
 import { KeycloakService } from 'keycloak-angular';
-import { msnamepascalDetailService } from './msname-detail.service';
+import { msentitypascalDetailService } from './msentityname-detail.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'msname',
-  templateUrl: './msname-detail.component.html',
-  styleUrls: ['./msname-detail.component.scss']
+  selector: 'msentityname',
+  templateUrl: './msentityname-detail.component.html',
+  styleUrls: ['./msentityname-detail.component.scss']
 })
 // tslint:disable-next-line:class-name
-export class msnamepascalDetailComponent implements OnInit, OnDestroy {
+export class msentitypascalDetailComponent implements OnInit, OnDestroy {
   // Subject to unsubscribe
   private ngUnsubscribe = new Subject();
 
@@ -60,7 +60,7 @@ export class msnamepascalDetailComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private msnamepascalDetailservice: msnamepascalDetailService,
+    private msentitypascalDetailservice: msentitypascalDetailService,
     private route: ActivatedRoute
   ) {
       this.translationLoader.loadTranslations(english, spanish);
@@ -78,7 +78,7 @@ export class msnamepascalDetailComponent implements OnInit, OnDestroy {
     .pipe(
       map(params => params['id']),
       mergeMap(entityId => entityId !== 'new' ?
-        this.msnamepascalDetailservice.getmsnamepascalmsentitypascal$(entityId).pipe(
+        this.msentitypascalDetailservice.getmsnamepascalmsentitypascal$(entityId).pipe(
           map(res => res.data.msnamepascalmsentitypascal)
         ) : of(null)
       ),
@@ -91,7 +91,7 @@ export class msnamepascalDetailComponent implements OnInit, OnDestroy {
   }
   
   subscribemsentitypascalUpdated(){
-    this.msnamepascalDetailservice.subscribemsnamepascalmsentitypascalUpdatedSubscription$()
+    this.msentitypascalDetailservice.subscribemsnamepascalmsentitypascalUpdatedSubscription$()
     .pipe(
       map(subscription => subscription.data.msnamepascalmsentitypascalUpdatedSubscription),
       takeUntil(this.ngUnsubscribe)
@@ -102,22 +102,22 @@ export class msnamepascalDetailComponent implements OnInit, OnDestroy {
   }
 
   checkIfEntityHasBeenUpdated(newmsentitycamel){
-    if(this.msnamepascalDetailservice.lastOperation == 'CREATE'){
+    if(this.msentitypascalDetailservice.lastOperation == 'CREATE'){
 
       //Fields that will be compared to check if the entity was created
-      if(newmsentitycamel.generalInfo.name == this.msnamepascalDetailservice.msentitycamel.generalInfo.name 
-        && newmsentitycamel.generalInfo.description == this.msnamepascalDetailservice.msentitycamel.generalInfo.description){
+      if(newmsentitycamel.generalInfo.name == this.msentitypascalDetailservice.msentitycamel.generalInfo.name 
+        && newmsentitycamel.generalInfo.description == this.msentitypascalDetailservice.msentitycamel.generalInfo.description){
         //Show message entity created and redirect to the main page
         this.showSnackBar('msnameuppercase.ENTITY_CREATED');
         this.router.navigate(['msentityname/']);
       }
 
-    }else if(this.msnamepascalDetailservice.lastOperation == 'UPDATE'){
+    }else if(this.msentitypascalDetailservice.lastOperation == 'UPDATE'){
       // Just comparing the ids is enough to recognise if it is the same entity
       if(newmsentitycamel._id == this.msentitycamel._id){
         //Show message entity updated and redirect to the main page
         this.showSnackBar('msnameuppercase.ENTITY_UPDATED');
-        this.router.navigate(['msentityname/']);
+        //this.router.navigate(['msentityname/']);
       }
 
     }else{
@@ -131,7 +131,7 @@ export class msnamepascalDetailComponent implements OnInit, OnDestroy {
   stopWaitingOperation(){
     this.ngUnsubscribe.pipe(
       take(1),
-      mergeMap(() => this.msnamepascalDetailservice.resetOperation$())
+      mergeMap(() => this.msentitypascalDetailservice.resetOperation$())
     ).subscribe(val => {
       //console.log('Reset operation');
     })

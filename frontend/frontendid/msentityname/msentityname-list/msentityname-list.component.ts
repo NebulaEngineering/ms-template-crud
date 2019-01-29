@@ -66,7 +66,7 @@ import * as moment from "moment";
 
 //////////// Other Services ////////////
 import { KeycloakService } from "keycloak-angular";
-import { msnamepascalListService } from './msname-list.service';
+import { msentitypascalListService } from './msentityname-list.service';
 import { ToolbarService } from "../../../toolbar/toolbar.service";
 
 @Component({

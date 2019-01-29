@@ -9,10 +9,10 @@ import {
   msnamepascalmsentitiespascalSize,
   getHelloWorld,
   msnamepascalHelloWorldSubscription
-} from '../gql/msnamepascal';
+} from '../gql/msentitycamel';
 
 @Injectable()
-export class msnamepascalListService {
+export class msentitypascalListService {
 
   private _filterSubject$ = new BehaviorSubject({
     filter: {}

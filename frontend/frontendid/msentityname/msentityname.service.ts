@@ -5,10 +5,10 @@ import { GatewayService } from '../../../api/gateway.service';
 import {
   getHelloWorld,
   msnamepascalHelloWorldSubscription
-} from './gql/msnamepascal';
+} from './gql/msentitycamel';
 
 @Injectable()
-export class msnamepascalService {
+export class msentitypascalService {
 
 
   constructor(private gateway: GatewayService) {

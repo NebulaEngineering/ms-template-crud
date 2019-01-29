@@ -8,10 +8,10 @@ import {
   msnamepascalUpdatemsentitypascalState,
   msnamepascalmsentitypascal,
   msnamepascalmsentitypascalUpdatedSubscription
-} from '../gql/msnamepascal.js';
+} from '../gql/msentitycamel.js';
 
 @Injectable()
-export class msnamepascalDetailService {
+export class msentitypascalDetailService {
 
   lastOperation = null;
 
