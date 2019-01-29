@@ -71,9 +71,9 @@ import { ToolbarService } from "../../../toolbar/toolbar.service";
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'msname',
-  templateUrl: './msname-list.component.html',
-  styleUrls: ['./msname-list.component.scss'],
+  selector: 'msentityname',
+  templateUrl: './msentityname-list.component.html',
+  styleUrls: ['./msentityname-list.component.scss'],
   animations: fuseAnimations,
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: "es" },

@@ -59,9 +59,9 @@ import { ToolbarService } from "../../../../toolbar/toolbar.service";
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'msname-general-info',
-  templateUrl: './msname-general-info.component.html',
-  styleUrls: ['./msname-general-info.component.scss']
+  selector: 'msentityname-general-info',
+  templateUrl: './msentityname-general-info.component.html',
+  styleUrls: ['./msentityname-general-info.component.scss']
 })
 // tslint:disable-next-line:class-name
 export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestroy {
