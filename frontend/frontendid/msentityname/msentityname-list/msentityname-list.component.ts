@@ -126,7 +126,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
     private activatedRouter: ActivatedRoute,
     private keycloakService: KeycloakService,
     private adapter: DateAdapter<any>,
-    private msnamepascalListservice: msnamepascalListService,
+    private msentitypascalListservice: msentitypascalListService,
     private toolbarService: ToolbarService,
     private dialog: MatDialog
   ) {    
@@ -201,7 +201,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(filterData => {
-        this.msnamepascalListservice.updateFilterData(filterData);
+        this.msentitypascalListservice.updateFilterData(filterData);
       });
   }
 
@@ -216,7 +216,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
             page: pagination.pageIndex, count: pagination.pageSize, sort: -1
           },
         };
-        this.msnamepascalListservice.updatePaginatorData(paginator);
+        this.msentitypascalListservice.updatePaginatorData(paginator);
       });
   }
 
@@ -225,8 +225,8 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
    */
   loadLastFilters() {
     combineLatest(
-      this.msnamepascalListservice.filter$,
-      this.msnamepascalListservice.paginator$
+      this.msentitypascalListservice.filter$,
+      this.msentitypascalListservice.paginator$
     ).pipe(
       take(1)
     ).subscribe(([filter, paginator]) => {
@@ -253,8 +253,8 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
    */
   refreshTableSubscription() {
     combineLatest(
-      this.msnamepascalListservice.filter$,
-      this.msnamepascalListservice.paginator$,
+      this.msentitypascalListservice.filter$,
+      this.msentitypascalListservice.paginator$,
       this.toolbarService.onSelectedBusiness$
     ).pipe(
       debounceTime(500),
@@ -294,7 +294,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
    * @param paginationInput 
    */
   getmsentitycamelList$(filterInput, paginationInput){
-    return this.msnamepascalListservice.getmsentitycamelList$(filterInput, paginationInput)
+    return this.msentitypascalListservice.getmsentitycamelList$(filterInput, paginationInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
       map(resp => resp.data.msnamepascalmsentitiespascal)
@@ -306,7 +306,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
    * @param filterInput 
    */
   getmsentitycamelSize$(filterInput){
-    return this.msnamepascalListservice.getmsentitycamelSize$(filterInput)
+    return this.msentitypascalListservice.getmsentitycamelSize$(filterInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
       map(resp => resp.data.msnamepascalmsentitiespascalSize)
