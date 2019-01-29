@@ -6,9 +6,7 @@ import {
 import { GatewayService } from '../../../../api/gateway.service';
 import {
   msnamepascalmsentitiespascal,
-  msnamepascalmsentitiespascalSize,
-  getHelloWorld,
-  msnamepascalHelloWorldSubscription
+  msnamepascalmsentitiespascalSize
 } from '../gql/msentitycamel';
 
 @Injectable()
@@ -27,31 +25,6 @@ export class msentitypascalListService {
   constructor(private gateway: GatewayService) {
 
   }
-
-  /**
-   * Hello World sample, please remove
-   */
-  getHelloWorld$() {
-    return this.gateway.apollo
-      .watchQuery<any>({
-        query: getHelloWorld,
-        fetchPolicy: "network-only"
-      })
-      .valueChanges.map(
-        resp => resp.data.getHelloWorldFrommsnamepascal.sn
-      );
-  }
-
-  /**
-  * Hello World subscription sample, please remove
-  */
- getEventSourcingMonitorHelloWorldSubscription$(): Observable<any> {
-  return this.gateway.apollo
-    .subscribe({
-      query: msnamepascalHelloWorldSubscription
-    })
-    .map(resp => resp.data.EventSourcingMonitorHelloWorldSubscription.sn);
-}
 
 
   /**
