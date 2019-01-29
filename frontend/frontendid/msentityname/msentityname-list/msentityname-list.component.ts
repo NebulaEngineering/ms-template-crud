@@ -85,7 +85,7 @@ import { ToolbarService } from "../../../toolbar/toolbar.service";
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
   ]
 })
-export class msnamepascalListComponent implements OnInit, OnDestroy {
+export class msentitypascalListComponent implements OnInit, OnDestroy {
   //Subject to unsubscribe 
   private ngUnsubscribe = new Subject();
 
