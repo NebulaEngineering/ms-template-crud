@@ -9,7 +9,7 @@ type msnamepascalmsentitypascal {
   "msentitypascal ID"
   _id: ID!
   "User general info"
-  generalInfo: msentitypascalGeneralInfo
+  generalInfo: msnamepascalmsentitypascalGeneralInfo
   "msentitypascal state"
   state: Boolean!
   "Creation timestamp"
@@ -24,7 +24,7 @@ type msnamepascalmsentitypascal {
   businessId: String!
 }
 
-type msentitypascalGeneralInfo {
+type msnamepascalmsentitypascalGeneralInfo {
   "msentitypascal name"
   name: String!,
   "msentitypascal description"
