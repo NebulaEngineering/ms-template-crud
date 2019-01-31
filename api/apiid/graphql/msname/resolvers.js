@@ -40,7 +40,7 @@ module.exports = {
                     broker
                     .forwardAndGetReply$(
                         "msentitypascal",
-                        "apiid.graphql.query.msnamepascalmsentitiespascal",
+                        "apiidcamellc.graphql.query.msnamepascalmsentitiespascal",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
@@ -56,7 +56,7 @@ module.exports = {
                     broker
                     .forwardAndGetReply$(
                         "msentitypascal",
-                        "apiid.graphql.query.msnamepascalmsentitiespascalSize",
+                        "apiidcamellc.graphql.query.msnamepascalmsentitiespascalSize",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
@@ -72,7 +72,7 @@ module.exports = {
                     broker
                     .forwardAndGetReply$(
                         "msentitypascal",
-                        "apiid.graphql.query.msnamepascalmsentitypascal",
+                        "apiidcamellc.graphql.query.msnamepascalmsentitypascal",
                         { root, args, jwt: context.encodedToken },
                         2000
                     )
@@ -98,7 +98,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamepascalCreatemsentitypascal",
+                    "apiidcamellc.graphql.mutation.msnamepascalCreatemsentitypascal",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
@@ -119,7 +119,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalGeneralInfo",
+                    "apiidcamellc.graphql.mutation.msnamepascalUpdatemsentitypascalGeneralInfo",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
@@ -140,7 +140,7 @@ module.exports = {
                 mergeMap(() =>
                   context.broker.forwardAndGetReply$(
                     "msentitypascal",
-                    "apiid.graphql.mutation.msnamepascalUpdatemsentitypascalState",
+                    "apiidcamellc.graphql.mutation.msnamepascalUpdatemsentitypascalState",
                     { root, args, jwt: context.encodedToken },
                     2000
                   )
