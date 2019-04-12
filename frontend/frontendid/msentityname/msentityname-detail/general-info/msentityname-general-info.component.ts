@@ -115,11 +115,11 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
         .pipe(
           mergeMap(ok => {
             this.msentitycamel = {
-              ...this.msentitycamelGeneralInfoForm.getRawValue(),
-              name: this.msentitycamelGeneralInfoForm.name.toUpperCase(),
+              generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
               state: this.msentitycamelStateForm.getRawValue().state,
               businessId: selectedBusiness.id
             };
+            this.msentitycamel.generalInfo.name = this.msentitycamel.generalInfo.name.toUpperCase();
             return this.msentitypascalDetailService.createmsnamepascalmsentitypascal$(this.msentitycamel);
           }),
           mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
