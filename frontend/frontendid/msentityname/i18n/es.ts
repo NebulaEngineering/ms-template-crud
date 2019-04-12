@@ -3,23 +3,23 @@ export const locale = {
   data: {
     'msnameuppercase': {
       DETAIL_HEADER_NAME: 'ENTIDAD',
-      DETAIL_HEADER_NEW: 'Nueva entidad',
-      TITLE: 'Nombre entidad',
+      DETAIL_HEADER_NEW: 'Nueva Entidad',
+      TITLE: 'Nombre Entidad',
       FILTER: 'Filtros',
       NAME: 'Nombre',
-      CREATION_DATE: 'Fecha creación',
-      CREATOR_USER: 'Usuario creador',
-      RESET_FILTER: 'Limpiar filtro',
+      CREATION_DATE: 'Fecha Creación',
+      CREATOR_USER: 'Creado por',
+      RESET_FILTER: 'Limpiar Filtro',
       FILTER_SELECTED_BUSINESS: 'Filtrar por unidad de negocio seleccionada',
       CREATION_TIMESTAMP: 'Creado',
-      LAST_MODIFICATION_TIMESTAMP: 'Modificado',
-      MODIFIER_USER: 'Usuario que modificó',
-      ADD_NEW: 'Agregar nuevo',
+      LAST_MODIFICATION_TIMESTAMP: 'Última Modificación',
+      MODIFIER_USER: 'Responsable',
+      ADD_NEW: 'Agregar Nuevo',
       DETAILS: {
         TABS: {
-          GENERAL_INFO: 'Información general'
+          GENERAL_INFO: 'Información General'
         },
-        GENERAL_INFO: 'Información general',
+        GENERAL_INFO: 'Información General',
         ENABLED: 'Activo',
         DISABLED: 'Desactivado',
         NAME: 'Nombre',

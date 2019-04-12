@@ -3,18 +3,18 @@ export const locale = {
   data: {
     'msnameuppercase': {
       DETAIL_HEADER_NAME: 'ENTYTY',
-      DETAIL_HEADER_NEW: 'New entity',
-      TITLE: 'Entity name',
+      DETAIL_HEADER_NEW: 'New Entity',
+      TITLE: 'Entity Name',
       FILTER: 'Filter',
       NAME: 'Name',
-      CREATION_DATE: 'Creation date',
-      CREATOR_USER: 'Creator user',
-      RESET_FILTER: 'Reset filter',
+      CREATION_DATE: 'Creation Date',
+      CREATOR_USER: 'Created by',
+      RESET_FILTER: 'Reset Filter',
       FILTER_SELECTED_BUSINESS: 'Filter by selected business unit',
       CREATION_TIMESTAMP: 'Created',
-      LAST_MODIFICATION_TIMESTAMP: 'Modified',
-      MODIFIER_USER: 'User who modified',
-      ADD_NEW: 'Add new',
+      LAST_MODIFICATION_TIMESTAMP: 'Last Modification',
+      MODIFIER_USER: 'Responsible',
+      ADD_NEW: 'Add New',
       DETAILS: {
         TABS: {
           GENERAL_INFO: 'General Info'
