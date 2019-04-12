@@ -31,7 +31,7 @@ type msnamepascalmsentitypascalGeneralInfo {
   description: String!
 }
 
-input FilterInput {
+input msnamepascalmsentitypascalFilterInput {
   "ID of the business"
   businessId: String
   "Name"
@@ -46,7 +46,7 @@ input FilterInput {
   creationTimestamp: BigInt
 }
 
-input PaginationInput {
+input msnamepascalmsentitypascalPaginationInput {
   "Page"
   page: Int!
   "Count"
@@ -73,9 +73,9 @@ input msnamepascalmsentitypascalGeneralInfoInput {
 
 type Query {
   "Get msentitiespascal filtered "
-  msnamepascalmsentitiespascal(filterInput: FilterInput!, paginationInput: PaginationInput!): [msnamepascalmsentitypascal]
+  msnamepascalmsentitiespascal(filterInput: msnamepascalmsentitypascalFilterInput!, paginationInput: msnamepascalmsentitypascalPaginationInput!): [msnamepascalmsentitypascal]
   "Get the amount of msentitiespascal filtered "
-  msnamepascalmsentitiespascalSize(filterInput: FilterInput!): Int!
+  msnamepascalmsentitiespascalSize(filterInput: msnamepascalmsentitypascalFilterInput!): Int!
   "Get msentitypascal by its id"
   msnamepascalmsentitypascal(id: String!): msnamepascalmsentitypascal
 }

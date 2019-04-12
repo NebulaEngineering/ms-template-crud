@@ -19,7 +19,7 @@ export const msnamepascalmsentitypascal = gql`
 `;
 
 export const msnamepascalmsentitiespascal = gql`
-  query msnamepascalmsentitiespascal($filterInput: FilterInput!, $paginationInput: PaginationInput!) {
+  query msnamepascalmsentitiespascal($filterInput: msnamepascalmsentitypascalFilterInput!, $paginationInput: msnamepascalmsentitypascalPaginationInput!) {
     msnamepascalmsentitiespascal(filterInput: $filterInput, paginationInput: $paginationInput) {
       _id
       generalInfo {
@@ -36,7 +36,7 @@ export const msnamepascalmsentitiespascal = gql`
 `;
 
 export const msnamepascalmsentitiespascalSize = gql`
-  query msnamepascalmsentitiespascalSize($filterInput: FilterInput!) {
+  query msnamepascalmsentitiespascalSize($filterInput: msnamepascalmsentitypascalFilterInput!) {
     msnamepascalmsentitiespascalSize(filterInput: $filterInput)
   }
 `;
