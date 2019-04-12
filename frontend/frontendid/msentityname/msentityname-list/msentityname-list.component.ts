@@ -309,7 +309,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
     return this.msentitypascalListservice.getmsentitycamelSize$(filterInput)
     .pipe(
       mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
-      map(resp => resp.data.msnamepascalmsentitiespascalSize)
+      map(resp => resp.data && resp.data.msnamepascalmsentitiespascalSize ? resp.data.msnamepascalmsentitiespascalSize: 0)
     );
   }
 

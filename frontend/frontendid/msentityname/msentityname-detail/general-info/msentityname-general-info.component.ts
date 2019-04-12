@@ -115,7 +115,8 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
         .pipe(
           mergeMap(ok => {
             this.msentitycamel = {
-              generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
+              ...this.msentitycamelGeneralInfoForm.getRawValue(),
+              name: this.msentitycamelGeneralInfoForm.name.toUpperCase(),
               state: this.msentitycamelStateForm.getRawValue().state,
               businessId: selectedBusiness.id
             };
@@ -141,7 +142,7 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
       .pipe(
         mergeMap(ok => {
           const generalInfoinput = {
-            name: this.msentitycamelGeneralInfoForm.getRawValue().name,
+            name: this.msentitycamelGeneralInfoForm.getRawValue().name.toUpperCase(),
             description: this.msentitycamelGeneralInfoForm.getRawValue().description
           };
           return this.msentitypascalDetailService.updatemsnamepascalmsentitypascalGeneralInfo$(this.msentitycamel._id, generalInfoinput);
