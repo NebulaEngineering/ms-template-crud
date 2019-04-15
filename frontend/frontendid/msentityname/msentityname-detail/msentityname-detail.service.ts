@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, BehaviorSubject, of, Subject } from 'rxjs';
 import { startWith,  tap, mergeMap } from 'rxjs/operators';
 import { GatewayService } from '../../../../api/gateway.service';
 import {
@@ -16,6 +16,8 @@ export class msentitypascalDetailService {
   lastOperation = null;
 
   msentitycamel = null;
+
+  notifymsnamepascalmsentitypascalUpdated$ = new Subject();
 
   constructor(private gateway: GatewayService) {
 
@@ -111,6 +113,10 @@ export class msentitypascalDetailService {
       fetchPolicy: "network-only",
       errorPolicy: "all"
     });
+  }
+
+  notifymsentityUpdated(filterData){
+    this.notifymanamepascalmsentitypascalUpdated$.next(filterData);
   }
 
 /**

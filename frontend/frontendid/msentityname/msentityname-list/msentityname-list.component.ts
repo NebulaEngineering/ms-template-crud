@@ -101,7 +101,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
   paginator: MatPaginator;
   tableSize: number;
   tablePage = 0;
-  tableCount = 10;
+  tableCount = 25;
 
   // Columns to show in the table
   displayedColumns = [
@@ -201,6 +201,8 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(filterData => {
+        // If the filters are modified, we have to reset the page of the table
+        this.paginator.firstPage();
         this.msentitypascalListservice.updateFilterData(filterData);
       });
   }
@@ -325,7 +327,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
     this.filterForm.reset();
     this.paginator.pageIndex = 0;
     this.tablePage = 0;
-    this.tableCount = 10;
+    this.tableCount = 25;
   }
 
   /**

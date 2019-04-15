@@ -74,6 +74,8 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
   msentitycamelGeneralInfoForm: any;
   msentitycamelStateForm: any;
 
+  timeoutMessage = null;
+
   constructor(
     private translationLoader: FuseTranslationLoaderService,
     private translate: TranslateService,
@@ -90,6 +92,7 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
 
 
   ngOnInit() {
+    this.subscribeEventUpdated();
     this.msentitycamelGeneralInfoForm = new FormGroup({
       name: new FormControl(this.msentitycamel ? (this.msentitycamel.generalInfo || {}).name : ''),
       description: new FormControl(this.msentitycamel ? (this.msentitycamel.generalInfo || {}).description : '')
@@ -98,6 +101,18 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
     this.msentitycamelStateForm = new FormGroup({
       state: new FormControl(this.msentitycamel ? this.msentitycamel.state : true)
     });
+  }
+
+  subscribeEventUpdated(){
+    this.msentitypascalDetailService.notifymsnamepascalmsentitypascalUpdated$
+    .pipe(
+      takeUntil(this.ngUnsubscribe)
+    )
+    .subscribe(data => {
+      if(this.timeoutMessage){
+        clearTimeout(this.timeoutMessage);
+      }      
+    })
   }
 
   createmsentitypascal() {
@@ -113,6 +128,7 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
       mergeMap(selectedBusiness => {
         return this.showConfirmationDialog$("msnameuppercase.CREATE_MESSAGE", "msnameuppercase.CREATE_TITLE")
         .pipe(
+          tap(ok => this.showWaitOperationMessage()), 
           mergeMap(ok => {
             this.msentitycamel = {
               generalInfo: this.msentitycamelGeneralInfoForm.getRawValue(),
@@ -127,11 +143,9 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
         )
       }),
       takeUntil(this.ngUnsubscribe)
-    ).subscribe(result => {
-        this.showSnackBar('msnameuppercase.WAIT_OPERATION');
-      },
+    ).subscribe(result => {},
         error => {
-          this.showSnackBar('msnameuppercase.ERROR_OPERATION');
+          this.showErrorOperationMessage();
           console.log('Error ==> ', error);
         }
     );
@@ -140,6 +154,7 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
   updatemsentitypascalGeneralInfo() {
     this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
       .pipe(
+        tap(ok => this.showWaitOperationMessage()), 
         mergeMap(ok => {
           const generalInfoinput = {
             name: this.msentitycamelGeneralInfoForm.getRawValue().name.toUpperCase(),
@@ -151,11 +166,9 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
         filter((resp: any) => !resp.errors || resp.errors.length === 0),
         takeUntil(this.ngUnsubscribe)
       )
-      .subscribe(result => {
-        this.showSnackBar('msnameuppercase.WAIT_OPERATION');
-      },
+      .subscribe(result => {},
         error => {
-          this.showSnackBar('msnameuppercase.ERROR_OPERATION');
+          this.showErrorOperationMessage();
           console.log('Error ==> ', error);
         }
       );
@@ -165,19 +178,31 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
   onmsentitypascalStateChange() {
     this.showConfirmationDialog$("msnameuppercase.UPDATE_MESSAGE", "msnameuppercase.UPDATE_TITLE")
       .pipe(
+        tap(ok => this.showWaitOperationMessage()), 
         mergeMap(ok => {        
           return this.msentitypascalDetailService.updatemsnamepascalmsentitypascalState$(this.msentitycamel._id, this.msentitycamelStateForm.getRawValue().state);
         }),
         mergeMap(resp => this.graphQlAlarmsErrorHandler$(resp)),
         filter((resp: any) => !resp.errors || resp.errors.length === 0),
         takeUntil(this.ngUnsubscribe)
-      ).subscribe(result => {
-        this.showSnackBar('msnameuppercase.WAIT_OPERATION');
-      },
+      ).subscribe(result => {},
         error => {
-          this.showSnackBar('msnameuppercase.ERROR_OPERATION');
+          this.showErrorOperationMessage();
           console.log('Error ==> ', error);
         });
+  }
+
+  showWaitOperationMessage(){
+    this.timeoutMessage = setTimeout(() => {
+      this.showSnackBar('msnameuppercase.WAIT_OPERATION');
+    }, 2000);
+  }
+
+  showErrorOperationMessage(){
+    if(this.timeoutMessage){
+      clearTimeout(this.timeoutMessage);
+    }
+    this.showSnackBar('msnameuppercase.ERROR_OPERATION');
   }
 
   showConfirmationDialog$(dialogMessage, dialogTitle) {
@@ -219,7 +244,9 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
    */
   showSnackBarError(response) {
     if (response.errors) {
-
+      if(this.timeoutMessage){
+        clearTimeout(this.timeoutMessage);
+      }
       if (Array.isArray(response.errors)) {
         response.errors.forEach(error => {
           if (Array.isArray(error)) {

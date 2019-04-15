@@ -97,6 +97,7 @@ export class msentitypascalDetailComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe)
     )
     .subscribe((msentitycamel: any) => {
+      this.msentitypascalDetailservice.notifymsentityUpdated(msentitycamel);
       this.checkIfEntityHasBeenUpdated(msentitycamel);
     })
   }

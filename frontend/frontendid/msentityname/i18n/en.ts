@@ -23,8 +23,11 @@ export const locale = {
         ENABLED: 'Enabled',
         DISABLED: 'Disabled',
         NAME: 'Name',
-        DESCRIPTION: 'Description'
-
+        DESCRIPTION: 'Description',
+        CREATED_BY: 'Created By',
+        CREATED_IN: 'Created',
+        EDITED_BY: 'Edited By',
+        EDITED_IN: 'Edited',
       },
       ACTIVE: 'Active',
       CREATE: 'Create',
