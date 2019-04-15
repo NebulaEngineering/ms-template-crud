@@ -190,8 +190,8 @@
           </ng-container>
 
           <!-- Creation timestamp Column -->
-          <ng-container cdkColumnDef="creationTimestamp" fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">
-              <mat-header-cell *cdkHeaderCellDef>{{
+          <ng-container cdkColumnDef="creationTimestamp">
+              <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">{{
                 "msnameuppercase.CREATION_TIMESTAMP" | translate
               }}</mat-header-cell>
               <mat-cell *cdkCellDef="let element" fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">
@@ -202,8 +202,8 @@
           </ng-container>
 
           <!-- Creator user Column -->
-          <ng-container cdkColumnDef="creatorUser" fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">
-              <mat-header-cell *cdkHeaderCellDef>{{
+          <ng-container cdkColumnDef="creatorUser">
+              <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">{{
                 "msnameuppercase.CREATOR_USER" | translate
               }}</mat-header-cell>
               <mat-cell *cdkCellDef="let element" fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">
@@ -224,8 +224,8 @@
           </ng-container>
 
           <!-- Modifier user Column -->
-          <ng-container cdkColumnDef="modifierUser" fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">
-              <mat-header-cell *cdkHeaderCellDef>{{
+          <ng-container cdkColumnDef="modifierUser">
+              <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">{{
                 "msnameuppercase.MODIFIER_USER" | translate
               }}</mat-header-cell>
               <mat-cell *cdkCellDef="let element" fxHide fxShow.gt-xs fxFlex="20" fxFlex.gt-xs="16">
