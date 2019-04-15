@@ -116,7 +116,7 @@ export class msentitypascalDetailService {
   }
 
   notifymsentityUpdated(filterData){
-    this.notifymanamepascalmsentitypascalUpdated$.next(filterData);
+    this.notifymsnamepascalmsentitypascalUpdated$.next(filterData);
   }
 
 /**
