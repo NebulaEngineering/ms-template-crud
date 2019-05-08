@@ -20,7 +20,7 @@
           <div fxLayout="column" fxLayoutAlign="start start" *fuseIfOnDom>
 
             <div class="h2" *ngIf="msentitycamel && msentitycamel._id">
-              {{msentitycamel.name}}
+              {{msentitycamel.generalInfo.name}}
             </div>
 
             <div class="h2" *ngIf="!msentitycamel || (msentitycamel && !msentitycamel._id)">
