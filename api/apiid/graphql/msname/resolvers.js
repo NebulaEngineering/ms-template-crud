@@ -27,6 +27,74 @@ function getResponseFromBackEnd$(response) {
     );
 }
 
+/**
+ * Validate user roles and send request to backend handler
+ * @param {object} root root of GraphQl
+ * @param {object} OperationArguments arguments for query or mutation
+ * @param {object} context graphQl context
+ * @param { Array } requiredRoles Roles required to use the query or mutation
+ * @param {string} operationType  sample: query || mutation
+ * @param {string} aggregateName sample: Vehicle, Client, FixedFile 
+ * @param {string} methodName method name
+ * @param {number} timeout timeout for query or mutation in milliseconds
+ */
+function sendToBackEndHandler$(root, OperationArguments, context, requiredRoles, operationType, aggregateName, methodName, timeout = 2000){  
+    return RoleValidator.checkPermissions$(
+      context.authToken.realm_access.roles,
+      CONTEXT_NAME,
+      methodName,
+      USERS_PERMISSION_DENIED_ERROR_CODE,
+      "Permission denied",
+      requiredRoles
+    )
+    .pipe(          
+      mergeMap(() =>
+        broker.forwardAndGetReply$(
+          aggregateName,
+          `emigateway.graphql.${operationType}.${methodName}`,
+          { root, args: OperationArguments, jwt: context.encodedToken },
+          timeout
+        )
+      ),          
+      catchError(err => handleError$(err, methodName)),
+      mergeMap(response => getResponseFromBackEnd$(response))
+    )
+}
+
+/**
+ * Validate user roles and send request to backend handler
+ * @param {object} root root of GraphQl
+ * @param {object} OperationArguments arguments for query or mutation
+ * @param {object} context graphQl context
+ * @param { Array } requiredRoles Roles required to use the query or mutation
+ * @param {string} operationType  sample: query || mutation
+ * @param {string} aggregateName sample: Vehicle, Client, FixedFile 
+ * @param {string} methodName method name
+ * @param {number} timeout timeout for query or mutation in milliseconds
+ */
+function sendToBackEndHandler$(root, OperationArguments, context, requiredRoles, operationType, aggregateName, methodName, timeout = 2000){  
+    return RoleValidator.checkPermissions$(
+      context.authToken.realm_access.roles,
+      CONTEXT_NAME,
+      methodName,
+      USERS_PERMISSION_DENIED_ERROR_CODE,
+      "Permission denied",
+      requiredRoles
+    )
+    .pipe(          
+      mergeMap(() =>
+        broker.forwardAndGetReply$(
+          aggregateName,
+          `emigateway.graphql.${operationType}.${methodName}`,
+          { root, args: OperationArguments, jwt: context.encodedToken },
+          timeout
+        )
+      ),          
+      catchError(err => handleError$(err, methodName)),
+      mergeMap(response => getResponseFromBackEnd$(response))
+    )
+}
+
 
 module.exports = {
 
@@ -34,120 +102,38 @@ module.exports = {
 
     Query: {
         msnamepascalmsentitiespascal(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamepascal', 'msnamepascalmsentitiespascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
-            .pipe(
-                mergeMap(() =>
-                    broker
-                    .forwardAndGetReply$(
-                        "msentitypascal",
-                        "apiidcamellc.graphql.query.msnamepascalmsentitiespascal",
-                        { root, args, jwt: context.encodedToken },
-                        2000
-                    )
-                ),
-                catchError(err => handleError$(err, "msnamepascalmsentitiespascal")),
-                mergeMap(response => getResponseFromBackEnd$(response))
-            ).toPromise();
+            const requiredRoles = ["PLATFORM-ADMIN"];
+            return sendToBackEndHandler$(root, args, context, requiredRoles, 'query', 'msentitypascal', 'msnamepascalmsentitiespascal')  
+            .toPromise();
         },
         msnamepascalmsentitiespascalSize(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamepascal', 'msnamepascalmsentitiespascalSize', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
-            .pipe(
-                mergeMap(() =>
-                    broker
-                    .forwardAndGetReply$(
-                        "msentitypascal",
-                        "apiidcamellc.graphql.query.msnamepascalmsentitiespascalSize",
-                        { root, args, jwt: context.encodedToken },
-                        2000
-                    )
-                ),
-                catchError(err => handleError$(err, "msnamepascalmsentitiespascalSize")),
-                mergeMap(response => getResponseFromBackEnd$(response))
-            ).toPromise();
+            const requiredRoles = ["PLATFORM-ADMIN"];
+            return sendToBackEndHandler$(root, args, context, requiredRoles, 'query', 'msentitypascal', 'msnamepascalmsentitiespascalSize')  
+            .toPromise();
         },
         msnamepascalmsentitypascal(root, args, context) {
-            return RoleValidator.checkPermissions$(context.authToken.realm_access.roles, 'ms-'+'msnamepascal', 'msnamepascalmsentitypascal', PERMISSION_DENIED_ERROR_CODE, 'Permission denied', ["PLATFORM-ADMIN"])
-            .pipe(
-                mergeMap(() =>
-                    broker
-                    .forwardAndGetReply$(
-                        "msentitypascal",
-                        "apiidcamellc.graphql.query.msnamepascalmsentitypascal",
-                        { root, args, jwt: context.encodedToken },
-                        2000
-                    )
-                ),
-                catchError(err => handleError$(err, "msnamepascalmsentitypascal")),
-                mergeMap(response => getResponseFromBackEnd$(response))
-            ).toPromise();
+            const requiredRoles = ["PLATFORM-ADMIN"];
+            return sendToBackEndHandler$(root, args, context, requiredRoles, 'query', 'msentitypascal', 'msnamepascalmsentitypascal')  
+            .toPromise();
         }
     },
 
     //// MUTATIONS ///////
     Mutation: {
         msnamepascalCreatemsentitypascal(root, args, context) {
-            return RoleValidator.checkPermissions$(
-              context.authToken.realm_access.roles,
-              "msentitypascal",
-              "msnamepascalCreatemsentitypascal",
-              PERMISSION_DENIED_ERROR_CODE,
-              "Permission denied",
-              ["PLATFORM-ADMIN"]
-            )
-            .pipe(
-                mergeMap(() =>
-                  context.broker.forwardAndGetReply$(
-                    "msentitypascal",
-                    "apiidcamellc.graphql.mutation.msnamepascalCreatemsentitypascal",
-                    { root, args, jwt: context.encodedToken },
-                    2000
-                  )
-                ),
-                catchError(err => handleError$(err, "msnamepascalCreatemsentitypascal")),
-                mergeMap(response => getResponseFromBackEnd$(response))
-            ).toPromise();
+            const requiredRoles = ["PLATFORM-ADMIN"];
+            return sendToBackEndHandler$(root, args, context, requiredRoles, 'mutation', 'msentitypascal', 'msnamepascalCreatemsentitypascal')  
+            .toPromise();
         },
         msnamepascalUpdatemsentitypascalGeneralInfo(root, args, context) {
-            return RoleValidator.checkPermissions$(
-              context.authToken.realm_access.roles,
-              "msentitypascal",
-              "msnamepascalUpdatemsentitypascalGeneralInfo",
-              PERMISSION_DENIED_ERROR_CODE,
-              "Permission denied",
-              ["PLATFORM-ADMIN"]
-            ).pipe(
-                mergeMap(() =>
-                  context.broker.forwardAndGetReply$(
-                    "msentitypascal",
-                    "apiidcamellc.graphql.mutation.msnamepascalUpdatemsentitypascalGeneralInfo",
-                    { root, args, jwt: context.encodedToken },
-                    2000
-                  )
-                ),
-                catchError(err => handleError$(err, "updatemsentitypascalGeneralInfo")),
-                mergeMap(response => getResponseFromBackEnd$(response))
-            ).toPromise();
+            const requiredRoles = ["PLATFORM-ADMIN"];
+            return sendToBackEndHandler$(root, args, context, requiredRoles, 'mutation', 'msentitypascal', 'msnamepascalUpdatemsentitypascalGeneralInfo')  
+            .toPromise();
         },
         msnamepascalUpdatemsentitypascalState(root, args, context) {
-            return RoleValidator.checkPermissions$(
-              context.authToken.realm_access.roles,
-              "msentitypascal",
-              "msnamepascalUpdatemsentitypascalState",
-              PERMISSION_DENIED_ERROR_CODE,
-              "Permission denied",
-              ["PLATFORM-ADMIN"]
-            ).pipe(
-                mergeMap(() =>
-                  context.broker.forwardAndGetReply$(
-                    "msentitypascal",
-                    "apiidcamellc.graphql.mutation.msnamepascalUpdatemsentitypascalState",
-                    { root, args, jwt: context.encodedToken },
-                    2000
-                  )
-                ),
-                catchError(err => handleError$(err, "updatemsentitypascalState")),
-                mergeMap(response => getResponseFromBackEnd$(response))
-            ).toPromise();
+            const requiredRoles = ["PLATFORM-ADMIN"];
+            return sendToBackEndHandler$(root, args, context, requiredRoles, 'mutation', 'msentitypascal', 'msnamepascalUpdatemsentitypascalState')  
+            .toPromise();
         },
     },
 
