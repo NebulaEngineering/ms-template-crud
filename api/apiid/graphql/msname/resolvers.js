@@ -44,7 +44,7 @@ function sendToBackEndHandler$(root, OperationArguments, context, requiredRoles,
       context.authToken.realm_access.roles,
       CONTEXT_NAME,
       methodName,
-      USERS_PERMISSION_DENIED_ERROR_CODE,
+      PERMISSION_DENIED_ERROR_CODE,
       "Permission denied",
       requiredRoles
     )
@@ -78,7 +78,7 @@ function sendToBackEndHandler$(root, OperationArguments, context, requiredRoles,
       context.authToken.realm_access.roles,
       CONTEXT_NAME,
       methodName,
-      USERS_PERMISSION_DENIED_ERROR_CODE,
+      PERMISSION_DENIED_ERROR_CODE,
       "Permission denied",
       requiredRoles
     )
