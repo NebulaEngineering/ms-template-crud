@@ -140,7 +140,7 @@ module.exports = {
 
     //// SUBSCRIPTIONS ///////
     Subscription: {
-        msnamepascalmsentitypascalUpdatedSubscription: {
+        msentitypascalUpdatedSubscription: {
             subscribe: withFilter(
                 (payload, variables, context, info) => {
                     return pubsub.asyncIterator("msentitypascalUpdatedSubscription");
@@ -161,8 +161,8 @@ module.exports = {
 
 const eventDescriptors = [
     {
-        backendEventName: 'msnamepascalmsentitypascalUpdatedSubscription',
-        gqlSubscriptionName: 'msnamepascalmsentitypascalUpdatedSubscription',
+        backendEventName: 'msentitypascalUpdatedSubscription',
+        gqlSubscriptionName: 'msentitypascalUpdatedSubscription',
         dataExtractor: (evt) => evt.data,// OPTIONAL, only use if needed
         onError: (error, descriptor) => console.log(`Error processing ${descriptor.backendEventName}`),// OPTIONAL, only use if needed
         onEvent: (evt, descriptor) => console.log(`Event of type  ${descriptor.backendEventName} arraived`),// OPTIONAL, only use if needed

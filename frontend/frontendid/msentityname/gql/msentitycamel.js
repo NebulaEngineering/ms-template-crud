@@ -69,9 +69,9 @@ export const msnamepascalUpdatemsentitypascalState = gql `
 `;
 
 // SUBSCRIPTION
-export const msnamepascalmsentitypascalUpdatedSubscription = gql`
+export const msentitypascalUpdatedSubscription = gql`
   subscription{
-    msnamepascalmsentitypascalUpdatedSubscription{
+    msentitypascalUpdatedSubscription{
       _id
       generalInfo {
         name

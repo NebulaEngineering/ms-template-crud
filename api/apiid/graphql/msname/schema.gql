@@ -85,5 +85,5 @@ type Mutation {
 
 type Subscription {
   "This events is triggered when a msentitypascal is created or updated"
-  msnamepascalmsentitypascalUpdatedSubscription: msnamepascalmsentitypascal  
+  msentitypascalUpdatedSubscription: msnamepascalmsentitypascal  
 }

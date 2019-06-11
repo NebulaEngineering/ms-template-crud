@@ -104,7 +104,7 @@ export class msentitypascalDetailGeneralInfoComponent implements OnInit, OnDestr
   }
 
   subscribeEventUpdated(){
-    this.msentitypascalDetailService.notifymsnamepascalmsentitypascalUpdated$
+    this.msentitypascalDetailService.notifymsentitypascalUpdatedSubscription$
     .pipe(
       takeUntil(this.ngUnsubscribe)
     )
