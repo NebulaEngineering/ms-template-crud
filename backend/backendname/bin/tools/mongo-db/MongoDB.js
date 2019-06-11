@@ -1,10 +1,11 @@
 "use strict";
 
-const Rx = require("rxjs");
-const MongoClient = require("mongodb").MongoClient;
-let instance = null;
+const { bindNodeCallback, Observable } = require("rxjs");
 const { map } = require("rxjs/operators");
-const { of, bindNodeCallback, Observable } = require("rxjs");
+const MongoClient = require("mongodb").MongoClient;
+const { ConsoleLogger } = require('@nebulae/backend-node-tools').log;
+
+let instance = null;
 
 class MongoDB {
   /**
@@ -18,13 +19,12 @@ class MongoDB {
 
   /**
    * Starts DB connections
-   * @returns {Rx.Observable} Obserable that resolve to the DB client
+   * @returns {Observable} Obserable that resolve to the DB client
    */
   start$() {
-    console.log("MongoDB.start$()... ");
     return bindNodeCallback(MongoClient.connect)(this.url).pipe(
       map(client => {
-        console.log(this.url);
+        ConsoleLogger.i(this.url);
         this.client = client;
         this.db = this.client.db(this.dbName);
         return `MongoDB connected to dbName= ${this.dbName}`;
@@ -95,7 +95,7 @@ module.exports = {
         url: process.env.MONGODB_URL,
         dbName: process.env.MONGODB_DB_NAME
       });
-      console.log(`MongoDB instance created: ${process.env.MONGODB_DB_NAME}`);
+      ConsoleLogger.i(`MongoDB instance created: ${process.env.MONGODB_DB_NAME}`);
     }
     return instance;
   }

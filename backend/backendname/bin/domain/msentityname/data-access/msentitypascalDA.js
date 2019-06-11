@@ -1,22 +1,24 @@
 "use strict";
 
 let mongoDB = undefined;
-//const mongoDB = require('./MongoDB')();
-const CollectionName = "msentitypascal";
-const { CustomError } = require("../tools/customError");
 const { map } = require("rxjs/operators");
 const { of, Observable, defer } = require("rxjs");
+
+const { CustomError } = require("@nebulae/backend-node-tools").error;
+
+const CollectionName = 'msentitypascal';
 
 class msentitypascalDA {
   static start$(mongoDbInstance) {
     return Observable.create(observer => {
       if (mongoDbInstance) {
         mongoDB = mongoDbInstance;
-        observer.next("using given mongo instance");
+        observer.next(`${this.name} using given mongo instance`);
       } else {
-        mongoDB = require("./MongoDB").singleton();
-        observer.next("using singleton system-wide mongo instance");
+        mongoDB = require("../../../tools/mongo-db/MongoDB").singleton();
+        observer.next(`${this.name} using singleton system-wide mongo instance`);
       }
+      observer.next(`${this.name} started`);
       observer.complete();
     });
   }
@@ -28,9 +30,9 @@ class msentitypascalDA {
     const collection = mongoDB.db.collection(CollectionName);
 
     const query = {
-      _id: id      
+      _id: id
     };
-    if(businessId){
+    if (businessId) {
       query.businessId = businessId;
     }
 
@@ -98,35 +100,34 @@ class msentitypascalDA {
       query.modifierUser = { $regex: filter.modifierUser, $options: "i" };
     }
 
-    return collection.count(query);
+    return defer(() => collection.count(query));
   }
 
   /**
    * Creates a new msentitypascal
-   * @param {*} msentitycamel msentitycamel to create
+   * @param {*} soapRequest soapRequest to create
    */
-  static createmsentitypascal$(msentitycamel) {
+  static createmsentitypascal$(soapRequest) {
     const collection = mongoDB.db.collection(CollectionName);
-    return defer(() => collection.insertOne(msentitycamel));
+    return defer(() => collection.insertOne(soapRequest));
   }
 
-      /**
-   * modifies the general info of the indicated msentitypascal 
-   * @param {*} id  msentitypascal ID
-   * @param {*} msentitypascalGeneralInfo  New general information of the msentitypascal
-   */
-  static updatemsentitypascalGeneralInfo$(id, msentitypascalGeneralInfo) {
+  /**
+* modifies the general info of the indicated msentitypascal 
+* @param {*} id  msentitypascal ID
+* @param {*} msentitypascalGeneralInfo  New general information of the msentitypascal
+*/
+  static updatemsentitypascalGeneralInfo$(_id, generalInfo, modifierUser, modificationTimestamp) {
     const collection = mongoDB.db.collection(CollectionName);
-
-    return defer(()=>
-        collection.findOneAndUpdate(
-          { _id: id },
-          {
-            $set: {generalInfo: msentitypascalGeneralInfo.generalInfo, modifierUser: msentitypascalGeneralInfo.modifierUser, modificationTimestamp: msentitypascalGeneralInfo.modificationTimestamp}
-          },{
-            returnOriginal: false
-          }
-        )
+    return defer(() =>
+      collection.findOneAndUpdate(
+        { _id },
+        {
+          $set: { generalInfo, modifierUser, modificationTimestamp }
+        }, {
+          returnOriginal: false
+        }
+      )
     ).pipe(
       map(result => result && result.value ? result.value : undefined)
     );
@@ -137,18 +138,18 @@ class msentitypascalDA {
    * @param {string} id msentitypascal ID
    * @param {boolean} newmsentitypascalState boolean that indicates the new msentitypascal state
    */
-  static updatemsentitypascalState$(id, newmsentitypascalState) {
+  static updatemsentitypascalState$(_id, state, modifierUser, modificationTimestamp) {
     const collection = mongoDB.db.collection(CollectionName);
-    
-    return defer(()=>
-        collection.findOneAndUpdate(
-          { _id: id},
-          {
-            $set: {state: newmsentitypascalState.state, modifierUser: newmsentitypascalState.modifierUser, modificationTimestamp: newmsentitypascalState.modificationTimestamp}
-          },{
-            returnOriginal: false
-          }
-        )
+
+    return defer(() =>
+      collection.findOneAndUpdate(
+        { _id },
+        {
+          $set: { state, modifierUser, modificationTimestamp }
+        }, {
+          returnOriginal: false
+        }
+      )
     ).pipe(
       map(result => result && result.value ? result.value : undefined)
     );

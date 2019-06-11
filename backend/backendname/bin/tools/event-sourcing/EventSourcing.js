@@ -4,17 +4,21 @@ const Rx = require('rxjs');
 const nebulaeES = require('@nebulae/event-store');
 const Event = nebulaeES.Event;
 const EventStore = nebulaeES.EventStore;
+const { ConsoleLogger } = require('@nebulae/backend-node-tools').log;
 
+/**
+ * @type {EventSourcing}
+ */
 let instance;
 
-class EventSourcing {
+class EventSourcing extends EventStore {
 
     constructor() {
-        this.eventStore = new EventStore(
+        super(
             {
                 type: process.env.EVENT_STORE_BROKER_TYPE,
                 eventsTopic: process.env.EVENT_STORE_BROKER_EVENTS_TOPIC,
-                eventsTopicSubscription: `${process.env.EVENT_STORE_BROKER_EVENTS_TOPIC}_backendname`,
+                eventsTopicSubscription: `${process.env.EVENT_STORE_BROKER_EVENTS_TOPIC}_lineadirecta-generator`,
                 brokerUrl: process.env.EVENT_STORE_BROKER_URL,
                 projectId: process.env.EVENT_STORE_BROKER_PROJECT_ID,
             },
@@ -26,13 +30,17 @@ class EventSourcing {
             }
         );
     }
-    
+
 }
 
-module.exports = () => {
+module.exports = 
+/**
+ * @returns {EventSourcing}
+ */
+() => {
     if (!instance) {
         instance = new EventSourcing();
-        console.log(`${instance.constructor.name} Singleton created`);
+        ConsoleLogger.i(`${instance.constructor.name} Singleton created`);
     }
     return instance;
 };
