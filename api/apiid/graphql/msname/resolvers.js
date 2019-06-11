@@ -143,10 +143,11 @@ module.exports = {
         msnamepascalmsentitypascalUpdatedSubscription: {
             subscribe: withFilter(
                 (payload, variables, context, info) => {
-                    return pubsub.asyncIterator("msnamepascalmsentitypascalUpdatedSubscription");
+                    return pubsub.asyncIterator("msentitypascalUpdatedSubscription");
                 },
                 (payload, variables, context, info) => {
-                    return true;
+                    const READ_ROLES = ["PLATFORM-ADMIN"];
+                    return  RoleValidator.hasPermissions(context.authToken.realm_access.roles,READ_ROLES);
                 }
             )
         }
