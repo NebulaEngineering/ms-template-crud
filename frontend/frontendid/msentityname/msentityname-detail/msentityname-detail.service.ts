@@ -120,7 +120,7 @@ export class msentitypascalDetailService {
   }
 
 /**
- * Event triggered when a business is created, updated or deleted.
+ * Event triggered when a msentitypascal is created, updated or deleted.
  */
 subscribemsnamepascalmsentitypascalUpdatedSubscription$(): Observable<any> {
   return this.gateway.apollo

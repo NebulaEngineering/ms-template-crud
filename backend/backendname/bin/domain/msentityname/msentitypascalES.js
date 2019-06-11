@@ -39,7 +39,7 @@ class msentitypascalES {
 
     /**
      * Persists the msentitypascal on the materialized view according to the received data from the event store.
-     * @param {*} businessCreatedEvent business created event
+     * @param {*} msentitypascalCreatedEvent msentitypascal created event
      */
     handlemsentitypascalCreated$({ aid, data, user, timestamp }) {
         const msentitypascal = {

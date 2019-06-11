@@ -14,7 +14,7 @@ const msentitypascalDA = require("./data-access/msentitypascalDA");
 
 const READ_ROLES = ["PLATFORM-ADMIN"];
 const WRITE_ROLES = ["PLATFORM-ADMIN"];
-const REQUIRED_ATTRIBUTES = ["businessId"];
+const REQUIRED_ATTRIBUTES = [];
 
 /**
  * Singleton instance
@@ -53,8 +53,7 @@ class msentitypascalCQRS {
    */
   getmsentitypascal$({ args }, authToken) {
     const { id } = args;
-    const { businessId } = authToken;
-    return msentitypascalDA.getmsentitypascal$(id, businessId).pipe(
+    return msentitypascalDA.getmsentitypascal$(id).pipe(
       mergeMap(rawResponse => CqrsResponseHelper.buildSuccessResponse$(rawResponse)),
       catchError(err => CqrsResponseHelper.handleError$(err))
     );
@@ -67,8 +66,6 @@ class msentitypascalCQRS {
    */
   getmsentitypascalList$({ args }, authToken) {
     const { filterInput, paginationInput } = args;
-    const { businessId } = authToken;
-    filterInput.businessId = businessId;
     return msentitypascalDA.getmsentitypascalList$(filterInput, paginationInput).pipe(
       toArray(),
       mergeMap(rawResponse => CqrsResponseHelper.buildSuccessResponse$(rawResponse)),
@@ -83,8 +80,6 @@ class msentitypascalCQRS {
  */
   getmsentitypascalListSize$({ args }, authToken) {
     const { filterInput } = args;
-    const { businessId } = authToken;
-    filterInput.businessId = businessId;
     return msentitypascalDA.getmsentitypascalSize$(filterInput).pipe(
       mergeMap(rawResponse => CqrsResponseHelper.buildSuccessResponse$(rawResponse)),
       catchError(err => CqrsResponseHelper.handleError$(err))

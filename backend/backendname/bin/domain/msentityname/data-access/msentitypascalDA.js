@@ -26,16 +26,12 @@ class msentitypascalDA {
   /**
    * Gets an user by its username
    */
-  static getmsentitypascal$(id, businessId) {
+  static getmsentitypascal$(id) {
     const collection = mongoDB.db.collection(CollectionName);
 
     const query = {
       _id: id
     };
-    if (businessId) {
-      query.businessId = businessId;
-    }
-
     return defer(() => collection.findOne(query));
   }
 
@@ -44,10 +40,6 @@ class msentitypascalDA {
 
     const query = {
     };
-
-    if (filter.businessId) {
-      query.businessId = filter.businessId;
-    }
 
     if (filter.name) {
       query["generalInfo.name"] = { $regex: filter.name, $options: "i" };
@@ -79,10 +71,6 @@ class msentitypascalDA {
 
     const query = {
     };
-
-    if (filter.businessId) {
-      query.businessId = filter.businessId;
-    }
 
     if (filter.name) {
       query["generalInfo.name"] = { $regex: filter.name, $options: "i" };

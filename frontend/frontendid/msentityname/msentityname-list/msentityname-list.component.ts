@@ -257,13 +257,11 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
     combineLatest(
       this.msentitypascalListservice.filter$,
       this.msentitypascalListservice.paginator$,
-      this.toolbarService.onSelectedBusiness$
     ).pipe(
       debounceTime(500),
-      filter(([filter, paginator, selectedBusiness]) => (filter != null && paginator != null)),
-      map(([filter, paginator,selectedBusiness]) => {
+      filter(([filter, paginator]) => (filter != null && paginator != null)),
+      map(([filter, paginator]) => {
         const filterInput = {
-          businessId: selectedBusiness ? selectedBusiness.id: null,
           name: filter.name,
           creatorUser: filter.creatorUser,
           creationTimestamp: filter.creationTimestamp ? filter.creationTimestamp.valueOf() : null
@@ -334,16 +332,7 @@ export class msentitypascalListComponent implements OnInit, OnDestroy {
    * Navigates to the detail page
    */
   goToDetail(){
-    this.toolbarService.onSelectedBusiness$
-    .pipe(
-      take(1)
-    ).subscribe(selectedBusiness => {
-      if(selectedBusiness == null || selectedBusiness.id == null){
-        this.showSnackBar('msnameuppercase.SELECT_BUSINESS');
-      }else{
-        this.router.navigate(['msentityname/new']);
-      }      
-    })    
+    this.router.navigate(['msentityname/new']);    
   }
 
   showSnackBar(message) {
